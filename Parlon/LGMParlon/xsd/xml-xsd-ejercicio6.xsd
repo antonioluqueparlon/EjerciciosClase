@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="usuario" type="tipoUsuario"/>
+
+	<xs:complexType name="tipoUsuario">
+		<xs:all>
+			<xs:element name="ultimasSesiones" type="TipoSesiones"/>
+			<xs:element name="marcadores" type="tipoMarcadores"/>
+			<xs:element name="mensajes" type="tipoMensajes"/>
+		</xs:all>
+		<xs:attribute name="id" type="tipoGmail"/>
+	</xs:complexType>
+
+
+	<xs:complexType name="TipoSesiones">
+		<xs:sequence>
+			<xs:element name="sesion" type="tipoSesion" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="tipoSesion" mixed="true">
+		<xs:sequence>
+			<xs:element name="dispositivo" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="ip" type="tipoIP"/>
+					<xs:attribute name="navegador" type="xs:string"/>
+					<xs:attribute name="NAT" type="tipoNAT"/>
+				</xs:complexType>
+			</xs:element>	
+		</xs:sequence>
+		<xs:attribute name="fecha" type="xs:date"/>
+		<xs:attribute name="hora" type="tipoHora"/>
+	</xs:complexType>
+
+
+	<xs:complexType name="tipoMarcadores">
+		<xs:sequence>
+			<xs:element name="marcador" maxOccurs="unbounded" type="tipoMarcador"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="tipoMarcador">
+		<xs:simpleContent>
+			<xs:extension base="tipoUrl">
+				<xs:attribute name="nombre" type="xs:string"/>
+			</xs:extension>	
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="tipoUrl">
+		<xs:restriction base="xs:string">
+			<xs:pattern value=""></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="tipoMensajes">
+		<xs:sequence>
+			<xs:element name="mails"/>
+			<xs:element name="hangout"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="tipoHora">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[012][0-9]:[0-5][0-9]"></xs:pattern>
+		</xs:restriction>
+
+	</xs:simpleType>
+
+
+	<xs:simpleType name="tipoNAT">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([Nn][Oo]|[Ss][Ii])"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<xs:simpleType name="tipoIP">
+		<xs:restriction base="xs:string"></xs:restriction>
+	</xs:simpleType>
+	
+	
+	<xs:simpleType name="tipoGmail">
+		<xs:restriction base="xs:string">
+			<xs:pattern value=".+@gmail[.](com|es)"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType> 		
+</xs:schema>

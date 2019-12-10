@@ -1,0 +1,26 @@
+<!NOTATION JPG SYSTEM "image/jpeg">
+
+<!ELEMENT deportistas (famosos,hijos,tipoDeporte?)>
+<!ENTITY % caracteristicasFamosos "tipo CDATA #FIXED 'Deportistas Famosos'">
+<!ATTLIST deportistas %caracteristicasFamosos;>
+<!ELEMENT famosos (deportista*)>
+<!ELEMENT deportista EMPTY>
+<!ENTITY % caracteristicasDeportistasFamosos "nombre ID #REQUIRED
+                                    pelo CDATA #IMPLIED
+                                    parentesco IDREFS #IMPLIED">
+<!ATTLIST deportista %caracteristicasDeportistasFamosos;
+                                    casadoCon IDREF #IMPLIED
+                                    imagen NOTATION (JPG) #IMPLIED>
+<!ELEMENT hijos (hijo+)>
+<!ELEMENT hijo EMPTY>
+<!ENTITY % caracteristicaHijos "nombre ID #REQUIRED
+                            pelo CDATA #IMPLIED
+                            parentesco IDREFS #IMPLIED">
+<!ATTLIST hijo %caracteristicaHijos;>
+<!ELEMENT tipoDeporte (#PCDATA | tipo)*>
+<!ELEMENT tipo EMPTY>
+<!ATTLIST tipo nombre (futbol|formula1|tenis|baloncesto|natacion) #REQUIRED
+            categoria CDATA #REQUIRED
+            relacionadoCon IDREFS #IMPLIED>
+                                    
+

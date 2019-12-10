@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE deportistas SYSTEM "examen.dtd">
+<deportistas tipo="Deportistas Famosos">
+    <famosos>
+        <deportista nombre="CarlosSainz" pelo="Moreno" casadoCon="CristianoRonaldo" parentesco="CarlosSainzJr"/>
+        <deportista nombre="CristianoRonaldo" pelo="Moreno"/>
+        <deportista nombre="FernandoAlonso" pelo="Pelirrojo"/>
+        <deportista nombre="Messi" pelo="Rubio"/>
+        <deportista nombre="UsainBolt" pelo="rapao"/>
+        <deportista nombre="SergioRamos" pelo="castanio" />
+        <deportista nombre="MichaelPhelps" />
+    </famosos>
+    <hijos>
+        <hijo nombre="CristianoJr" pelo="Moreno" parentesco="CristianoRonaldo"/>
+        <hijo nombre="CarlosSainzJr" pelo="Moreno" parentesco="CarlosSainz"/>
+        <hijo nombre="MateoRamos" pelo= "rubio" parentesco="SergioRamos"/>
+    </hijos>
+    <tipoDeporte>
+        <tipo nombre="futbol" categoria="pelota"/>
+        <tipo nombre="formula1" categoria="motor" relacionadoCon="CarlosSainz FernandoAlonso"/>
+        <tipo nombre="baloncesto" categoria="pelota"/>
+        <tipo nombre="natacion" categoria="olimpico" relacionadoCon="MichaelPhelps"/>
+    </tipoDeporte>
+</deportistas>

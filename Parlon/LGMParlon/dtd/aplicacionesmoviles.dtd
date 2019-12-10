@@ -1,0 +1,13 @@
+<!ELEMENT aplicaciones (aplicacion, sistemasOperativos, moviles)*>
+<!ELEMENT aplicaciones EMPTY>
+<!ENTITY % estadoAplicaciones "tipo CDATA #FIXED 'Movil'">
+<!ATTLIST apliaciones %estadoAplicaciones;>
+<!ELEMENT aplicaciones (aplicacion*)>
+<!ELEMENT aplicacion EMPTY>
+<!ENTITY % caracteristicasPersonaje "nombre ID #REQUIRED 
+                                numeodeusuarios CDATA #IMPLIED
+                                parentesco IDREFS #IMPLIED"> 
+<!ATTLIST aplicacion %caracteristicasPersonaje;
+<!ELEMENT sistemasOperativos (sistemaoperativo+)>
+<!ELEMENT sistemaoperativo EMPTY>
+<!ATTLIST sistemaoperativo %caracteristicaSO;>

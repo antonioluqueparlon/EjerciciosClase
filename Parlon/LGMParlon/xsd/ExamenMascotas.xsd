@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="tiendaMascotas" type="tipoMascotas"/>
+
+  <xs:complexType name="tipoMascotas">
+      <xs:sequence>
+          <xs:element name="reptiles" type="tipoReptiles"/>
+          <xs:element name="mamiferos" type="tipoMamiferos"/>
+          <xs:element name="unidadesMedida" type="tipoMedidas"/>
+          <xs:element name="direccion" type="tipoDireccion"/>
+          <xs:element name="clientes" type="tipoClientes"/>
+      </xs:sequence>
+  </xs:complexType>
+
+  <!--
+  -->
+
+  <xs:complexType name="tipoReptiles">
+      <xs:sequence>
+          <xs:element name="reptil"/>
+      </xs:sequence>
+  </xs:complexType>
+
+  <!-- 
+  -->
+
+  <xs:complexType name="tipoMamiferos">
+      <xs:sequence>
+          <xs:element name="mamifero"/>
+      </xs:sequence>
+  </xs:complexType>
+
+  <!-- 
+  -->
+
+  <xs:complexType name="tipoMedidas">
+      <xs:sequence></xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tipoDireccion">
+      <xs:sequence>
+          <xs:element name="postal" type="xs:string"/>
+          <xs:element name="telefono" type="xs:string"/>
+      </xs:sequence>
+  </xs:complexType>
+
+  <!-- 
+  -->
+
+  <xs:complexType name="tipoClientes">
+      <xs:sequence>
+          <xs:element name="cliente"></xs:element>
+      </xs:sequence>
+  </xs:complexType>
+
+  <!--
+  -->
+  <xs:complexType name="tipoCliente">
+      <xs:complexContent>
+          <xs:extension base="tipoDireccion">
+              <xs:sequence>
+                  <xs:element name="email"/>
+                  <xs:element telefono=""></xs:element>
+              </xs:sequence>
+          </xs:extension>
+      </xs:complexContent>
+
+  </xs:complexType>
+
+
+
+
+</xs:schema>

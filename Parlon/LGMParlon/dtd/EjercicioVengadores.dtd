@@ -1,0 +1,18 @@
+<!ELEMENT vengadores (superheroes,villanos,peliculas)*>
+<!ENTITY % caracteristicasVengadores "universo CDATA #FIXED 'Marvel'">
+<!ATTLIST universo %caracteristicasVengadores;>
+<!ELEMENT superheroes (superheroe*)>
+<!ELEMENT superheroe EMPTY>
+<!ENTITY % caracteristicasPersonaje "nombre ID #REQUIRED
+                                     poder CDATA #IMPLIED ">
+<!ATTLIST superheroe %caracteristicasPersonaje;>                                     
+<!ELEMENT villanos (villano*)>
+<!ELEMENT villano EMPTY>
+<!ENTITY % caracteristicasVillano "nombre ID #REQUIRED
+                                    pelicula CDATA #IMPLIED">
+<!ATTLIST villano %caracteristicasVillano;>
+<!ELEMENT peliculas (pelicula*)>
+<!ELEMENT pelicula EMPTY>
+<!ELEMENT pelicula (nombrepelicula,fechaestreno)*>
+<!ENTITY % caracteristicasPelicula "nombrepelicula ID #REQUIRED
+                                    fechaestreno PCDATA #IMPLIED">

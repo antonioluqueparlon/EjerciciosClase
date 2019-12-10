@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="marvel" type="tipoMarvel"/>
+
+    <xs:complexType name="tipoMarvel">
+        <xs:sequence>
+            <xs:element name="superheroe" type="tipoSuperheroe" maxOccurs="unbounded"/>            
+        </xs:sequence>
+        <xs:attribute name="creador" type="tipoCreador"></xs:attribute>
+    </xs:complexType>
+
+<!--Tengo que crear el type superheroe que tiene que comenzar por mayuscula-->
+    <xs:complexType name="tipoSuperheroe">
+        <xs:choice>
+            <xs:element name="poder" type="tipoPoder"  />
+            <xs:element name="color" type="listaColores"/>
+            <xs:element name="procedencia"/> 
+        </xs:choice>
+        <xs:attribute name="nombre"></xs:attribute>
+</xs:complexType>
+
+<!--Creo el type de superheroe que tiene que empezar por mayuscula-->
+<xs:simpleType name="tipoNombreSuperheroe">
+    <xs:restriction base="xs:string"/>
+        <xs:pattern value="{A-Z}.*"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<!-- Creo el type de creador que tiene que tener dos palabras-->
+<xs:simpleType name="tipoCreador">
+    <xs:restriction base="xs:string">
+        <xs:pattern value="\w+ \w+"></xs:pattern>
+    </xs:restriction>
+</xs:simpleType>
+
+<!-- Creo el type de poderes con una longitud maxima de 150 caracteres -->
+<xs:simpleType name="tipoPoder">
+    <xs:restriction base="xs:string">
+        <xs:maxLength value="150"></xs:maxLength>
+    </xs:restriction>
+</xs:simpleType>
+
+<!-- Creo la lista de colores (rojo,verde,azul,blanco,negro,plateado -->
+<xs:simpleType name="posiblesColores">
+    <xs:list itemType="ListaColores"></xs:list>
+</xs:simpleType>
+
+<!--Llamamos a la posible lista de colores-->
+
+<xs:simpleType name="ListaColores">
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="rojo"/>
+        <xs:enumeration value="plateado"/>
+        <xs:enumeration value="verde"/>
+    </xs:restriction>
+</xs:simpleType>
+</xs:schema>

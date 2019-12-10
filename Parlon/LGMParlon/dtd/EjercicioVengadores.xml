@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE vengadores SYSTEM "EjercicioVengadores.dtd" >
+<vengadores universo="Marvel">
+<superheroes>
+        <superheroe nombre="Thor" poder="Martillo"/>
+        <superheroe nombre="IronMan" poder="Tecnologia"/>
+        <superheroe nombre="SpiderMan" poder="Telaraña"/>
+
+
+    </superheroes>
+
+    <villanos>
+        <villano nombre="Thanos" pelicula="EndGame"/>
+        <villano nombre="Ultron" pelicula="AgeOfUltron"/> 
+    </villanos>
+    <peliculas>
+        <pelicula nombrepelicula="EndGame" fechaestreno="2019"/>
+        <pelicula nombrepelicula="Infinity War" fechaestreno="2018"/>
+        <pelicula nombrepelicula="Edad De Ultron" fechaestreno="2015" />
+        <pelicula nombrepelicula="AVengers" fechaestreno="2012"/>
+    </peliculas>
+</vengadores>

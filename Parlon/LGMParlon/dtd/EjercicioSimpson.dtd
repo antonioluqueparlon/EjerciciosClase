@@ -1,0 +1,18 @@
+<!ELEMENT springfield (adultos, ninios, temporadas?)>
+<!ENTITY % estadoDeSpringfield "estado CDATA #FIXED 'Utah'">
+<!ATTLIST springfield %estadoDeSpringfield;>
+<!ELEMENT adultos (adulto*)>
+<!ELEMENT adulto EMPTY>
+<!ENTITY % caracteristicasPersonaje "nombre ID #REQUIRED 
+                                colorPelo CDATA #IMPLIED
+                                parentesco IDREFS #IMPLIED"> 
+<!ATTLIST adulto %caracteristicasPersonaje; 
+                casadoCon IDREF #IMPLIED>
+<!ELEMENT ninios (ninio+)>
+<!ELEMENT ninio EMPTY>
+<!ATTLIST ninio %caracteristicasPersonaje;>
+<!ENTITY groening "Matt Groening">
+<!ELEMENT temporadas (#PCDATA | temporada)*>
+<!ELEMENT temporada EMPTY>
+<!ATTLIST temporada numero (1|2|3|4|5|6) #REQUIRED 
+                    fechainicio CDATA #REQUIRED>

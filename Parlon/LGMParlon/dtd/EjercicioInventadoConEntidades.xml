@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE videojuegos [
+  <!ENTITY videojuego "Videojuegos mas jugados" >
+  <!ENTITY % caracteristicasvideojuego "<!ATTLIST videojuego 
+                                    nombre CDATA #REQUIRED 
+                                    tipo CDATA #IMPLIED>
+                                    descripcion CDATA #IMPLIED 
+                                    PEGI CDDATA #IMPLIED">
+
+  <!ELEMENT videojuegos (videojuego)*>
+  <!ELEMENT videojuego (nombre,tipo,descripcion,PEGI>
+  <!ELEMENT videojuegos (nombre,tipo,descripcion,PEGI)>
+  %caracteristicasvideojuego;>
+]>
+<videojuegos>
+  <videojuego nombre="CallOfDuty" tipo="Shooter" descripcion="Su multijugador es muy bueno" PEGI=18></videojuego>
+  <videojuego nombre="Fifa" tipo="Deportivo" descripcion="Su modo Ultimate Team es el mas jugado" PEGI=3></videojuego>
+</videojuegos>

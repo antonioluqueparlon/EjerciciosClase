@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE springfield SYSTEM "EjercicioSimpson.dtd" >
+
+<springfield estado="Utah">
+
+    <adultos>
+        <adulto nombre="Homer" colorPelo="Moreno" />
+        <adulto nombre="Marge" colorPelo="Azul" parentesco="Bart Lisa"/>
+
+    </adultos>
+
+    <ninios>
+        <ninio nombre="Bart" colorPelo="Amarillo"/>
+        <ninio nombre="Lisa" colorPelo="Amarillo" parentesco="Bart Marge Homer"/>
+
+    </ninios>
+
+    <temporadas>
+        <temporada numero="1" fechainicio="14/08/1987"/>
+        <temporada numero="2" fechainicio="12/03/1989"/>
+
+    </temporadas>
+
+</springfield>

@@ -1,0 +1,11 @@
+<!-- Crea un fichero XSD que valide el siguiente XML -->
+<hotel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="hotelTransilvania.xsd"> 
+    <personaje nombre="Drácula">
+        <poder>No envejece</poder>
+        <poder>Transforma en animales</poder>
+        <poder>Rápido</poder>
+        <debilidad>Lo mata el Sol</debilidad>
+        <debilidad>Ajo</debilidad>
+        <debilidad>Estaca en el corazon</debilidad>
+    </personaje>
+</hotel>

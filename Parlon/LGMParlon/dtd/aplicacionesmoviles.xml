@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE aplicaciones SYSTEM "aplicacionesmoviles.dtd">    <!-- Aplicaciones moviles -->
+
+<aplicaciones tipo ="Movil">
+
+    <aplicacion>
+        <aplicacion nombre="Facebook" numerodeusuarios="1000000"/>
+        <aplicacion nombre="WhatsApp" numerodeusuarios="10000000" propiedad="Facebook"/>
+
+    </aplicacion>
+
+    <sistemasOperativos>
+        <sistemaoperativo nombre="iOS" version="10,11,12,13" fecha="2015" funcionaCon="Instagram Android"/>
+        <sistemaoperativo nombre="Android" version="7,8,9,10" fecha="2016"/>
+
+    </sistemasOperativos>
+
+    <moviles>
+        <movil nombre="Galaxy" marca="Samsung" relacionadoCon="Android"/>
+        <movil nombre="iPhone" marca="Apple" relacionadoCon="iOS"/>
+
+    </moviles>
+
+</aplicaciones>
