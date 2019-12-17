@@ -54,7 +54,7 @@ public class Rampa extends Obstaculo {
 
 	public void ImpulsaDistancia() {
 		do {
-			impulso+= Utils.obtenerNumeroAzar(impulso,impulso);
+			impulso+= Utils.obtenerNumeroAzar(3,10);
 		}while (this.longitudPista<=100);
 	 }
 	
