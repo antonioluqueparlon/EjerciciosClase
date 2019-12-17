@@ -34,9 +34,8 @@ public abstract class Vehiculo {
 
 	public void avanza() {
 		//Bucle que hace que avanzen los vehiculos
-		for (int i =posicion;i<longi;i++) {
-			Vehiculo cochesAvanzando =this.posicion[i];
-			cochesAvanzando.avanza();
+		for (int i =posicion;i<100;i++) {
+			this.posicion=Parlon.Utils.obtenerNumeroAzar(2, 8);
 			
 		}
 	}

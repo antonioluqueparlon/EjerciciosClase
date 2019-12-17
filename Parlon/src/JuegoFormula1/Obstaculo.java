@@ -6,7 +6,7 @@ public abstract class Obstaculo {
 	
 	private int posicion;
 	private int impulso;
-	private int espacio;
+	private int espacioQueOcupa;
 
 	/**
 	 * @param posicion
@@ -25,14 +25,14 @@ public abstract class Obstaculo {
 		super();
 		this.posicion = Utils.obtenerNumeroAzar(1, 6);
 		this.impulso = Utils.obtenerNumeroAzar(-3,3);
-		this.espacio = Utils.obtenerNumeroAzar(1, 3);
+		this.espacioQueOcupa = Utils.obtenerNumeroAzar(1, 3);
 	}
 	
 	
 
 	@Override
 	public String toString() {
-		return "Obstaculo [posicion=" + posicion + ", impulso=" + impulso + ", espacio=" + espacio + "]";
+		return "Obstaculo [posicion=" + posicion + ", impulso=" + impulso + ", espacio=" + espacioQueOcupa + "]";
 	}
 
 	/**
@@ -67,14 +67,14 @@ public abstract class Obstaculo {
 	 * @return the espacio
 	 */
 	public int getEspacio() {
-		return espacio;
+		return espacioQueOcupa;
 	}
 
 	/**
 	 * @param espacio the espacio to set
 	 */
 	public void setEspacio(int espacio) {
-		this.espacio = espacio;
+		this.espacioQueOcupa = espacio;
 	}
 	
 	
