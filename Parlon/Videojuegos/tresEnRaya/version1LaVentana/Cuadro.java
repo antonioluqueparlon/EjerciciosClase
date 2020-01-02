@@ -4,11 +4,18 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Cuadro {
-
+	// Coordenadas de este cuadro sobre el tablero, por ejemplo: 0,0 - 0,1 - 0,2 forman la primera fila de cuadros
 	private int coordenadaX,coordenadaY;
+	// Coordenadas del pixel superior izquierdo del cuadro representado por cada cuadro, a partir de ese píxel se pintará el cuadro
 	private int esquinaSuperiorIzquierdaX,esquinaSuperiorIzquierdaY;
+	// Ancho y alto de este cuadro
 	private int ancho, alto;
-
+	
+	//private boolean clickHecho=false;
+	
+	//jugador que ha hecho click sobre este cuadro
+	//el 0 dice que no pertenece a ningun jugador ese cuadro
+	private int jugadorPropietario=0;
 	/**
 	 * @param coordenadaX
 	 * @param coordenadaY
@@ -21,20 +28,49 @@ public class Cuadro {
 	
 	public void paint (Graphics g) {
 		
-		esquinaSuperiorIzquierdaX=this.coordenadaX * ancho;
-		esquinaSuperiorIzquierdaY=this.coordenadaY * alto;
 		//ancho y alto dependeran de la ventana principal del canvas y lo divido entre 3
 		//porque son 3x3
 		ancho=TresEnRaya.getInstance().getWidth() / 3;
 		alto=TresEnRaya.getInstance().getHeight() / 3;
+		esquinaSuperiorIzquierdaX=this.coordenadaX * ancho;
+		esquinaSuperiorIzquierdaY=this.coordenadaY * alto;
 		
 		//pinto los bordes de los cuadros
 		g.setColor(Color.RED);
 		g.drawRect(esquinaSuperiorIzquierdaX, esquinaSuperiorIzquierdaY, ancho, alto);
+	
+	//Pinto imagenes vectoriales si se ha hecho click sobre el
+		
+		pintaImagenesVectoriales(g);
+		
 	}
 	
+	/**
+	 * Creo imagenesVectoriales
+	 * @param g
+	 */
 	
-	//Ahora voy a crear el metodo para comprobar si se ha hecho click o no sobre un cuadro
+	private void pintaImagenesVectoriales (Graphics g) {
+		// Ahora, dependiendo del jugador propietario de este cuadro, pinto algo diferente
+				if (this.jugadorPropietario == TresEnRaya.JUGADOR_1) { // Comprueba jugador 1 - pinta una cruz
+					// Para pintar una cruz pinto dos líneas que se cruzan
+					g.drawLine(this.esquinaSuperiorIzquierdaX, this.esquinaSuperiorIzquierdaY, 
+							this.esquinaSuperiorIzquierdaX + this.ancho, this.esquinaSuperiorIzquierdaY + alto);
+					g.drawLine(this.esquinaSuperiorIzquierdaX, this.esquinaSuperiorIzquierdaY + alto, 
+							this.esquinaSuperiorIzquierdaX + this.ancho, this.esquinaSuperiorIzquierdaY);
+				} 
+				if (this.jugadorPropietario == TresEnRaya.JUGADOR_2) { // En este caso el jugador 2
+					g.drawOval(this.esquinaSuperiorIzquierdaX, this.esquinaSuperiorIzquierdaY, this.ancho, this.alto);
+				}
+			}
+	
+	
+	/**
+	 * //Ahora voy a crear el metodo para comprobar si se ha hecho click o no sobre un cuadro
+	 * @param xClick
+	 * @param yClick
+	 * @return
+	 */
 	public boolean seHaHechoClickSobreCuadro(int xClick, int yClick) {
 		//Compruebo si donde se ha hecho click con el raton esta dentro del espacio de mi cuadro
 		if (xClick > this.esquinaSuperiorIzquierdaX && xClick < (esquinaSuperiorIzquierdaX + ancho) // coordenada x dentro del cuadro
@@ -45,11 +81,25 @@ public class Cuadro {
 		return false;
 	}
 	
-	public void click () {
-		System.out.println("click sobre mi" + this.toString());
+	/**
+	 * 
+	 */
+	public void click (int jugador) {
+		if(this.jugadorPropietario == 0) {
+			this.jugadorPropietario=jugador;
+		}
+		
+		//this.clickHecho=true; //Aqui digo que cuando se de click, actualizo a true
+	
+		
+		//Obligo a repitar el canvas
+		TresEnRaya.getInstance().repaint(); // vuelvo a pintar
+		TresEnRaya.getInstance().revalidate();//vuelvo a validar por si acaso
 	}
 	
-
+/**
+ * 
+ */
 	@Override
 	public String toString() {
 		return "Cuadro [Coordenada X=" + coordenadaX + ", Coordenada Y=" + coordenadaY + "]";

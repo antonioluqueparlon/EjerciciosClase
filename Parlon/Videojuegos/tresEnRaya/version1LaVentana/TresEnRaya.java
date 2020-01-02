@@ -31,7 +31,11 @@ public class TresEnRaya extends Canvas {
 	
 	// Variable para establecer la instancia del patrón singleton
 		private static TresEnRaya instance = null;
-	
+		
+	//Creo el turno de mis juagdores
+	public static int JUGADOR_1=1;
+	public static int JUGADOR_2=2;
+	private int turnoActual=JUGADOR_1;
 	
 	//Creo el constructor que me va a montar el juego
 	
@@ -55,17 +59,27 @@ public class TresEnRaya extends Canvas {
 		//Hago que el juego escuche al raton y muestre que estoy haciendo click
 		//en un cuadro
 		this.addMouseListener(new MouseAdapter() {
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// Solo nos interesa el click con el boton izquierdo del raton 
-				if(e.getButton()== MouseEvent.BUTTON1) {
-					for(Cuadro cuadro:cuadros) {
-						if(cuadro.seHaHechoClickSobreCuadro(e.getX(),e.getY()));
-						cuadro.click();
+				super.mouseClicked(e);
+				// Sólo nos interesa el clic con el botón principal del ratón
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					for (Cuadro cuadro : cuadros) {
+						if (cuadro.seHaHechoClickSobreCuadro(e.getX(), e.getY())) {
+							cuadro.click(turnoActual);
+							//Hago cambio de turno
+							if(turnoActual==JUGADOR_1) {
+								//cambio turno
+								turnoActual=JUGADOR_2;
+							}
+								else {
+									//cambio el turno
+									turnoActual=JUGADOR_1;
+								}
+							}
 					}
 				}
-				
 			}
 		});
 		
