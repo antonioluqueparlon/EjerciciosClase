@@ -4,10 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,6 +26,11 @@ public class TresEnRaya extends Canvas {
 	private static final int JFRAME_WIDTH=700;
 	private static final int JFRAME_HEIGHT=700;
 	
+	//Creo la lista de los cuadros
+	List<Cuadro> cuadros = new ArrayList<Cuadro>();
+	
+	// Variable para establecer la instancia del patrón singleton
+		private static TresEnRaya instance = null;
 	
 	
 	//Creo el constructor que me va a montar el juego
@@ -41,6 +49,26 @@ public class TresEnRaya extends Canvas {
 		//Le pongo el tamaño a la ventana
 		ventanaDelJuego.setBounds(300,150,JFRAME_WIDTH,JFRAME_HEIGHT);
 		
+		//Inicializos los cuadrados para mostrarlos en la pantalla
+		inicializaCuadrosPantalla();
+		
+		//Hago que el juego escuche al raton y muestre que estoy haciendo click
+		//en un cuadro
+		this.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// Solo nos interesa el click con el boton izquierdo del raton 
+				if(e.getButton()== MouseEvent.BUTTON1) {
+					for(Cuadro cuadro:cuadros) {
+						if(cuadro.seHaHechoClickSobreCuadro(e.getX(),e.getY()));
+						cuadro.click();
+					}
+				}
+				
+			}
+		});
+		
 		//Quito el comportamiento normal de cerrar ventana al pulsar X
 		ventanaDelJuego.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//Para que me detecte este hecho, le añado un escuchador
@@ -56,6 +84,17 @@ public class TresEnRaya extends Canvas {
 		
 	}
 	
+	/**
+	 * Método para devolver la instancia del patrón Singleton
+	 * @return
+	 */
+	public static TresEnRaya getInstance () {
+		if (instance == null) {
+			instance = new TresEnRaya();
+		}
+		return instance;
+	}
+	
 	//Creo un metodo que me pregunte que hacer cuando le de al boton de cerrar aplicacion
 	protected void cerrarAplicacion() {
 		String [] opciones = {"Aceptar" , "Cancelar"};
@@ -65,6 +104,14 @@ public class TresEnRaya extends Canvas {
 		}
 		
 	}
+	
+	private void inicializaCuadrosPantalla() {
+		for (int i = 0; i < 3 ; i++) {
+			for (int j = 0; j < 3 ; j++) {
+				this.cuadros.add(new Cuadro(i,j));	
+			}
+		}
+	}
 
 	
 	//Sobreescribo el metodo canvas para que yo decida lo que se pinta en la ventana
@@ -72,12 +119,17 @@ public class TresEnRaya extends Canvas {
 	public void paint (Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+		//Pinto los bordes de los cuadros
+		for (Cuadro cuadro:cuadros) {
+			cuadro.paint(g);
+		}
 	}
 
 //Metodo principal que lo que hace es inicializar el juego
 	public static void main(String[] args) {
 		
-	TresEnRaya tresEnRaya = new  TresEnRaya();
+		TresEnRaya.getInstance();
 	}
 
 }
