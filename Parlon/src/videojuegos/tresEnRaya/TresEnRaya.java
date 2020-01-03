@@ -1,4 +1,4 @@
-package tresEnRaya.version1LaVentana;
+package videojuegos.tresEnRaya;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -19,7 +19,7 @@ public class TresEnRaya extends Canvas {
 	
 	
 	//Creo la ventana del juego 
-	JFrame ventanaDelJuego = new JFrame ("3 en raya creado por Parlon");
+	JFrame ventanaDelJuego = new JFrame ("3 en Raya creado por Parlon");
 
 	
 	//Ancho y alto de la ventana

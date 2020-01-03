@@ -1,7 +1,8 @@
-package tresEnRaya.version1LaVentana;
+package videojuegos.tresEnRaya;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public class Cuadro {
 	// Coordenadas de este cuadro sobre el tablero, por ejemplo: 0,0 - 0,1 - 0,2 forman la primera fila de cuadros
@@ -41,10 +42,28 @@ public class Cuadro {
 	
 	//Pinto imagenes vectoriales si se ha hecho click sobre el
 		
-		pintaImagenesVectoriales(g);
+		//pintaImagenesVectoriales(g);
+		pintaFotos(g);
 		
 	}
 	
+	private void pintaFotos(Graphics g) {
+		BufferedImage imagenAPintar = null;
+		if (this.jugadorPropietario == TresEnRaya.JUGADOR_1) { // Comprueba jugador 1 - Pinto el escudo del Real Madrid CF
+			imagenAPintar = SpritesRepository.getInstance().getSprite("logof1.png");
+		} 
+		if (this.jugadorPropietario == TresEnRaya.JUGADOR_2) { // En este caso el jugador 2 - Pinto el escudo del FCB 
+			imagenAPintar = SpritesRepository.getInstance().getSprite("coche2.png");
+		}
+		
+		//una vez se la imagen, la pinto en el cuadro
+		if(imagenAPintar != null) {
+			int x= this.esquinaSuperiorIzquierdaX +this.ancho / 2 - imagenAPintar.getWidth() / 2;
+			int y= this.esquinaSuperiorIzquierdaY +this.alto / 2 -imagenAPintar.getHeight() / 2;
+			g.drawImage(imagenAPintar, x, y, null);
+		}
+	}
+
 	/**
 	 * Creo imagenesVectoriales
 	 * @param g
