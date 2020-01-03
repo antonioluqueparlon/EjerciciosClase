@@ -70,10 +70,14 @@ public class TresEnRaya extends Canvas {
 							cuadro.click(turnoActual);
 							//Hago cambio de turno
 							if(turnoActual==JUGADOR_1) {
+								//pongo sonido
+								SoundsRepository.getInstance().playSound("item.wav");
 								//cambio turno
 								turnoActual=JUGADOR_2;
 							}
 								else {
+									//pongo sonido
+									SoundsRepository.getInstance().playSound("motorf1.wav");
 									//cambio el turno
 									turnoActual=JUGADOR_1;
 								}
@@ -82,6 +86,9 @@ public class TresEnRaya extends Canvas {
 				}
 			}
 		});
+		
+		//pongo la musica de fondo
+		SoundsRepository.getInstance().loopSound("musicaF1.wav");
 		
 		//Quito el comportamiento normal de cerrar ventana al pulsar X
 		ventanaDelJuego.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
