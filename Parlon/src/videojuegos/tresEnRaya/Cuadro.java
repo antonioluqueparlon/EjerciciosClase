@@ -108,12 +108,23 @@ public class Cuadro {
 			this.jugadorPropietario=jugador;
 		}
 		
+		//Actualizo la matriz de jugadas del 3 en Raya
+		TresEnRaya.getInstance().getMatrizJugadas()[this.coordenadaX][this.coordenadaY]= jugador;
+		
 		//this.clickHecho=true; //Aqui digo que cuando se de click, actualizo a true
 	
 		
 		//Obligo a repitar el canvas
 		TresEnRaya.getInstance().repaint(); // vuelvo a pintar
 		TresEnRaya.getInstance().revalidate();//vuelvo a validar por si acaso
+		
+		System.out.println("Estado del juego");
+		for (int i = 0; i < TresEnRaya.getInstance().getMatrizJugadas().length; i++) {
+			for (int j = 0; j < TresEnRaya.getInstance().getMatrizJugadas()[i].length; j++) {
+				System.out.print(TresEnRaya.getInstance().getMatrizJugadas()[i][j] + "\t");
+			}
+			System.out.println();
+		}
 	}
 	
 /**

@@ -37,9 +37,34 @@ public class TresEnRaya extends Canvas {
 	public static int JUGADOR_2=2;
 	private int turnoActual=JUGADOR_1;
 	
+	//Creo la matriz dde jugadas
+	private int matrizJugadas[][]= {{0,0,0},
+									{0,0,0},
+									{0,0,0}};
+	
 	//Creo el constructor que me va a montar el juego
 	
+	/**
+	 * @return the matrizJugadas
+	 */
+	public int[][] getMatrizJugadas() {
+		return matrizJugadas;
+	}
+
+	/**
+	 * @param matrizJugadas the matrizJugadas to set
+	 */
+	public void setMatrizJugadas(int[][] matrizJugadas) {
+		this.matrizJugadas = matrizJugadas;
+	}
+	
+
+              
 	public TresEnRaya( ) {
+		
+		//Cargo los recursos primero
+				SoundsRepository.getInstance();
+				SpritesRepository.getInstance();
 		
 		//Creo el panel que se va a crear respecto a mi ventana del juego
 		JPanel panel = (JPanel) ventanaDelJuego.getContentPane();

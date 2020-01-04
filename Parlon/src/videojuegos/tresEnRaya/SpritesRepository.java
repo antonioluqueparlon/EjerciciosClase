@@ -18,10 +18,17 @@ public class SpritesRepository {
 	// Carpeta en la que se encuentran los recursos: imágenes, sonidos, etc.
 	private static String RESOURCES_FOLDER = "resources/images/";
 	
+	//Posibles recursos
+	public static String IMAGEN_JUGADOR_1="logof1.png";
+	public static String IMAGEN_JUGADOR_2="coche2.png";
+	
 	/**
 	 * Default constructor
 	 */
 	public SpritesRepository() {
+		//Cargo en memoria los recursos
+		this.getSprite(IMAGEN_JUGADOR_1);
+		this.getSprite(IMAGEN_JUGADOR_2);
 	}
 	
 	/**

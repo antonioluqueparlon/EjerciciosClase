@@ -23,13 +23,19 @@ public class SoundsRepository {
 	private static String RESOURCES_FOLDER = "resources/sounds/";
 	
 	// Posibles recursos de sonido a cargar
-	
+	public static String MUSICA_DE_FONDO ="musicaF1.wav";
+	public static String EFECTO_JUGADOR_1="item.wav";	
+	public static String EFECTO_JUGADOR_2="motorF1.wav";
 	
 	
 	/**
 	 * Default constructor
 	 */
 	public SoundsRepository() {
+		//Aqui cargo en memoria los recursos
+		this.getAudioClip(MUSICA_DE_FONDO);
+		this.getAudioClip(EFECTO_JUGADOR_1);
+		this.getAudioClip(EFECTO_JUGADOR_2);
 	}
 	
 	/**
