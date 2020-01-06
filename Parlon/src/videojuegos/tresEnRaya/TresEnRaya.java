@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 
 public class TresEnRaya extends Canvas {
 	
+	int ganador;
 	
 	//Creo la ventana del juego 
 	JFrame ventanaDelJuego = new JFrame ("3 en Raya creado por Parlon");
@@ -38,9 +39,7 @@ public class TresEnRaya extends Canvas {
 	private int turnoActual=JUGADOR_1;
 	
 	//Creo la matriz dde jugadas
-	private int matrizJugadas[][]= {{0,0,0},
-									{0,0,0},
-									{0,0,0}};
+	private int matrizJugadas[][]= {{0,0,0},{0,0,0},{0,0,0}};
 	
 	//Creo el constructor que me va a montar el juego
 	
@@ -50,7 +49,44 @@ public class TresEnRaya extends Canvas {
 	public int[][] getMatrizJugadas() {
 		return matrizJugadas;
 	}
-
+	
+ private int comprobarGanador() {
+	 ganador=0;
+	for (int i = 0; i < matrizJugadas.length; i++) {
+		if(matrizJugadas[i][0] == 1 && matrizJugadas[i][1] == 1 && matrizJugadas[i][2]==1) {
+			ganador=1;
+		}
+		if(matrizJugadas[i][0] == 2 && matrizJugadas[i][1] == 2 && matrizJugadas[i][2]==2) {
+			ganador=2;
+		}
+	}
+	for (int i = 0; i < matrizJugadas.length; i++) {
+		if(matrizJugadas[0][i] == 1 && matrizJugadas[1][i] == 1 && matrizJugadas[2][i]==1) {
+			ganador=1;
+		}
+		if(matrizJugadas[0][i] == 2 && matrizJugadas[1][i] == 2 && matrizJugadas[2][i]==2) {
+			ganador=2;
+		}
+	}
+	
+	if(matrizJugadas[0][0] == 1 && matrizJugadas[1][1] == 1 && matrizJugadas[2][2]==1) {
+		ganador=1;
+	}
+	if(matrizJugadas[0][0] == 2 && matrizJugadas[1][1] == 2 && matrizJugadas[2][2]==2) {
+		ganador=2;
+	}
+	
+	if(matrizJugadas[2][0] == 1 && matrizJugadas[1][1] == 1 && matrizJugadas[0][2]==1) {
+		ganador=1;
+	}
+	if(matrizJugadas[2][0] == 2 && matrizJugadas[1][1] == 2 && matrizJugadas[0][2]==2) {
+		ganador=2;
+	}
+	return ganador;
+	
+	
+ }
+ 
 	/**
 	 * @param matrizJugadas the matrizJugadas to set
 	 */
@@ -58,7 +94,7 @@ public class TresEnRaya extends Canvas {
 		this.matrizJugadas = matrizJugadas;
 	}
 	
-
+	
               
 	public TresEnRaya( ) {
 		
@@ -79,7 +115,15 @@ public class TresEnRaya extends Canvas {
 		ventanaDelJuego.setBounds(300,150,JFRAME_WIDTH,JFRAME_HEIGHT);
 		
 		//Inicializos los cuadrados para mostrarlos en la pantalla
+		
+		comprobarGanador();
+		GanadorJuego();
 		inicializaCuadrosPantalla();
+		
+		
+		
+		
+		
 		
 		//Hago que el juego escuche al raton y muestre que estoy haciendo click
 		//en un cuadro
@@ -142,7 +186,7 @@ public class TresEnRaya extends Canvas {
 	}
 	
 	//Creo un metodo que me pregunte que hacer cuando le de al boton de cerrar aplicacion
-	protected void cerrarAplicacion() {
+	private void cerrarAplicacion() {
 		String [] opciones = {"Aceptar" , "Cancelar"};
 		int eleccion = (JOptionPane.showOptionDialog(ventanaDelJuego, "¿Desea salir del juego?", "Salir del juego", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar"));
 		if (eleccion == JOptionPane.YES_OPTION) {
@@ -154,10 +198,20 @@ public class TresEnRaya extends Canvas {
 	private void inicializaCuadrosPantalla() {
 		for (int i = 0; i < 3 ; i++) {
 			for (int j = 0; j < 3 ; j++) {
-				this.cuadros.add(new Cuadro(i,j));	
+				this.cuadros.add(new Cuadro(j,i));	
 			}
 		}
 	}
+	
+	//Creo un metodo que me diga el ganador
+	protected void GanadorJuego() {
+				
+					JOptionPane.showMessageDialog(ventanaDelJuego, "Ha ganado el " + ganador + "");
+
+					System.exit(0);
+				}
+			
+				
 
 	
 	//Sobreescribo el metodo canvas para que yo decida lo que se pinta en la ventana

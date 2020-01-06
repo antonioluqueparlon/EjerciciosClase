@@ -1,4 +1,4 @@
-package videojuegos.tresEnRaya;
+package videojuegos.JuegoFormula1;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
