@@ -109,7 +109,7 @@ public class Cuadro {
 		}
 		
 		//Actualizo la matriz de jugadas del 3 en Raya
-		TresEnRaya.getInstance().getMatrizJugadas()[this.coordenadaX][this.coordenadaY]= jugador;
+		TresEnRaya.getInstance().getMatrizJugadas()[this.coordenadaX][this.coordenadaY]= jugadorPropietario;
 		
 		//this.clickHecho=true; //Aqui digo que cuando se de click, actualizo a true
 	
