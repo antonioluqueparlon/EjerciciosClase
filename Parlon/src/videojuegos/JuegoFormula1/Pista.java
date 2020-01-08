@@ -6,6 +6,8 @@ public class Pista {
 	
 	private Obstaculo obstaculos []=new Obstaculo [4];
 	private int longitudPista=100;
+	private int ancho,alto;
+	private int xEnTablero,yEnTablero;
 
 	
 	/**

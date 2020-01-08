@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 public class TresEnRaya extends Canvas {
 
 	// Ventana principal del juego
-	JFrame ventana = new JFrame("3 en Raya vFormula1 creado por Parlom ");
+	JFrame ventana = new JFrame("3 en Raya Formula1 creado por Parlón ");
 
 	// Indicamos alto y ancho del objeto tipo Canvas
 	private static final int JFRAME_WIDTH = 700;
@@ -107,7 +107,7 @@ public class TresEnRaya extends Canvas {
 		SoundsRepository.getInstance().loopSound("musicaF1.wav");
 
 		// Desactivo el comportamiento por defecto al pulsar el botón de cierre de la
-				// ventana
+		// ventana
 				ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				
 		// Agrego un escuchador a la ventana, para detectar el evento de cierre de la
