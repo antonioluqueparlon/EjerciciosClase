@@ -15,14 +15,27 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * @author Antonio Luque
+ * 
+ * Clase principal del juego, contiene la ventana y, al mismo tiempo, es el objeto Canvas sobre el que
+ * se redibuja continuamente el juego. Tiene la lista de actores. Para el repintado de escena utiliza
+ * la técnica de doble búffer, a través del objeto BufferStrategy
+ *
+ */
+
 public class TresEnRaya extends Canvas {
 
 	// Ventana principal del juego
-	JFrame ventana = new JFrame("3 en Raya Formula1 creado por Parlón ");
+	JFrame ventana = new JFrame("3 en Raya creado por Parlón ");
 
 	// Indicamos alto y ancho del objeto tipo Canvas
 	private static final int JFRAME_WIDTH = 700;
 	private static final int JFRAME_HEIGHT = 700;
+	
+	// Velocidad de los fotogramas, en concreto este indica que el proceso de redibujado dormirá 10 millis
+	// tras haber repintado la escena
+	public static final int SPEED_FPS=60;
 
 	// Variable para establecer la instancia del patrón singleton
 	private static TresEnRaya instance = null;
@@ -146,11 +159,11 @@ public class TresEnRaya extends Canvas {
 	private void finalizarPartida() {
 		
 		if(ganador==1) {
-			JOptionPane.showMessageDialog(ventana, "¡¡ Ha ganado El logo de la F1 !!");
+			JOptionPane.showMessageDialog(ventana, "¡ Ha ganado El logo de la F1 !");
 				System.exit(0);
 		}
 		if(ganador==2) {
-			JOptionPane.showMessageDialog(ventana, "¡¡ Ha ganado el coche !!");
+			JOptionPane.showMessageDialog(ventana, "¡ Ha ganado el coche !");
 			System.exit(0);
 		}
 	}

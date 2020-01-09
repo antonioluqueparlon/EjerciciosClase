@@ -1,12 +1,15 @@
 package videojuegos.JuegoFormula1;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public abstract class Vehiculo {
 	
 	private String nombre;
 	private int posicion=0;
 	private String color;
+	protected int ancho;
+	protected int alto;
 	/**
 	 * @param nombre
 	 * @param posicion
@@ -31,6 +34,10 @@ public abstract class Vehiculo {
 		}while (longitudCarrera<100); {
             System.out.println("Carrera interrumpida");
 		}
+	}
+	
+	public void paint(Graphics g){
+		
 	}
 	
 }

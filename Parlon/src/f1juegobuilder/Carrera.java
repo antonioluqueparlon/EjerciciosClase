@@ -38,7 +38,7 @@ public class Carrera extends Thread {
 				sleep((int)(Math.random()*1000));
 				c1=p.getlblCoche().getLocation().x;
 				c2=p.getlblCoche2().getLocation().x;
-				if(c1<p.getlblMeta().getLocation().x-10 && c2<p.getlblMeta().getLocation().x-10) {
+				if(c1<p.getlblMeta().getLocation().x+10 && c2<p.getlblMeta().getLocation().x+10) {
 					eti.setLocation(eti.getLocation().x+10,eti.getLocation().y);
 					p.repaint();
 				}else {
@@ -48,7 +48,7 @@ public class Carrera extends Thread {
 					
 				}catch (InterruptedException e) {
 				}
-				if(eti.getLocation().x>=p.getlblMeta().getLocation().x-10) {
+				if(eti.getLocation().x>=p.getlblMeta().getLocation().x+10) {
 				if(c1>c2) {
 					JOptionPane.showMessageDialog(null, "Ha ganado el coche 1");
 				}

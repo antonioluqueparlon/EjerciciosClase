@@ -49,10 +49,10 @@ public class Cuadro {
 	
 	private void pintaFotos(Graphics g) {
 		BufferedImage imagenAPintar = null;
-		if (this.jugadorPropietario == TresEnRaya.JUGADOR_1) { // Comprueba jugador 1 - Pinto el escudo del Real Madrid CF
+		if (this.jugadorPropietario == TresEnRaya.JUGADOR_1) { // Comprueba jugador 1 - Pinto el logo de la F1
 			imagenAPintar = SpritesRepository.getInstance().getSprite("logof1.png");
 		} 
-		if (this.jugadorPropietario == TresEnRaya.JUGADOR_2) { // En este caso el jugador 2 - Pinto el escudo del FCB 
+		if (this.jugadorPropietario == TresEnRaya.JUGADOR_2) { // En este caso el jugador 2 - Pinto el coche 
 			imagenAPintar = SpritesRepository.getInstance().getSprite("coche2.png");
 		}
 		
