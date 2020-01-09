@@ -1,4 +1,4 @@
-package videojuegos.JuegoFormula1;
+package definitivof1;
 
 public class ManchaAceite extends Obstaculo {
 
@@ -7,7 +7,7 @@ public class ManchaAceite extends Obstaculo {
 	 */
 	public ManchaAceite(int posicion) {
 		super(posicion);
-		
+		// TODO Auto-generated constructor stub
 	}
 
 	

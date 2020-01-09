@@ -132,12 +132,17 @@ public class GranPremio extends Canvas {
 			System.exit(0);
 		}
 	}
-
+	
+	private void representarObstaculos() {
+		ArrayList<Obstaculo> obstaculos;
+		Pista p;
+		Obstaculo o;
+	}
 	
 	/**
 	 * Método con el que iniciamos la cantidad de actores que aparecen en el videojuego
 	 */
-	public void initWorld() {
+	public void iniciarcarrera() {
 		// Creo una carrera de 2 Coches
 		for (int i = 1; i < 3; i++){
 			Coche m = new Coche();
@@ -173,6 +178,9 @@ public class GranPremio extends Canvas {
 		for (Vehiculo vehiculo : this.vehiculos) {
 			vehiculo.paint(g);
 		}
+		
+	
+		
 		strategy.show();
 	}
 	
@@ -181,7 +189,7 @@ public class GranPremio extends Canvas {
 	 */
 	public void game() {
 		// Inicialización del juego
-		initWorld();
+		iniciarcarrera();
 		
 		// El bucle se ejecutará mientras el objeto Canvas sea visible
 		while (isVisible()) {

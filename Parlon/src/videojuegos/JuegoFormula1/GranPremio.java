@@ -39,9 +39,9 @@ public class GranPremio extends Canvas {
 	private int ganador = 0;
 	
 	// Matriz que refleja la posición de las jugadas hechas por lo jugadores
-		private int matrizJugadas[][] = new int[][] {{0, 0, 0},
-													 {0, 0, 0},
-													 {0, 0, 0}};
+	private int matrizJugadas[][] = new int[][]{{0, 0, 0},
+												{0, 0, 0},
+												{0, 0, 0}};
 
 	// Lista con los objetos tipo "Cuadro" que se van a representar en el canvas
 	// Cada uno con sus propias coordeanadas de un tablero de 3x3 cuadros. De esta

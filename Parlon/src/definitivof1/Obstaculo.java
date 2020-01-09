@@ -1,12 +1,12 @@
-package videojuegos.JuegoFormula1;
+package definitivof1;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import Parlon.Utils;
 
 public abstract class Obstaculo {
 	
-	private int posicion;
+	private int posicionX,posicionY;
 	private int impulso;
 	private int espacioQueOcupa;
 
@@ -15,7 +15,8 @@ public abstract class Obstaculo {
 	 */
 	public Obstaculo(int posicion) {
 		super();
-		this.posicion = Utils.obtenerNumeroAzar(3, 8);
+		this.posicionX = Utils.obtenerNumeroAzar(3, 8);
+		this.posicionY = Utils.obtenerNumeroAzar(3, 8);
 	}
 
 	/**
@@ -25,7 +26,8 @@ public abstract class Obstaculo {
 	 */
 	public Obstaculo(int posicion, int impulso, int espacio) {
 		super();
-		this.posicion = Utils.obtenerNumeroAzar(1, 6);
+		this.posicionX = Utils.obtenerNumeroAzar(1, 6);
+		this.posicionY = Utils.obtenerNumeroAzar(3, 8);
 		this.impulso = Utils.obtenerNumeroAzar(-3,3);
 		this.espacioQueOcupa = Utils.obtenerNumeroAzar(1, 3);
 	}
@@ -34,21 +36,21 @@ public abstract class Obstaculo {
 
 	@Override
 	public String toString() {
-		return "Obstaculo [posicion=" + posicion + ", impulso=" + impulso + ", espacio=" + espacioQueOcupa + "]";
+		return "Obstaculo [posicion=" + posicionX + ", impulso=" + impulso + ", espacio=" + espacioQueOcupa + "]";
 	}
 
 	/**
 	 * @return the posicion
 	 */
 	public int getPosicion() {
-		return posicion;
+		return posicionX;
 	}
 
 	/**
 	 * @param posicion the posicion to set
 	 */
 	public void setPosicion(int posicion) {
-		this.posicion = posicion;
+		this.posicionX = posicion;
 	}
 
 	/**
@@ -78,11 +80,12 @@ public abstract class Obstaculo {
 	public void setEspacio(int espacio) {
 		this.espacioQueOcupa = espacio;
 	}
-	
-	public void paint(Graphics g) {
-		g.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, observer)
-		
+
+	public void paint(Graphics2D g) {
+		g.drawOval(24, 23, 10, 10);	
 	}
+	
+	
 	
 	
 
