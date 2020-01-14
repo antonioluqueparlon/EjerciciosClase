@@ -4,29 +4,27 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import tutorialJava.capitulo6b_Videojuegos.FormulaUno.FormulaUno;
+import tutorialJava.capitulo6b_Videojuegos.FormulaUno.Pista;
+import tutorialJava.capitulo6b_Videojuegos.FormulaUno.Vehiculo;
+
 public class Coche extends Vehiculo {
 
-
-
-
-	/**
-	 * @param nombre
-	 * @param posicion
-	 * @param color
-	 */
-	public Coche(String nombre, int posicion, String color) {
-		super(nombre, posicion, color);
+	public Coche(Pista pista) {
+		super(pista);
 		// TODO Auto-generated constructor stub
 	}
 
-	public void paint(Graphics g){
+	public Coche(int x, int y) {
+		super(x, y);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void paint(Graphics g) {
 		super.paint(g);
-		g.setColor(Color.RED);
-		g.fillOval(0, 0, ancho, alto);
-		g.drawOval(0, 0, ancho, alto);
-		g.fillRect(50,0,30,30);
-		g.drawRect(50, 50, 30, 30);
-		
+		g.setColor(Formula1.COLORES[(int) Math.round(Math.random() * (Formula1.COLORES.length-1))]); 
+		g.fillRect(this.getPosicion(), this.pista.getY() + 5, 20, 20);
 	}
 
 }

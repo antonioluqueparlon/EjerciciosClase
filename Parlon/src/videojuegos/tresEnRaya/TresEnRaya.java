@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.RootPaneContainer;
 
 /**
  * @author Antonio Luque
@@ -28,6 +29,7 @@ public class TresEnRaya extends Canvas {
 
 	// Ventana principal del juego
 	JFrame ventana = new JFrame("3 en Raya creado por Parlón ");
+	JFrame podio = new JFrame("3 en raya creado por Parlón");
 
 	// Indicamos alto y ancho del objeto tipo Canvas
 	private static final int JFRAME_WIDTH = 700;
@@ -68,13 +70,17 @@ public class TresEnRaya extends Canvas {
 		
 		// Obtengo referencia al panel principal de la ventana
 		JPanel panel = (JPanel) ventana.getContentPane();
+		JPanel podio = (JPanel) ventana.getContentPane();
 		// Establezco una plantilla en el panel, para poder incorporar el Canvas
 		panel.setLayout(new BorderLayout());
+		podio.setLayout(new BorderLayout());
 		// Agrego el Canvas al panel
 		panel.add(this, BorderLayout.CENTER);
+		podio.add(this,BorderLayout.CENTER);
 
 		// Dimensiono la ventana
 		ventana.setBounds(0, 0, JFRAME_WIDTH, JFRAME_HEIGHT);
+		podio.setBounds(0, 0, JFRAME_WIDTH, JFRAME_HEIGHT);
 
 		// Inicializo la lista con los nueve cuadros que formarán el tablero
 		inicializaCuadrosDelTablero();
@@ -134,6 +140,8 @@ public class TresEnRaya extends Canvas {
 
 		// Muestro la ventana en pantalla
 		ventana.setVisible(true);
+		podio.setVisible(true);
+		
 
 		// El foco de Windows irá al Canvas, para que directamente podamos controlar
 		// este juego, si
@@ -164,6 +172,10 @@ public class TresEnRaya extends Canvas {
 		}
 		if(ganador==2) {
 			JOptionPane.showMessageDialog(ventana, "¡ Ha ganado el coche !");
+			System.exit(0);
+		}
+		if(ganador ==0 ) {
+			JOptionPane.showMessageDialog(ventana, " ¡ Empate !");
 			System.exit(0);
 		}
 	}
@@ -222,6 +234,7 @@ public class TresEnRaya extends Canvas {
 		if(matrizJugadas[2][0] == 2 && matrizJugadas[1][1] == 2 && matrizJugadas[0][2] == 2) {
 			ganador=2;
 		}
+		
 		return ganador;
 	}
 	
@@ -234,7 +247,7 @@ public class TresEnRaya extends Canvas {
 	public void paint(Graphics g) {
 		super.paint(g);
 		// Pinto un rectángulo tan grande como las dimensiones del Canvas
-		g.setColor(Color.BLACK);
+		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		// Pinto cada uno de los cuadros que hay en la lista, delegando en cada uno la
 		// responsibilidad de

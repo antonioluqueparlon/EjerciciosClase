@@ -3,6 +3,7 @@ package videojuegos.JuegoFormula1;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import f1juegobuilder.granpremio;
 
@@ -14,14 +15,46 @@ public class Pista {
 	// Ancho y alto de este cuadro
 	private int ancho, alto;
 	
+	private int numeroPista;
+	private int tamañoPista=20;
+	ArrayList<Obstaculo> obstaculos = new ArrayList<Obstaculo>();
+	
 	//private boolean clickHecho=false;
 	
+	/**
+	 * @return the numeroPista
+	 */
+	public int getNumeroPista() {
+		return numeroPista;
+	}
+
+	/**
+	 * @param numeroPista the numeroPista to set
+	 */
+	public void setNumeroPista(int numeroPista) {
+		this.numeroPista = numeroPista;
+	}
+
+	/**
+	 * @return the tamañoPista
+	 */
+	public int getTamañoPista() {
+		return tamañoPista;
+	}
+
+	/**
+	 * @param tamañoPista the tamañoPista to set
+	 */
+	public void setTamañoPista(int tamañoPista) {
+		this.tamañoPista = tamañoPista;
+	}
+
 	//jugador que ha hecho click sobre este cuadro
 	//el 0 dice que no pertenece a ningun jugador ese cuadro
 	private int jugadorPropietario=0;
 	/**
 	 * @param coordenadaX
-	 * @param coordenadaY
+	 * @param coordenadaY 
 	 */
 	public Pista(int coordenadaX, int coordenadaY) {
 		super();
@@ -33,14 +66,14 @@ public class Pista {
 		
 		//ancho y alto dependeran de la ventana principal del canvas y lo divido entre 3
 		//porque son 3x3
-		ancho=GranPremio.getInstance().getWidth() ;
-		alto=GranPremio.getInstance().getHeight() ;
+		ancho=GranPremio.getInstance().getWidth() /5 ;
+		alto=GranPremio.getInstance().getHeight() /2;
 		esquinaSuperiorIzquierdaX=this.coordenadaX * ancho;
 		esquinaSuperiorIzquierdaY=this.coordenadaY * alto;
 		
 		//pinto los bordes de los cuadros
-		g.setColor(Color.RED);
-		g.drawOval(esquinaSuperiorIzquierdaX, esquinaSuperiorIzquierdaY, ancho, alto);
+		g.setColor(Color.BLACK);
+		g.drawRect(esquinaSuperiorIzquierdaX, esquinaSuperiorIzquierdaY, ancho, alto);
 	
 	//Pinto imagenes vectoriales si se ha hecho click sobre el
 		
@@ -165,6 +198,17 @@ public class Pista {
 	 */
 	public void setCoordenadaY(int coordenadaY) {
 		this.coordenadaY = coordenadaY;
+	}
+
+
+	private ArrayList<Obstaculo> obstaculos() {
+		// TODO Auto-generated method stub
+		return obstaculos;
+	}
+
+	public static Pista get(int i) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
