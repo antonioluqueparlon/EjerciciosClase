@@ -4,12 +4,12 @@ import java.awt.Graphics;
 
 public class Moto extends Vehiculo {
 
-	public Coche(Pista pista) {
+	public Moto(Pista pista) {
 		super(pista);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Coche(int x, int y) {
+	public Moto (int x, int y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
@@ -17,10 +17,10 @@ public class Moto extends Vehiculo {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		g.setColor(FormulaUno.COLORES[(int) Math.round(Math.random() * (FormulaUno.COLORES.length-1))]); 
+		g.setColor(Formula1.COLORES[(int) Math.round(Math.random() * (Formula1.COLORES.length-1))]); 
 		g.fillRect(this.getPosicion(), this.pista.getY() + 5, 20, 20);
 	}
 
 }
 
-}
+

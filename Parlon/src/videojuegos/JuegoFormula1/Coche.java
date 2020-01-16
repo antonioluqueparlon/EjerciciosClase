@@ -4,9 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import tutorialJava.capitulo6b_Videojuegos.FormulaUno.FormulaUno;
-import tutorialJava.capitulo6b_Videojuegos.FormulaUno.Pista;
-import tutorialJava.capitulo6b_Videojuegos.FormulaUno.Vehiculo;
 
 public class Coche extends Vehiculo {
 

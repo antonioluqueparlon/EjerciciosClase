@@ -20,14 +20,21 @@ public class Formula1 extends Canvas {
 
 	private List<Vehiculo> vehiculos= new ArrayList<Vehiculo>(); 
 	
+	public static int MAX_POSICION_POR_PISTA=100;
+	
+	private static int WIDTH=800, HEIGHT=800;
+	
 	private static Formula1 instance = null;
+	
+	public static Color COLORES[] = new Color[] {Color.BLACK, Color.WHITE, Color.CYAN, Color.DARK_GRAY, Color.GREEN,
+			Color.LIGHT_GRAY, Color.MAGENTA};
 	
 	public Formula1 () {
 		JFrame ventana =new JFrame("F1 creado por Parlón");
 		JPanel panel = (JPanel) ventana.getContentPane();
 		panel.setLayout(new BorderLayout());
 		panel.add(this, BorderLayout.CENTER);
-		ventana.setBounds(0, 0, 800, 800);
+		ventana.setBounds(0, 0, WIDTH, HEIGHT);
 		
 		Canvas punteroAThis = this;
 		this.addMouseListener(new MouseAdapter() {
@@ -51,18 +58,37 @@ public class Formula1 extends Canvas {
 		return instance;
 	}
 	
-	public void paint (Graphics g) {
+	public void paint (Graphics g) { //  aqui termino de pintar todo, las pistas y los coches y eso
 		super.paint(g);
+		
+		System.out.println("Ancho: " + this.getWidth() +"Alto: " +this.getHeight());
+		g.setColor(Color.BLUE);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+		for (Vehiculo v : this.vehiculos) {
+			v.paint(g);		}
 		
 	}
 	
 	public void initWord() {
 		//Creo las 4 pista de mi mundo
 		int contadorPistas=4;
+		int pixelsAltoPista = this.getHeight() / contadorPistas;
+		
 		for (int i = 0; i < contadorPistas; i++) {
+			Pista pista = new Pista(0, i * pixelsAltoPista, this.getWidth(), pixelsAltoPista);
 			
+			Vehiculo vehiculo = null;
+			if (Math.round(Math.random()) == 0) { // Probabilidad del 50%
+				vehiculo = new Coche(pista);
+			}
+			else {
+				vehiculo = new Moto(pista);
+			}
+			this.vehiculos.add(vehiculo);
 		}
 	}
+	
 		
 	public void game() {
 		do {
@@ -72,7 +98,8 @@ public class Formula1 extends Canvas {
 			JOptionPane.showMessageDialog(null, "Avance");
 		}while(true);
 			
-		}
+	}
+	
 	public static void main (String args[]) {
 		Formula1.getInstance().initWord();
 		Formula1.getInstance().game();
