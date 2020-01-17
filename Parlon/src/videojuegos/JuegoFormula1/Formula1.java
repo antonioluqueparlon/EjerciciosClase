@@ -30,6 +30,10 @@ public class Formula1 extends Canvas {
 			Color.LIGHT_GRAY, Color.MAGENTA};
 	
 	public Formula1 () {
+		//Cargo para que no de lag al cargar 
+		SpritesRepository.getInstance();
+		SoundsRepository.getInstance();
+		
 		JFrame ventana =new JFrame("F1 creado por Parlón");
 		JPanel panel = (JPanel) ventana.getContentPane();
 		panel.setLayout(new BorderLayout());
@@ -48,6 +52,13 @@ public class Formula1 extends Canvas {
 		
 		ventana.setResizable(false);
 		ventana.setVisible(true);
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		SoundsRepository.getInstance().loopSound("musicaF1.wav");
+		
+		// Desactivo el comportamiento por defecto al pulsar el botón de cierre de la
+		// ventana
+		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 	}
 	

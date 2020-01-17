@@ -1,12 +1,13 @@
 package videojuegos.Arkanoid.version1;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-public class Nave extends ObjetosACrear {
+public class Nave extends Actor{
 	
 	public BufferedImage loadImage(String nombre) {
 		URL url=null;
@@ -20,6 +21,17 @@ public class Nave extends ObjetosACrear {
 			System.exit(0);
 			return null;
 		}
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		g.drawImage(SpritesRepository.getInstance().getSprite(SpritesRepository.getInstance().NAVE),100,100,null);
+	}
+
+	@Override
+	public void act() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

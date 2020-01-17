@@ -7,20 +7,26 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import videojuegos.JuegoFormula1.GranPremio;
-
 
 public class Arkanoid extends Canvas {
 	
+	private List<Actor> actores = new ArrayList<Actor>();
+	
 	JFrame ventana= new JFrame("Arkanoid de Parlón");
+
+	private long usedTime;
 	//Dimensiones de la ventana del juego
 	public static final int JFRAME_WIDTH = 800;
 	public static final int JFRAME_HEIGHT = 600;
+	
+	public static final int SPEED_FPS=60;
 	
 	//Patron singleton
 	private static Arkanoid instance = null;
@@ -80,15 +86,54 @@ public class Arkanoid extends Canvas {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
-		//pinto la nave
-		
-			
+		//pinto a los actores 
+		for (Actor a : this.actores) {
+			a.paint(g);
+		}
+						
+	}
+	
+	public void initworld () {
+		this.actores.add(new Ladrillos());
+		this.actores.add(new Pelota());
+		this.actores.add(new Nave());
+	}
+	
+	public void game () {
+		// Inicialización del juego
+			initworld();
+				
+			// El bucle se ejecutará mientras el objeto Canvas sea visible
+			while (isVisible()) {
+					long startTime = System.currentTimeMillis(); // Tomo el tiempo, en millis, antes de crear el siguiente Frame del juego
+					// actualizo y pinto la escena
+					updateWorld(); 
+					repaint();
+					// Calculo el tiempo que se ha tardado en la ejecución
+					usedTime = System.currentTimeMillis()-startTime;
+					// Hago que el bucle pare una serie de millis, antes de generar el siguiente FPS
+					// El cálculo hecho "duerme" el proceso para no generar más de los SPEED_FPS que se haya específicado
+					try { 
+						int millisToSleep = (int) (1000/SPEED_FPS - usedTime);
+						if (millisToSleep < 0) {
+							millisToSleep = 0;
+						}
+						Thread.sleep(millisToSleep);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+	private void updateWorld() {
+		for (Actor a : this.actores) {
+			a.act();}
 	}
 	
 	
 	
 	
 	public static void main(String[] args) {
-		Arkanoid.getInstance();
+		Arkanoid.getInstance().game();
+		
 	}
 }
