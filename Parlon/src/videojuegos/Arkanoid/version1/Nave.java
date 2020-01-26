@@ -2,6 +2,8 @@ package videojuegos.Arkanoid.version1;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
@@ -24,8 +26,8 @@ public class Nave extends Actor{
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		g.drawImage(SpritesRepository.getInstance().getSprite(SpritesRepository.getInstance().NAVE),100,100,null);
+	public void paint(Graphics2D g) {
+		g.drawImage(SpritesRepository.getInstance().getSprite(SpritesRepository.getInstance().NAVE),380,500,null);
 	}
 
 	@Override

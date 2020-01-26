@@ -19,7 +19,7 @@ public class SpritesRepository {
 	private static String RESOURCES_FOLDER = "../res/";
 	
 	//Posibles recursos
-	public static String NAVE="nave-25x7.png";
+	public static String NAVE="nave-50x15.png";
 
 	
 	/**
