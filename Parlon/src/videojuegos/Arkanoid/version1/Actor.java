@@ -8,7 +8,9 @@ import java.util.List;
 
 public class Actor {
 	// Propiedades que contienen las coordenadas del actor y la imagen que corresponda con el mismo
-	protected int x, y;
+	
+	protected int x, y;// Coordenadas en las que se encuentra el actor
+	protected int width, height; // Ancho y alto que ocupa, imprescindible para detectar colisiones
 	protected BufferedImage spriteActual;
 	
 	
@@ -17,7 +19,8 @@ public class Actor {
 	 */
 	public Actor() {
 		// En principio coloco una imagen genérica al actor
-		spriteActual = CacheImagenes.getInstancia().getImagen("sin-imagen.png");
+		spriteActual = CacheImagenes.getInstancia().getImagen("nave-50x15.png");
+		//spriteActual= CacheImagenes.getInstancia().getImagen("nave-50x15.png");
 	}
 	
 	

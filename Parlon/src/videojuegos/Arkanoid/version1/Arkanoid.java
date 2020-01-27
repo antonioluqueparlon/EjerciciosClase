@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 
 
@@ -45,7 +47,8 @@ public class Arkanoid extends Canvas {
 	public static Color ArrayColores[]= new Color[] {Color.BLACK, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.GREEN,
 		Color.RED, Color.PINK} ;
 	
-	
+	// Referencia que guardaremos apuntando al objeto de tipo Player
+		Nave nave = null;
 	/**
 	 * @return the arrayColores
 	 */
@@ -123,6 +126,16 @@ public class Arkanoid extends Canvas {
 		this.actores.add(new Nave());
 		crearLadrillos();
 		
+		//Creo mi jugador
+		Nave nave = new Nave();
+		nave.setX(this.getWidth()/ 2 ); // intento centrar la nave en el medio del juego
+		nave.setY(this.getHeight()-50); // posicion vertical de la nave
+		this.actores.add(nave); // Creo el jugador y lo guardo
+		//mantengo su referencia
+		this.nave= nave;
+		//agrego un listener para los eventos del teclado y cuando ocurran, que los derive al jugador/nave
+		this.addKeyListener(nave);
+		
 	}
 	
 	private void updateWorld() {
@@ -130,7 +143,7 @@ public class Arkanoid extends Canvas {
 			actor.act();}
 	}
 	
-private void crearLadrillos() {
+	private void crearLadrillos() {
 		
 		int coordenadaXdondeEmpiezanLosLadrillos=50;
 		int coordenadaYdondeEmpiezanLosLadrillos=10;
@@ -178,7 +191,7 @@ private void crearLadrillos() {
 			Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 			// Lo primero que hace cada frame es pintar un rectángulo tan grande como la escena,
 			// para superponer la escena anterior.
-			g.setColor(Color.black);
+			g.setColor(Color.BLACK);
 			g.fillRect( 0, 0, getWidth(), getHeight());
 
 			// Ejecutamos el método paint de cada uno de los actores
@@ -190,8 +203,27 @@ private void crearLadrillos() {
 		}
 	
 	
+
+	
+	
 	public static void main(String[] args) {
 		Arkanoid.getInstance().game();
 		
+	}
+
+	
+	//GETTER Y SETTERS
+	/**
+	 * @return the nave
+	 */
+	public Nave getNave() {
+		return nave;
+	}
+
+	/**
+	 * @param nave the nave to set
+	 */
+	public void setNave(Nave nave) {
+		this.nave = nave;
 	}
 }

@@ -21,7 +21,7 @@ public class Ladrillos extends Actor {
 		spriteActual=null; // Los ladrillos los pinto yo, por eso no voy a usar sprites que son imagenes
 		this.x = 20;
 		this.y = 20;
-		this.color = ;
+		this.color = Color.BLUE;
 	}
 
 
