@@ -123,7 +123,7 @@ public class Arkanoid extends Canvas {
 		
 		//this.actores.add(new Ladrillos());
 		this.actores.add(new Pelota());
-		this.actores.add(new Nave());
+		//this.actores.add(new Nave());
 		crearLadrillos();
 		
 		//Creo mi jugador

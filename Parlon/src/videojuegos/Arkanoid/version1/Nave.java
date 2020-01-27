@@ -48,8 +48,8 @@ public class Nave extends Actor implements KeyListener{
 			this.x=0;
 		}
 		//evitar que se salga por la derecha no se lo permitimos
-		if(this.x > (Arkanoid.getInstance().getWidth()) ) {
-			this.x=(Arkanoid.getInstance().getWidth()-1);
+		if(this.x > (Arkanoid.getInstance().getWidth() - this.width) ) {
+			this.x=(Arkanoid.getInstance().getWidth()- this.width);
 		}
 	}
 		
