@@ -15,10 +15,9 @@ import javax.imageio.ImageIO;
 
 public class Nave extends Actor{
 	
-	private int velocidadEjeX;
+	private int velocidadEjeX = 15; // velocidad de la nave del jugador
 	private boolean izquierda=false;
 	private boolean derecha=false; //variables que me van a decir si se esta moviendo actualmente
-	protected static final int VelocidadJugador=4; // velocidad de la nave del jugador
 	private int ancho=0;
 
 	/**
@@ -131,13 +130,5 @@ public class Nave extends Actor{
 	public void setDerecha(boolean derecha) {
 		this.derecha = derecha;
 	}
-
-	/**
-	 * @return the velocidadjugador
-	 */
-	public static int getVelocidadjugador() {
-		return VelocidadJugador;
-	}
-	
 		
 }

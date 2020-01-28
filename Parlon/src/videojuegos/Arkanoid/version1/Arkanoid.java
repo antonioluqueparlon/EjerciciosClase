@@ -34,7 +34,7 @@ public class Arkanoid extends Canvas {
 	public static final int FPS=60;
 	
 	// Lista con todos los actores que intervienen en el videojuego
-	private List<Actor> actores = new ArrayList<Actor>(); 
+	List<Actor> actores = new ArrayList<Actor>(); 
 	
 	// BufferStrategy usado para conseguir la técnica de doble búffer
 	private BufferStrategy strategy;
@@ -68,7 +68,6 @@ public class Arkanoid extends Canvas {
 			// pulse sobre el aspa de la ventana
 			ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			ventana.addWindowListener( new WindowAdapter() {
-				@Override
 				public void windowClosing(WindowEvent e) {
 					cerrarAplicacion();
 				}
@@ -92,7 +91,7 @@ public class Arkanoid extends Canvas {
 			this.addKeyListener(new DriverTeclado());
 	}
 	
-	public static Arkanoid getInstance() {
+	public synchronized static Arkanoid getInstance() {
 		if (instance == null) {
 			instance = new Arkanoid();
 		}
