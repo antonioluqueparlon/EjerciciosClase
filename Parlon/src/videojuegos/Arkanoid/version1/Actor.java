@@ -10,7 +10,7 @@ public class Actor {
 	// Propiedades que contienen las coordenadas del actor y la imagen que corresponda con el mismo
 	
 	protected int x, y;// Coordenadas en las que se encuentra el actor
-	protected int width, height; // Ancho y alto que ocupa, imprescindible para detectar colisiones
+	protected int ancho, alto; // Ancho y alto que ocupa, imprescindible para detectar colisiones
 	protected BufferedImage spriteActual;
 	
 	
@@ -19,7 +19,7 @@ public class Actor {
 	 */
 	public Actor() {
 		// En principio coloco una imagen genérica al actor
-		spriteActual = CacheImagenes.getInstancia().getImagen("nave-50x15.png");
+		spriteActual = CacheImagenes.getInstancia().getImagen("sin-imagen.png");
 		//spriteActual= CacheImagenes.getInstancia().getImagen("nave-50x15.png");
 	}
 	
@@ -47,26 +47,29 @@ public class Actor {
 
 
 	//GETTERS Y SETTERS
-	public int getWidth() {
-		return width;
-	}
-
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-
-	public int getHeight() {
-		return height;
-	}
-
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
+	
 	
 	public int getX() {	return x; }
+	public int getAncho() {
+		return ancho;
+	}
+
+
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
+
+
+	public int getAlto() {
+		return alto;
+	}
+
+
+	public void setAlto(int alto) {
+		this.alto = alto;
+	}
+
+
 	public void setX(int x) { this.x = x; }
 	public int getY() { return y; }
 	public void setY(int y) { this.y = y; }

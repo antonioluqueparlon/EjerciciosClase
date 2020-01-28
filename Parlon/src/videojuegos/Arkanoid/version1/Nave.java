@@ -5,51 +5,59 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-public class Nave extends Actor implements KeyListener{
+
+
+public class Nave extends Actor{
 	
-	protected int velocidadEjeX;
-	protected int velocidadEjeY;
-	private boolean arriba,abajo,izquierda,derecha; //variables que me van a decir si se esta moviendo actualmente
+	private int velocidadEjeX;
+	private boolean izquierda=false;
+	private boolean derecha=false; //variables que me van a decir si se esta moviendo actualmente
 	protected static final int VelocidadJugador=4; // velocidad de la nave del jugador
-	
-	public BufferedImage loadImage(String nombre) {
-		URL url=null;
-		try {
-			url = getClass().getResource(nombre);
-			return ImageIO.read(url);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("No se pudo cargar la imagen " + nombre +" de "+url);
-			System.out.println("El error fue : "+e.getClass().getName()+" "+e.getMessage());
-			System.exit(0);
-			return null;
-		}
-	}
+	private int ancho=0;
 
 	/**
 	 * 
 	 */
 	public Nave() {
 		super();
+		this.spriteActual=CacheImagenes.getInstancia().getImagen("nave-50x15.png");
+		//ajusto el ancho de la nave al del sprite
+		this.ancho=this.spriteActual.getWidth();
+		//pongo la nave en el centro del juego y en la mitad
+		this.x = Arkanoid.getInstance().getWidth() / 2;
+		this.y = Arkanoid.getInstance().getHeight() - 50;
 	}
-
+	
+	
+	@Override
 	public void act() {
 		super.act();
-		//Movimiento en el eje horizontal 
-		this.x += this.velocidadEjeX; // la posicion de la nave va a ser una suma de la velocidadEjeX que le hemos asignado nosotros
-		
-		//evitar que se salga por la izquierda no se lo permitimos
-		if(this.x < 0 ) {
-			this.x=0;
-		}
-		//evitar que se salga por la derecha no se lo permitimos
-		if(this.x > (Arkanoid.getInstance().getWidth() - this.width) ) {
-			this.x=(Arkanoid.getInstance().getWidth()- this.width);
+		// Controlo que el movimiento a derecha no haga que la nave se pierda por la derecha
+				if (this.derecha && (this.x + this.velocidadEjeX + this.ancho <= Arkanoid.getInstance().getWidth())) {
+					this.x += this.velocidadEjeX;
+				}
+				// Control que el movimiento a izquierda no haga que la nave se pierda por la izquierda
+				if (this.izquierda && (this.x - this.velocidadEjeX >= 0)) {
+					this.x -= this.velocidadEjeX;
+				}
+			}
+	
+	
+	//Evento para que el raton mueva la nave
+	public void mouseMoved(MouseEvent event) {
+		// Cuando el ratón se mueva sobre el canvas, la nave debe situarse a su mismo valor del eje X
+		// Si el ratón hace que la nave se pierda por la derecha o la izquierda debo contemplar el hecho de que la nave
+		// no se pierda por ese margen
+		if (event.getX() >= (this.ancho / 2) // La nave no se perderá por la izquierda
+						&&
+			event.getX() <= (Arkanoid.getInstance().getWidth() - this.ancho / 2)) {
+			this.x = event.getX() - this.ancho / 2;
 		}
 	}
 		
@@ -62,7 +70,6 @@ public class Nave extends Actor implements KeyListener{
 				case KeyEvent.VK_LEFT : izquierda = true; break;
 				case KeyEvent.VK_RIGHT : derecha = true; break;
 		  	}
-		  	updateSpeed();
 		}
 
 		/**
@@ -74,23 +81,10 @@ public class Nave extends Actor implements KeyListener{
 	  			case KeyEvent.VK_LEFT : izquierda = false; break; 
 	  			case KeyEvent.VK_RIGHT : derecha = false;break;
 			}
-			updateSpeed();
+	
 		}
 		  
-		/**
-		 * Este método no se utiliza pero es necesario implementarlo por el KeyListener
-		 */
 		
-		public void keyTyped(KeyEvent e) {}
-		
-		/**
-		 * En función de las banderas booleanas de movimiento, actualizamos las velocidades en los dos ejes
-		 */
-		protected void updateSpeed() {
-			velocidadEjeX=0;velocidadEjeY=0;
-			if (izquierda) velocidadEjeX = -VelocidadJugador;
-			if (derecha) velocidadEjeX = VelocidadJugador;
-		}
 	
 	//GETTERS Y SETTERS
 
@@ -108,47 +102,7 @@ public class Nave extends Actor implements KeyListener{
 		this.velocidadEjeX = velocidadEjeX;
 	}
 
-	/**
-	 * @return the velocidadEjeY
-	 */
-	public int getVelocidadEjeY() {
-		return velocidadEjeY;
-	}
-
-	/**
-	 * @param velocidadEjeY the velocidadEjeY to set
-	 */
-	public void setVelocidadEjeY(int velocidadEjeY) {
-		this.velocidadEjeY = velocidadEjeY;
-	}
-
-	/**
-	 * @return the arriba
-	 */
-	public boolean isArriba() {
-		return arriba;
-	}
-
-	/**
-	 * @param arriba the arriba to set
-	 */
-	public void setArriba(boolean arriba) {
-		this.arriba = arriba;
-	}
-
-	/**
-	 * @return the abajo
-	 */
-	public boolean isAbajo() {
-		return abajo;
-	}
-
-	/**
-	 * @param abajo the abajo to set
-	 */
-	public void setAbajo(boolean abajo) {
-		this.abajo = abajo;
-	}
+	
 
 	/**
 	 * @return the izquierda

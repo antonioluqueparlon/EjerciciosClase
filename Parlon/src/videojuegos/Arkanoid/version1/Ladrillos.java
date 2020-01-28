@@ -8,6 +8,7 @@ public class Ladrillos extends Actor {
 	
 	public static final int ANCHO = 30;
 	public static final int ALTO = 20;
+	public static final int EspacioEntreLadrillos = 2;
 	
 	private Color color = null;
 	
@@ -23,11 +24,23 @@ public class Ladrillos extends Actor {
 		this.y = 20;
 		this.color = Color.BLUE;
 	}
+	
+	/**
+	 * Constructor parametrizado
+	 * @param x
+	 * @param y
+	 * @param color
+	 */
+	public Ladrillos(int x, int y, Color color) {
+		this.x = x;
+		this.y = y;
+		this.color = color;
+	}
 
 
 	public void paint (Graphics2D g) {
 		g.setColor(this.color);
-		g.fillRoundRect(this.x, this.y, ANCHO, ALTO, 15, 23);
+		g.fillRoundRect(this.x, this.y, ANCHO, ALTO, 3, 3);
 		
 	}
 	
@@ -62,24 +75,5 @@ public class Ladrillos extends Actor {
 	}
 
 
-
-
-	/**
-	 * @return the ancho
-	 */
-	public static int getAncho() {
-		return ANCHO;
-	}
-
-
-
-
-	/**
-	 * @return the alto
-	 */
-	public static int getAlto() {
-		return ALTO;
-	}
-	
 
 }

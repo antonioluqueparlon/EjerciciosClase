@@ -20,15 +20,14 @@ import javax.swing.JPanel;
 
 
 
-
 public class Arkanoid extends Canvas {
 	
 	// Ventana principal del juego
 	JFrame ventana = new JFrame("Arkanoid de Parlón");
 	
 	// Indicamos alto y ancho del objeto tipo Canvas
-	private static final int JFRAME_WIDTH=800;
-	private static final int JFRAME_HEIGHT=600;
+	public static final int JFRAME_WIDTH=800;
+	public static final int JFRAME_HEIGHT=600;
 	
 	// Velocidad de los fotogramas, en concreto este indica que el proceso de redibujado dormirá 10 millis
 	// tras haber repintado la escena
@@ -43,25 +42,14 @@ public class Arkanoid extends Canvas {
 	// Instancia para patrón Singleton
 	private static Arkanoid instance = null;
 	
-	//Array de colores de los ladrillos
-	public static Color ArrayColores[]= new Color[] {Color.BLACK, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.GREEN,
-		Color.RED, Color.PINK} ;
 	
 	// Referencia que guardaremos apuntando al objeto de tipo Player
 		Nave nave = null;
-	/**
-	 * @return the arrayColores
-	 */
-	public static Color[] getArrayColores() {
-		return ArrayColores;
-	}
+		Pelota pelota= null;
+		
+	//Niveles del juego
+		Fase faseActiva=null;
 
-	/**
-	 * @param arrayColores the arrayColores to set
-	 */
-	public static void setArrayColores(Color[] arrayColores) {
-		ArrayColores = arrayColores;
-	}
 
 	public Arkanoid() {
 		// Creación de la ventana
@@ -97,7 +85,12 @@ public class Arkanoid extends Canvas {
 			// se transmita directamente al Canvas.
 			this.requestFocus();
 			// Para resolver un problema de sincronización con la memoria de vídeo de Linux, utilizamos esta línea
-			}
+			Toolkit.getDefaultToolkit().sync();
+			
+			// Agrego los controladores de ratón y de teclado
+			this.addMouseMotionListener(new DriverRaton());
+			this.addKeyListener(new DriverTeclado());
+	}
 	
 	public static Arkanoid getInstance() {
 		if (instance == null) {
@@ -121,20 +114,19 @@ public class Arkanoid extends Canvas {
 	
 	public void initWorld () {
 		
-		//this.actores.add(new Ladrillos());
-		this.actores.add(new Pelota());
-		//this.actores.add(new Nave());
-		crearLadrillos();
+		//Creamos la primera fase
+		this.faseActiva= new Nivel1();
+		this.faseActiva.inicializaFase(); 
 		
-		//Creo mi jugador
-		Nave nave = new Nave();
-		nave.setX(this.getWidth()/ 2 ); // intento centrar la nave en el medio del juego
-		nave.setY(this.getHeight()-50); // posicion vertical de la nave
-		this.actores.add(nave); // Creo el jugador y lo guardo
-		//mantengo su referencia
-		this.nave= nave;
-		//agrego un listener para los eventos del teclado y cuando ocurran, que los derive al jugador/nave
-		this.addKeyListener(nave);
+		//Agregamos los actores del primer nivel, limpiamos y añadimos todos
+		this.actores.clear();
+		this.actores.addAll(this.faseActiva.getActores());
+		
+		// Creación de los actores Nave y Bola
+		this.nave = new Nave(); // creo el jugador
+		this.actores.add(this.nave); // creo el jugador y lo guardo
+		this.pelota = new Pelota(); // creo la pelota
+		this.actores.add(this.pelota);// guardo la pelota
 		
 	}
 	
@@ -143,23 +135,6 @@ public class Arkanoid extends Canvas {
 			actor.act();}
 	}
 	
-	private void crearLadrillos() {
-		
-		int coordenadaXdondeEmpiezanLosLadrillos=50;
-		int coordenadaYdondeEmpiezanLosLadrillos=10;
-		for (int i = 0; i < 5 ;i++) {
-			for (int j = 0; j < 20; j++) {
-				
-				Ladrillos ladrillo1 = new Ladrillos(); // creo ladrillo
-				ladrillo1.setX(coordenadaXdondeEmpiezanLosLadrillos);
-				ladrillo1.setY(coordenadaYdondeEmpiezanLosLadrillos);
-				this.actores.add(ladrillo1); // guardo el ladrillo para que no se pierda
-				coordenadaXdondeEmpiezanLosLadrillos +=35;
-			}
-			coordenadaYdondeEmpiezanLosLadrillos += 40;
-			coordenadaXdondeEmpiezanLosLadrillos = 50;
-		}
-	}
 			
 	
 	public void game () {
@@ -226,4 +201,14 @@ public class Arkanoid extends Canvas {
 	public void setNave(Nave nave) {
 		this.nave = nave;
 	}
+
+	public Pelota getPelota() {
+		return pelota;
+	}
+
+	public void setPelota(Pelota pelota) {
+		this.pelota = pelota;
+	}
+	
+	
 }
