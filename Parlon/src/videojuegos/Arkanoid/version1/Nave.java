@@ -18,7 +18,6 @@ public class Nave extends Actor{
 	private int velocidadEjeX = 15; // velocidad de la nave del jugador
 	private boolean izquierda=false;
 	private boolean derecha=false; //variables que me van a decir si se esta moviendo actualmente
-	private int ancho=0;
 
 	/**
 	 * 
@@ -26,8 +25,9 @@ public class Nave extends Actor{
 	public Nave() {
 		super();
 		this.spriteActual=CacheImagenes.getInstancia().getImagen("nave-50x15.png");
-		//ajusto el ancho de la nave al del sprite
+		//ajusto el ancho de la nave al del sprite y el alto
 		this.ancho=this.spriteActual.getWidth();
+		this.alto=this.spriteActual.getHeight();
 		//pongo la nave en el centro del juego y en la mitad
 		this.x = Arkanoid.getInstance().getWidth() / 2;
 		this.y = Arkanoid.getInstance().getHeight() - 50;
@@ -81,6 +81,16 @@ public class Nave extends Actor{
 	  			case KeyEvent.VK_RIGHT : derecha = false;break;
 			}
 	
+		}
+		
+		//colision de la nave con la bola
+		@Override
+		public void colisionConOtroActor(Actor actorcolisionado) {
+			super.colisionConOtroActor(actorcolisionado);
+			if(actorcolisionado instanceof Pelota) {
+				System.out.println("Nave choca bola");
+			}
+			
 		}
 		  
 		

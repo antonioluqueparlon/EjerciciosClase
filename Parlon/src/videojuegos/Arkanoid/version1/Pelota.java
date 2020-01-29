@@ -7,9 +7,9 @@ import java.awt.Graphics2D;
 
 public class Pelota extends Actor {
 
-	protected int DiametroBola=15;
-	protected int velocidadX=5;
-	protected int velocidadY=5;
+	public static final int DiametroBola=15;
+	private int velocidadX=5;
+	private int velocidadY=5;
 
 	public void paint(Graphics2D g) {
 		g.setColor(Color.WHITE);
@@ -21,6 +21,8 @@ public class Pelota extends Actor {
 		spriteActual = null; // La bola se pinta de forma vectorial
 		this.x = Arkanoid.getInstance().getWidth() / 2;
 		this.y = Arkanoid.getInstance().getHeight() / 2;
+		this.alto=DiametroBola;
+		this.ancho=DiametroBola;
 	}
 
 	@Override

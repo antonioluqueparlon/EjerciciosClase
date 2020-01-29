@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -17,6 +18,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 
 
@@ -91,7 +93,7 @@ public class Arkanoid extends Canvas {
 			this.addKeyListener(new DriverTeclado());
 	}
 	
-	public synchronized static Arkanoid getInstance() {
+	public static Arkanoid getInstance() {
 		if (instance == null) {
 			instance = new Arkanoid();
 		}
@@ -129,9 +131,43 @@ public class Arkanoid extends Canvas {
 		
 	}
 	
-	private void updateWorld() {
+	public void updateWorld() {
+		// Comprobación de las colisiones posibles producidas
+		// Para detectar colisiones me basta con coger a los ladrillos del array de actores y comprobar si tienen colisión con la
+		// bola, ya que es el único caso que de momento nos interesa para romper ladrillos.
+		// También intentaré encontrar una colisión entre la bola y la nave
 		for (Actor actor : this.actores) {
-			actor.act();}
+			if (actor instanceof Ladrillos || actor instanceof Nave) {
+				detectarYNotificarColision (actor, this.getPelota());
+			}
+		}
+		
+		// A continuación se revisa si alguno de los actores de la lista ha sido marcado para su eliminación. En caso de ser así
+		// se procede a borrarlo de la lista.
+		for (int i = this.actores.size()-1; i >= 0; i--) {
+			if (this.actores.get(i).EstaMarcadoParaEliminar) {
+				this.actores.remove(i);
+			}
+		}
+		
+		// Actualización de todos los actores
+		for (Actor actor : this.actores) {
+			actor.act();
+		}
+		
+		
+	
+	}
+	
+	private void detectarYNotificarColision (Actor actor1, Actor actor2) {
+		Rectangle rectActor1 = new Rectangle(actor1.getX(), actor1.getY(), actor1.getAncho(), actor1.getAlto());
+		Rectangle rectActor2 = new Rectangle (actor2.getX(), actor2.getY(), actor2.getAncho(), actor2.getAlto());
+		if (rectActor1.intersects(rectActor2)) {
+			// En el caso de que exista una colisión, informo a los dos actores de que han colisionado y les indico el
+			// actor con el que se ha producido el choque
+			actor1.colisionConOtroActor(actor2);
+			actor2.colisionConOtroActor(actor1);
+		}
 	}
 	
 			

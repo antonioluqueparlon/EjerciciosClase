@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 /**
  * Esta clase se utiliza como un almacén de ficheros de imagen. Para almacenar las imágenes utilizamos
  * un HashMap<String, BufferedImage>. Además esta clase incorpora un patrón Singleton
- * @author R
  *
  */
 public class CacheImagenes {

@@ -22,7 +22,9 @@ public class Ladrillos extends Actor {
 		spriteActual=null; // Los ladrillos los pinto yo, por eso no voy a usar sprites que son imagenes
 		this.x = 20;
 		this.y = 20;
-		this.color = Color.BLUE;
+		this.ancho=ANCHO;
+		this.alto=ALTO;
+		this.color = Color.BLUE; // por defecto los ladrillos serian azules
 	}
 	
 	/**
@@ -34,6 +36,8 @@ public class Ladrillos extends Actor {
 	public Ladrillos(int x, int y, Color color) {
 		this.x = x;
 		this.y = y;
+		this.ancho=ANCHO;
+		this.alto=ALTO;
 		this.color = color;
 	}
 
@@ -44,15 +48,16 @@ public class Ladrillos extends Actor {
 		
 	}
 	
-
-
-
+	//el ladrillo detecta una colision con la pelota
 	@Override
-	public void act() {
+	public void colisionConOtroActor(Actor actorcolisionado) {
 		// TODO Auto-generated method stub
-		
+		super.colisionConOtroActor(actorcolisionado);
+		if(actorcolisionado instanceof Pelota) {
+			eliminar();
+		}
 	}
-
+	
 
 	//GETTERS Y SETTERS
 

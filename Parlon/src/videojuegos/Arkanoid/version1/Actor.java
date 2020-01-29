@@ -13,6 +13,9 @@ public class Actor {
 	protected int ancho, alto; // Ancho y alto que ocupa, imprescindible para detectar colisiones
 	protected BufferedImage spriteActual;
 	
+	protected boolean EstaMarcadoParaEliminar = false; // se pondra a true cuando tenga que eliminar algun
+														// actor, en este caso los ladrillos
+	
 	
 	/**
 	 * 
@@ -40,6 +43,14 @@ public class Actor {
 	 * Método que se llamará para cada actor, en cada refresco de pantalla del juego
 	 */
 	public void act() {
+	}
+	
+	public void eliminar() {
+		this.EstaMarcadoParaEliminar=true;
+	}
+	
+	public void colisionConOtroActor(Actor actorcolisionado) {
+		
 	}
 
 
