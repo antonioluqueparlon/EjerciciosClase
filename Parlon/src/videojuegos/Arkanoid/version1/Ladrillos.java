@@ -55,6 +55,10 @@ public class Ladrillos extends Actor {
 		super.colisionConOtroActor(actorcolisionado);
 		if(actorcolisionado instanceof Pelota) {
 			eliminar();
+			//creo el nuevo actor para la explosion y pongo que la explosion sea en el centro del ladrillo
+			Explosion explosion = new Explosion(this.getX(),this.getY());
+			explosion.setX(this.x+Ladrillos.ANCHO / 2 -explosion.getAncho()/2); // centrar la explosion
+			Arkanoid.getInstance().agregarActor(explosion);//agrego la explosion al juego
 		}
 	}
 	

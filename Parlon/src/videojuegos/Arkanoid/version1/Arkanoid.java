@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 
 
 
+
 public class Arkanoid extends Canvas {
 	
 	// Ventana principal del juego
@@ -37,7 +38,7 @@ public class Arkanoid extends Canvas {
 	
 	// Lista con todos los actores que intervienen en el videojuego
 	List<Actor> actores = new ArrayList<Actor>(); 
-	
+	List<Actor> nuevosactores = new ArrayList<Actor>();// las explosiones
 	// BufferStrategy usado para conseguir la técnica de doble búffer
 	private BufferStrategy strategy;
 	 
@@ -150,6 +151,11 @@ public class Arkanoid extends Canvas {
 			}
 		}
 		
+		//Agrego los nuevos actores que seran la explosiones
+		for(Actor nuevoActor :this.nuevosactores) {
+			this.actores.add(0,nuevoActor);
+		}
+		this.nuevosactores.clear(); // Limpio el array de actores a insertar
 		// Actualización de todos los actores
 		for (Actor actor : this.actores) {
 			actor.act();
@@ -170,7 +176,9 @@ public class Arkanoid extends Canvas {
 		}
 	}
 	
-			
+	public void agregarActor (Actor nuevoActor) {
+		this.nuevosactores.add(nuevoActor);
+	}		
 	
 	public void game () {
 			// Inicialización del juego
