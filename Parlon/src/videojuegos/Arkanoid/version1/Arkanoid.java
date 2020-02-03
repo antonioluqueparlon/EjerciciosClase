@@ -34,7 +34,7 @@ public class Arkanoid extends Canvas {
 	
 	// Velocidad de los fotogramas, en concreto este indica que el proceso de redibujado dormirá 10 millis
 	// tras haber repintado la escena
-	public static final int FPS=60;
+	public static final int FPS=120;
 	
 	// Lista con todos los actores que intervienen en el videojuego
 	List<Actor> actores = new ArrayList<Actor>(); 
@@ -47,12 +47,20 @@ public class Arkanoid extends Canvas {
 	
 	
 	// Referencia que guardaremos apuntando al objeto de tipo Player
-		Nave nave = null;
-		Pelota pelota= null;
+	Nave nave = null;
+	Pelota pelota= null;
 		
 	//Niveles del juego
-		Fase faseActiva=null;
-
+	Fase faseActiva=null;
+	boolean activo=false;
+		
+	int vidas=3;
+	boolean inmortal=false;
+	boolean fastidio=false;
+	int puntuacion=0;
+	boolean nivelFinal = false;
+	boolean nivel1Acabado = false;
+	
 
 	public Arkanoid() {
 		// Creación de la ventana
@@ -117,7 +125,12 @@ public class Arkanoid extends Canvas {
 	public void initWorld () {
 		
 		//Creamos la primera fase
-		this.faseActiva= new Nivel1();
+		if(nivel1Acabado==false) {
+			this.faseActiva= new Nivel1();
+		}
+		else {
+			this.faseActiva= new Nivel2();
+		}
 		this.faseActiva.inicializaFase(); 
 		
 		//Agregamos los actores del primer nivel, limpiamos y añadimos todos
@@ -190,6 +203,11 @@ public class Arkanoid extends Canvas {
 				// Actualizamos y pintamos el nuevo frame
 				updateWorld();
 				paint();
+				if(this.actores.size()<2 && nivelFinal==false) {
+					nivel1Acabado=true;
+					ReiniciarNivel();
+				}
+				GameOver();
 				// Calculamos la cantidad de milisegundos que se ha tardado en realizar un nuevo frame del juego
 				int millisUsados = (int) (System.currentTimeMillis() - millisAntesDeConstruirEscena);
 				// Hago que el programa duerma lo suficiente para que realmente se ejecuten la cantidad de FPS
@@ -203,6 +221,11 @@ public class Arkanoid extends Canvas {
 			}
 		}
 	
+	public void ReiniciarNivel() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void paint() {
 			Toolkit.getDefaultToolkit().sync();
 			// Obtenemos el objeto Graphics (la brocha) desde la estrategia de doble búffer
@@ -219,6 +242,15 @@ public class Arkanoid extends Canvas {
 			// Una vez construida la escena nueva, la mostramos.
 			strategy.show();
 		}
+	
+	public void GameOver() {
+		if (inmortal != true) {
+			if (vidas<= 0) {
+				JOptionPane.showMessageDialog(null, "HAS PERDIDO, DEBES MEJORAR");
+				System.exit(0);
+			}
+		}
+	}
 	
 	
 

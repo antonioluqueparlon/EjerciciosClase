@@ -18,17 +18,8 @@ public class SpritesRepository {
 	// Carpeta en la que se encuentran los recursos: imágenes, sonidos, etc.
 	private static String RESOURCES_FOLDER = "../res/";
 	
-	//Posibles recursos
-	public String NAVE="nave-50x15.png";
 
-	
-	/**
-	 * Default constructor
-	 */
-	public SpritesRepository() {
-		//Cargo en memoria los recursos
-		this.getSprite(NAVE);
-	}
+
 	
 	/**
 	 * Método principal del patrón Singleton

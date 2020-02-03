@@ -45,6 +45,7 @@
       margin: 0 auto;
       border: 1px solid #1572ff;
       background-color:rgb(255, 255, 255);
+      text-align: center
     }
     #tablaParlon {
       border: 3px solid #1572ff;
@@ -89,7 +90,84 @@
 
 <table id="tablaTercera">
 <tr> 
-    <td></td>
+    <td>
+      <form name=formu>
+        <table>
+        <tr>
+        <td>Nombre</td>
+        <td>
+        <input type=text id=nombre name=nombre size=40>
+        </td>
+        </tr>
+        <tr>
+        <td>Apellidos</td>
+        <td>
+        <input type=text id=apellidos name=apellidos size=40>
+        </td>
+        </tr>
+        <tr>
+        <td>DNI</td>
+        <td>
+        <input type=text id=dni name=dni  size=40>
+        </td>
+        </tr>
+        <tr>
+        <td>Email</td>
+        <td>
+        <input type=text id=email name=email  size=40>
+        </td>
+        </tr>
+        <br>
+        <tr>
+
+        <td>¿De que casa eres?</td>
+        <td>
+         Griffindor<input type=radio id=hogwarrts name=casa value="griffindor"><br>
+         Hufflepuff<input type=radio id=hogwarrts name=casa value="huflepuff"><br>
+         Ravenclaw<input type=radio id=hogwarrts name=casa value="ravenclaw"><br>
+         Slytherin<input type=radio id=hogwarrts name=casa value="slytherin"><br>
+         <br>
+        </td>
+        </tr>
+        <p>
+        <tr>
+        <td><label>¿Eres Mago o eres un Muggle?</td>
+        <td>
+        Mago<input type=radio name=tipomago value=mago> Muggle<input type="radio" name="tipomago" value="muggle">
+      </label>
+      </p
+
+        
+>
+        
+        </tr>
+        <tr>
+        <td>Edad</td>
+        <td>
+        <select id=select name=select>
+          <option value="1">0-15</option>
+          <option value="2">16-30</option>
+          <option value="3">31-45</option>
+          <option value="4">46-60</option>
+          <option value="5">61-75</option>
+          <option value="6">76-90</option>
+          <option value="7">91-99</option>
+          <option value="8">+100</option>
+          </select>
+          <br>
+
+        <tr>
+        <td><label for ="Descripcion">¿Que es lo que mas te gusta de la Saga Harry Potter?</td></label>
+        <td>
+          <textarea name="Descripcion" id="Descripcion" cols="45" rows="5"></textarea>
+        </select>
+        </td>
+        </tr>
+        </table>
+        <br><br>
+        <input type=button value="Enviar" onclick="validacion()"><br><br>
+        </form>
+    </td>
 
 </tr>
 </table>
