@@ -33,7 +33,7 @@ public class Arkanoid extends Canvas {
 	
 	// Velocidad de los fotogramas, en concreto este indica que el proceso de redibujado dormirá 10 millis
 	// tras haber repintado la escena
-	public static final int FPS=101;
+	public static final int FPS=120;
 	
 	// Lista con todos los actores que intervienen en el videojuego
 	List<Actor> actores = new ArrayList<Actor>(); 
