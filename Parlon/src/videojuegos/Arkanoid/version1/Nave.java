@@ -23,7 +23,7 @@ public class Nave extends Actor{
 	 */
 	public Nave() {
 		super();
-		this.spriteActual=CacheImagenes.getInstancia().getImagen("nave-50x15.png");
+		this.spriteActual=CacheRecursos.getInstance().getImagen("nave-50x15.png");
 		//ajusto el ancho de la nave al del sprite y el alto
 		this.ancho=this.spriteActual.getWidth();
 		this.alto=this.spriteActual.getHeight();

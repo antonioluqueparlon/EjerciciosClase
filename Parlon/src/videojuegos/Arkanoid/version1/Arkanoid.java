@@ -22,19 +22,18 @@ import javax.swing.JPanel;
 
 
 
-
 public class Arkanoid extends Canvas {
 	
 	// Ventana principal del juego
 	JFrame ventana = new JFrame("Arkanoid de Parlón");
 	
 	// Indicamos alto y ancho del objeto tipo Canvas
-	public static final int JFRAME_WIDTH=800;
-	public static final int JFRAME_HEIGHT=600;
+	public static final int JFRAME_WIDTH=564;
+	public static final int JFRAME_HEIGHT=800;
 	
 	// Velocidad de los fotogramas, en concreto este indica que el proceso de redibujado dormirá 10 millis
 	// tras haber repintado la escena
-	public static final int FPS=120;
+	public static final int FPS=101;
 	
 	// Lista con todos los actores que intervienen en el videojuego
 	List<Actor> actores = new ArrayList<Actor>(); 
@@ -57,7 +56,7 @@ public class Arkanoid extends Canvas {
 	int vidas=3;
 	boolean inmortal=false;
 	boolean fastidio=false;
-	int puntuacion=0;
+	int puntos=0;
 	boolean nivelFinal = false;
 	boolean nivel1Acabado = false;
 	
@@ -175,9 +174,9 @@ public class Arkanoid extends Canvas {
 		}
 		
 		
-	
 	}
 	
+	//metodo que detecta colisiones con rectangulos imaginarios
 	private void detectarYNotificarColision (Actor actor1, Actor actor2) {
 		Rectangle rectActor1 = new Rectangle(actor1.getX(), actor1.getY(), actor1.getAncho(), actor1.getAlto());
 		Rectangle rectActor2 = new Rectangle (actor2.getX(), actor2.getY(), actor2.getAncho(), actor2.getAlto());
@@ -222,25 +221,35 @@ public class Arkanoid extends Canvas {
 		}
 	
 	public void ReiniciarNivel() {
-		// TODO Auto-generated method stub
-		
+		actores.remove(this.pelota);
+		if(pelota.UnaVidaMenos == false) {
+			pelota= new Pelota();
+		}
+		puntos=0;
+		actores.add(pelota);
+		pelota.trayectoria = null;
+		pelota.velocidadPorFrame = 2f; // velocidad con la que sale la pelota al principio
+		game();
 	}
 
 	public void paint() {
-			Toolkit.getDefaultToolkit().sync();
-			// Obtenemos el objeto Graphics (la brocha) desde la estrategia de doble búffer
-			Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
-			// Lo primero que hace cada frame es pintar un rectángulo tan grande como la escena,
-			// para superponer la escena anterior.
-			g.setColor(Color.BLACK);
-			g.fillRect( 0, 0, getWidth(), getHeight());
-
-			// Ejecutamos el método paint de cada uno de los actores
-			for (Actor actor : this.actores) {
-				actor.paint(g);
-			}
-			// Una vez construida la escena nueva, la mostramos.
-			strategy.show();
+		// Obtenemos el objeto Graphics (la brocha) desde la estrategia de doble bï¿½ffer
+		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
+		// Lo primero que hace cada frame es pintar un rectï¿½ngulo tan grande como la escena,
+		// para superponer la escena anterior.
+		g.drawImage(CacheRecursos.getInstance().getImagen("fondodb.jpg"),0,0,this);
+		if (inmortal != true) {
+		g.setColor(Color.BLACK);
+		g.drawString("VIDAS: " + vidas, 480, 750);
+		}
+		g.setColor(Color.BLACK);
+		g.drawString("PUNTOS: " + puntos, 10, 750);
+		// Ejecutamos el mï¿½todo paint de cada uno de los actores
+		for (Actor actor : this.actores) {
+			actor.paint(g);
+		}
+		// Una vez construida la escena nueva, la mostramos.
+		strategy.show();;
 		}
 	
 	public void GameOver() {
@@ -257,6 +266,7 @@ public class Arkanoid extends Canvas {
 	
 	
 	public static void main(String[] args) {
+		CacheRecursos.getInstance().cargarRecursosEnMemoria();
 		Arkanoid.getInstance().game();
 		
 	}

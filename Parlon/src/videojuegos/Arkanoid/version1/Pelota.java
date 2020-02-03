@@ -19,6 +19,8 @@ public class Pelota extends Actor {
 	
 	public boolean espacio=false;// estas banderas son para indicar que el juego
 	public boolean click=false;//empieza cuando le demos click o al espacio
+	public boolean UnaVidaMenos=false;//cuando muramos se nos quitara una vida; iniciamos en false la bandera
+	float velocidadPorFrame = 2;
 
 	public void paint(Graphics2D g) {
 		g.setColor(Color.WHITE);
@@ -61,7 +63,8 @@ public class Pelota extends Actor {
 		}
 	}
 	
-	public void ColisionConActores(Actor actorcolisionado) {
+	@Override
+	public void colisionConOtroActor(Actor actorcolisionado) {
 		super.colisionConOtroActor(actorcolisionado);
 		if (actorcolisionado instanceof Ladrillos) { // Colision con ladrillo
 			colisionConLadrillo(actorcolisionado);

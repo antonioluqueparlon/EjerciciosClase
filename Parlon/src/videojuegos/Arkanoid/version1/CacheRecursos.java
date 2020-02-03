@@ -1,4 +1,4 @@
-package videojuegos.Arkanoid.arkanoidFinal;
+package videojuegos.Arkanoid.version1;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
@@ -23,18 +23,18 @@ public class CacheRecursos {
 	
 	
 	// Instancia Singleton
-	private static CacheRecursos instancia= null;
+	private static CacheRecursos instance= null;
 	
 	
 	/**
 	 * Getter Singleton
 	 * @return
 	 */
-	public static CacheRecursos getInstancia () {
-		if (instancia == null) {
-			instancia = new CacheRecursos();
+	public static CacheRecursos getInstance () {
+		if (instance == null) {
+			instance = new CacheRecursos();
 		}
-		return instancia;
+		return instance;
 	}
 
 

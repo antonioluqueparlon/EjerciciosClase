@@ -24,7 +24,7 @@ public class Actor {
 	 */
 	public Actor() {
 		// En principio coloco una imagen genérica al actor
-		spriteActual = CacheImagenes.getInstancia().getImagen("sin-imagen.png");
+		spriteActual = CacheRecursos.getInstance().getImagen("sin-imagen.png");
 		//spriteActual= CacheImagenes.getInstancia().getImagen("nave-50x15.png");
 	}
 	

@@ -16,15 +16,15 @@ public class Explosion extends Actor {
 		//Carga de los sprites de la explosion
 		List<BufferedImage> nuevosSpritesExplosion= new ArrayList<BufferedImage>();
 	
-		nuevosSpritesExplosion.add(CacheImagenes.getInstancia().getImagen("sprite-explosion1.png"));
-		nuevosSpritesExplosion.add(CacheImagenes.getInstancia().getImagen("sprite-explosion2.png"));
-		nuevosSpritesExplosion.add(CacheImagenes.getInstancia().getImagen("sprite-explosion3.png"));
-		nuevosSpritesExplosion.add(CacheImagenes.getInstancia().getImagen("sprite-explosion4.png"));
-		nuevosSpritesExplosion.add(CacheImagenes.getInstancia().getImagen("sprite-explosion5.png"));
-		nuevosSpritesExplosion.add(CacheImagenes.getInstancia().getImagen("sprite-explosion6.png"));
-		nuevosSpritesExplosion.add(CacheImagenes.getInstancia().getImagen("sprite-explosion7.png"));
-		nuevosSpritesExplosion.add(CacheImagenes.getInstancia().getImagen("sprite-explosion8.png"));
-		nuevosSpritesExplosion.add(CacheImagenes.getInstancia().getImagen("sprite-explosion9.png"));
+		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion1.png"));
+		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion2.png"));
+		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion3.png"));
+		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion4.png"));
+		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion5.png"));
+		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion6.png"));
+		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion7.png"));
+		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion8.png"));
+		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion9.png"));
 		this.setSpritesDeAnimacionExplosion(nuevosSpritesExplosion);
 		// Sprite actual
 		this.spriteActual = this.getSpritesDeAnimacionExplosion().get(0);
