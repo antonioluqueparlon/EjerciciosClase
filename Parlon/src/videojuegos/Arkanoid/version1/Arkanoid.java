@@ -14,12 +14,9 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-
 
 
 public class Arkanoid extends Canvas {
@@ -46,8 +43,8 @@ public class Arkanoid extends Canvas {
 	
 	
 	// Referencia que guardaremos apuntando al objeto de tipo Player
-	Nave nave = null;
-	Pelota pelota= null;
+	Nave nave = new Nave();
+	Pelota pelota= new Pelota();
 		
 	//Niveles del juego
 	Fase faseActiva=null;
@@ -97,7 +94,9 @@ public class Arkanoid extends Canvas {
 			Toolkit.getDefaultToolkit().sync();
 			
 			// Agrego los controladores de ratón y de teclado
-			this.addMouseMotionListener(new DriverRaton());
+			DriverRaton driverRaton = new DriverRaton();
+			this.addMouseMotionListener(driverRaton);
+			this.addMouseListener(driverRaton);
 			this.addKeyListener(new DriverTeclado());
 	}
 	
@@ -109,8 +108,8 @@ public class Arkanoid extends Canvas {
 	}
 
 	/**
-	 * Al cerrar la aplicación preguntaremos al usuario si está seguro de que desea salir.
-	 */
+	* Al cerrar la aplicación preguntaremos al usuario si está seguro de que desea salir.
+	*/
 	private void cerrarAplicacion() {
 		String [] opciones ={"Aceptar","Cancelar"};
 		int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea cerrar la aplicación?","Salir de la aplicación",
@@ -137,10 +136,8 @@ public class Arkanoid extends Canvas {
 		this.actores.addAll(this.faseActiva.getActores());
 		
 		// Creación de los actores Nave y Bola
-		this.nave = new Nave(); // creo el jugador
-		this.actores.add(this.nave); // creo el jugador y lo guardo
-		this.pelota = new Pelota(); // creo la pelota
-		this.actores.add(this.pelota);// guardo la pelota
+		this.actores.add(this.nave);//guardo la nava
+	    this.actores.add(this.pelota);// guardo la pelota
 		
 	}
 	
@@ -151,7 +148,9 @@ public class Arkanoid extends Canvas {
 		// También intentaré encontrar una colisión entre la bola y la nave
 		for (Actor actor : this.actores) {
 			if (actor instanceof Ladrillos || actor instanceof Nave) {
-				detectarYNotificarColision (actor, this.getPelota());
+				if (detectarYNotificarColisionConPelota (actor)) {
+					break;
+				}
 			}
 		}
 		
@@ -176,16 +175,17 @@ public class Arkanoid extends Canvas {
 		
 	}
 	
-	//metodo que detecta colisiones con rectangulos imaginarios
-	private void detectarYNotificarColision (Actor actor1, Actor actor2) {
-		Rectangle rectActor1 = new Rectangle(actor1.getX(), actor1.getY(), actor1.getAncho(), actor1.getAlto());
-		Rectangle rectActor2 = new Rectangle (actor2.getX(), actor2.getY(), actor2.getAncho(), actor2.getAlto());
-		if (rectActor1.intersects(rectActor2)) {
+	//metodo que detecta colisiones con rectangulos imaginarios en este caso la pelota
+	private boolean detectarYNotificarColisionConPelota (Actor actor) {
+		Rectangle rectActor = new Rectangle(actor.getX(), actor.getY(), actor.getAncho(), actor.getAlto());
+		if (rectActor.intersects(this.pelota.getRectanguloParaColisiones())) {
 			// En el caso de que exista una colisión, informo a los dos actores de que han colisionado y les indico el
 			// actor con el que se ha producido el choque
-			actor1.colisionConOtroActor(actor2);
-			actor2.colisionConOtroActor(actor1);
+			actor.colisionConOtroActor(this.pelota);
+			this.pelota.colisionConOtroActor(actor);
+			return true;
 		}
+		return false;
 	}
 	
 	public void agregarActor (Actor nuevoActor) {
@@ -222,10 +222,10 @@ public class Arkanoid extends Canvas {
 	
 	public void ReiniciarNivel() {
 		actores.remove(this.pelota);
-		if(pelota.UnaVidaMenos == false) {
+		if(pelota.vidaMenos == false) {
 			pelota= new Pelota();
 		}
-		puntos=0;
+		puntos= puntos -150;
 		actores.add(pelota);
 		pelota.trayectoria = null;
 		pelota.velocidadPorFrame = 2f; // velocidad con la que sale la pelota al principio
@@ -233,9 +233,9 @@ public class Arkanoid extends Canvas {
 	}
 
 	public void paint() {
-		// Obtenemos el objeto Graphics (la brocha) desde la estrategia de doble bï¿½ffer
+		// Obtenemos el objeto Graphics (la brocha) desde la estrategia de doble buffer
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
-		// Lo primero que hace cada frame es pintar un rectï¿½ngulo tan grande como la escena,
+		// Lo primero que hace cada frame es pintar un rectangulo tan grande como la escena,
 		// para superponer la escena anterior.
 		g.drawImage(CacheRecursos.getInstance().getImagen("fondodb.jpg"),0,0,this);
 		if (inmortal != true) {
@@ -244,7 +244,7 @@ public class Arkanoid extends Canvas {
 		}
 		g.setColor(Color.BLACK);
 		g.drawString("PUNTOS: " + puntos, 10, 750);
-		// Ejecutamos el mï¿½todo paint de cada uno de los actores
+		// Ejecutamos el metodo paint de cada uno de los actores
 		for (Actor actor : this.actores) {
 			actor.paint(g);
 		}

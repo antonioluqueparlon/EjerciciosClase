@@ -66,7 +66,7 @@ public class Bola extends Actor {
 
 	
 	/**
-	 * La bola act�a en cada iteraci�n del programa
+	 * La bola actua en cada iteracion del programa
 	 */
 	public void act() {
 		super.act();
@@ -233,7 +233,7 @@ public class Bola extends Actor {
 	 * rect�ngulos imaginarios alrededor del mismo.
 	 * @param actorColisionado
 	 */
-	private void colisionConLadrillo (Actor actorColisionado) {
+	private void colisionConLadrillo (Actor actorColisionado) { // esto no me va
 		int margenLateral = 4; // Este mare
 		// Creo peque�os rect�ngulos que coincidir�n con los bordes del ladrillo
 		Rectangle rectArribaActor = new Rectangle(actorColisionado.getX(), actorColisionado.getY(), actorColisionado.getAncho(), 1);

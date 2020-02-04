@@ -8,13 +8,9 @@ import java.net.URL;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 
-/**
- * 
- * @author R
- *
- */
+
 public class CacheRecursos {
-	// HashMap que act�a como almac�n de im�genes
+	// HashMap que activa como almacen de imagenes
 	private HashMap<String, Object> hmRecursos = new HashMap<String, Object>();
 	// Carpetas en la que se encuentran todos los recursos
 	private String nombreCarpetaParaFile = "./src/videojuegos/Arkanoid/res/";
