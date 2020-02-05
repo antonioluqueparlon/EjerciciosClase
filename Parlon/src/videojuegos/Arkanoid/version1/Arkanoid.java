@@ -12,11 +12,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 
 public class Arkanoid extends Canvas {
@@ -26,7 +28,7 @@ public class Arkanoid extends Canvas {
 	
 	// Indicamos alto y ancho del objeto tipo Canvas
 	public static final int JFRAME_WIDTH=564;
-	public static final int JFRAME_HEIGHT=800;
+	public static final int JFRAME_HEIGHT=931;
 	
 	// Velocidad de los fotogramas, en concreto este indica que el proceso de redibujado dormirá 10 millis
 	// tras haber repintado la escena
@@ -45,6 +47,7 @@ public class Arkanoid extends Canvas {
 	// Referencia que guardaremos apuntando al objeto de tipo Player
 	Nave nave = new Nave();
 	Pelota pelota= new Pelota();
+	
 		
 	//Niveles del juego
 	Fase faseActiva=null;
@@ -53,7 +56,7 @@ public class Arkanoid extends Canvas {
 	int vidas=3;
 	boolean inmortal=false;
 	boolean fastidio=false;
-	int puntos=0;
+	int puntos;
 	boolean nivelFinal = false;
 	boolean nivel1Acabado = false;
 	
@@ -136,7 +139,7 @@ public class Arkanoid extends Canvas {
 		this.actores.addAll(this.faseActiva.getActores());
 		
 		// Creación de los actores Nave y Bola
-		this.actores.add(this.nave);//guardo la nava
+		this.actores.add(this.nave);//guardo la nave
 	    this.actores.add(this.pelota);// guardo la pelota
 		
 	}
@@ -163,7 +166,7 @@ public class Arkanoid extends Canvas {
 		}
 		
 		//Agrego los nuevos actores que seran la explosiones
-		for(Actor nuevoActor :this.nuevosactores) {
+		for(Actor nuevoActor : this.nuevosactores) {
 			this.actores.add(0,nuevoActor);
 		}
 		this.nuevosactores.clear(); // Limpio el array de actores a insertar
@@ -171,7 +174,6 @@ public class Arkanoid extends Canvas {
 		for (Actor actor : this.actores) {
 			actor.act();
 		}
-		
 		
 	}
 	
@@ -200,17 +202,18 @@ public class Arkanoid extends Canvas {
 			// Este bucle se ejecutará mientras el objeto Canvas sea visible.
 			while (this.isVisible()) {
 				// Tomamos el tiempo en milisegundos antes de repintar el frame
-				long millisAntesDeConstruirEscena = System.currentTimeMillis();
+				long millisAntesDeConstruirEscenario = System.currentTimeMillis();
 				// Actualizamos y pintamos el nuevo frame
 				updateWorld();
 				paint();
-				if(this.actores.size()<2 && nivelFinal==false) {
-					nivel1Acabado=true;
+				if (this.actores.size() <= 2 && nivelFinal == false) {
+					nivel1Acabado = true;
 					ReiniciarNivel();
 				}
+				
 				GameOver();
 				// Calculamos la cantidad de milisegundos que se ha tardado en realizar un nuevo frame del juego
-				int millisUsados = (int) (System.currentTimeMillis() - millisAntesDeConstruirEscena);
+				int millisUsados = (int) (System.currentTimeMillis() - millisAntesDeConstruirEscenario);
 				// Hago que el programa duerma lo suficiente para que realmente se ejecuten la cantidad de FPS
 				// que tenemos programados
 				try { 
@@ -239,24 +242,26 @@ public class Arkanoid extends Canvas {
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 		// Lo primero que hace cada frame es pintar un rectangulo tan grande como la escena,
 		// para superponer la escena anterior.
-		g.drawImage(CacheRecursos.getInstance().getImagen("fondodb.jpg"),0,0,this);
+		g.drawImage(CacheRecursos.getInstance().getImagen("fondodb2.jpg"),0,0,this);
 		if (inmortal != true) {
-		g.setColor(Color.BLACK);
-		g.drawString("VIDAS: " + vidas, 480, 750);
+		g.setColor(Color.WHITE);
+		g.drawString("VIDAS: " + vidas, 480, 870);
 		}
-		g.setColor(Color.BLACK);
-		g.drawString("PUNTOS: " + puntos, 10, 750);
+		g.setColor(Color.WHITE);
+		g.drawString("PUNTOS: " + puntos, 10, 870);
 		// Ejecutamos el metodo paint de cada uno de los actores
 		for (Actor actor : this.actores) {
 			actor.paint(g);
 		}
 		// Una vez construida la escena nueva, la mostramos.
 		strategy.show();
-		}
+	}
 	
 	public void GameOver() {
 		if (inmortal != true) {
 			if (vidas<= 0) {
+				//BufferedImage gameover = CacheRecursos.getInstance().getImagen("game-over.png");
+				//g.drawImage(gameover, 0,0, this);
 				JOptionPane.showMessageDialog(null, "HAS PERDIDO, DEBES MEJORAR");
 				System.exit(0);
 			}
@@ -296,6 +301,9 @@ public class Arkanoid extends Canvas {
 	public void setPelota(Pelota pelota) {
 		this.pelota = pelota;
 	}
+
+
+	
 	
 	
 }

@@ -9,7 +9,7 @@ public class Nave extends Actor {
 	// propiedades de la nave
 	private boolean moviendoAIzquierda = false;
 	private boolean moviendoADerecha = false;
-	private int velocidad = 5;
+	private int velocidadEjeX = 5;
 	
 	
 	/**
@@ -32,12 +32,12 @@ public class Nave extends Actor {
 	@Override
 	public void act() {
 		// Controlo que el movimiento a derecha no haga que la nave se pierda por la derecha
-		if (this.moviendoADerecha && (this.x + this.velocidad + this.ancho <= Arkanoid.JFRAME_HEIGHT)) {
-			this.x += this.velocidad;
+		if (this.moviendoADerecha && (this.x + this.velocidadEjeX + this.ancho <= Arkanoid.JFRAME_WIDTH)) {
+			this.x += this.velocidadEjeX;
 		}
 		// Control que el movimiento a izquierda no haga que la nave se pierda por la izquierda
-		if (this.moviendoAIzquierda && (this.x - this.velocidad >= 0)) {
-			this.x -= this.velocidad;
+		if (this.moviendoAIzquierda && (this.x - this.velocidadEjeX >= 0)) {
+			this.x -= this.velocidadEjeX;
 		}
 		// Notifico el cambio de posici�n de la nave a la pelota. Cuando estamos al principio del juego
 		// la bola debe permanecer pegada a la nave
@@ -57,12 +57,12 @@ public class Nave extends Actor {
 		// Cuando el raton se mueva sobre el canvas, la nave debe situarse a su mismo valor del eje X
 		// Si el raton hace que la nave se pierda por la derecha o la izquierda debo contemplar el hecho de que la nave
 		// no se pierda por ese margen
-		if (!(event.isShiftDown() && event.isControlDown())) { // S�lo moveremos la nave con el raton en unas determinadas circunstancias
-			if (event.getX() >= (this.ancho / 2) // La nave no se perder� por la izquierda
+		if (!(event.isShiftDown() && event.isControlDown())) { // la nave la movemos con el raton en unas determinadas circunstancias
+			if (event.getX() >= (this.ancho / 2) // La nave no se pierde por la izquierda
 					&&
 				event.getX() <= (Arkanoid.JFRAME_WIDTH - this.ancho / 2)) {
 				this.x = event.getX() - this.ancho / 2;
-				// Notifico el cambio de posici�n de la nave a la pelota. Cuando estamos al principio del juego
+				// Notifico el cambio de la nave a la pelota. Cuando estamos al principio del juego
 				// la bola debe permanecer pegada a la nave
 				Arkanoid.getInstance().getPelota().naveControlaInicioPelota(this);
 			}

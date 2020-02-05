@@ -16,7 +16,7 @@ public class Nivel2 extends Fase {
 
 	    // Inicializamos los ladrillos
 	    int numLadrillosPosibles = Arkanoid.JFRAME_WIDTH / (Ladrillos.ANCHO + Ladrillos.EspacioEntreLadrillos);
-	    int margenIzquierdo = (Arkanoid.JFRAME_WIDTH % (Ladrillos.ANCHO + Ladrillos.EspacioEntreLadrillos)) / 2;
+	    int margenIzquierdo = 50;
 	    
 	  //Array de colores de los ladrillos
 		Color ArrayColores[]= new Color[] {Color.BLACK, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.GREEN,

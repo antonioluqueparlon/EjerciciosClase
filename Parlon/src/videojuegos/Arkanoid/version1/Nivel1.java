@@ -3,10 +3,11 @@ package videojuegos.Arkanoid.version1;
 import java.awt.Color;
 
 
+
+
 public class Nivel1 extends Fase {
 	// Propiedades estáticas de la fase
-	public static final int EspacioSuperiorEntreLadrillos = 20;
-
+	public static final int EspacioSuperiorEntreLadrillos = 70;
 	
 	/**
 	 * Inicialización de la fase, es la implementación de un método abstracto en el supertipo
@@ -16,7 +17,7 @@ public class Nivel1 extends Fase {
 
 	    // Inicializamos los ladrillos
 	    int numLadrillosPosibles = Arkanoid.JFRAME_WIDTH / (Ladrillos.ANCHO + Ladrillos.EspacioEntreLadrillos);
-	    int margenIzquierdo = (Arkanoid.JFRAME_WIDTH % (Ladrillos.ANCHO + Ladrillos.EspacioEntreLadrillos)) / 2;
+	    int margenIzquierdo = (Arkanoid.JFRAME_WIDTH % (Ladrillos.ANCHO + Ladrillos.EspacioEntreLadrillos) / 2)-1;
 	    
 	  //Array de colores de los ladrillos
 		Color ArrayColores[]= new Color[] {Color.BLACK, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.GREEN,

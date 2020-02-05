@@ -19,6 +19,8 @@ public class Actor {
 	private int unidadDeTiempo = 0; // La unidad de tiempo aumenta cada vez que se llama al método "act()" del Actor
 	protected List<BufferedImage> spritesDeAnimacionExplosion = new ArrayList<BufferedImage>();
 	
+	protected boolean markedForRemoval = false;
+	
 	/**
 	 * 
 	 */
@@ -62,7 +64,7 @@ public class Actor {
 		this.EstaMarcadoParaEliminar=true;
 	}
 	
-	public void colisionConOtroActor(Actor actorcolisionado) {
+	public void colisionConOtroActor(Actor actorColisionado) {
 		
 	}
 
@@ -124,6 +126,8 @@ public class Actor {
 		}
 	}
 	
+	public boolean isMarkedForRemoval() { return markedForRemoval; }
+	public void setMarkedForRemoval(boolean markedForRemoval) { this.markedForRemoval = markedForRemoval; }
 }
 	
 

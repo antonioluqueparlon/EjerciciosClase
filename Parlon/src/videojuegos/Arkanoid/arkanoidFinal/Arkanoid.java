@@ -39,7 +39,7 @@ public class Arkanoid extends Canvas {
 	boolean inmortal = false;
 	
 	boolean fastidio = false;
-	int puntuacion = 0;
+	int puntuacion ;
 	int vidas = 3;
 	// Fase activa en el juego
 	boolean activo = false;

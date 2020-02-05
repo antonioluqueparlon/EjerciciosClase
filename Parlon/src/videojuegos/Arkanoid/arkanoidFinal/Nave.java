@@ -13,7 +13,7 @@ public class Nave extends Actor {
 	// propiedades de la nave
 	private boolean moviendoAIzquierda = false;
 	private boolean moviendoADerecha = false;
-	private int velocidad = 5;
+	private int velocidadEjeX = 4;
 	
 	
 	/**
@@ -33,17 +33,17 @@ public class Nave extends Actor {
 	
 
 	/**
-	 * M�todo que se llamar� para cada actor, en cada refresco de pantalla del juego
+	 * Metodo que llama a cada actor, en cada refresco de pantalla del juego
 	 */
 	@Override
 	public void act() {
 		// Controlo que el movimiento a derecha no haga que la nave se pierda por la derecha
-		if (this.moviendoADerecha && (this.x + this.velocidad + this.ancho <= Arkanoid.ANCHO)) {
-			this.x += this.velocidad;
+		if (this.moviendoADerecha && (this.x + this.velocidadEjeX + this.ancho <= Arkanoid.ANCHO)) {
+			this.x += this.velocidadEjeX;
 		}
 		// Control que el movimiento a izquierda no haga que la nave se pierda por la izquierda
-		if (this.moviendoAIzquierda && (this.x - this.velocidad >= 0)) {
-			this.x -= this.velocidad;
+		if (this.moviendoAIzquierda && (this.x - this.velocidadEjeX >= 0)) {
+			this.x -= this.velocidadEjeX;
 		}
 		// Notifico el cambio de posici�n de la nave a la pelota. Cuando estamos al principio del juego
 		// la bola debe permanecer pegada a la nave

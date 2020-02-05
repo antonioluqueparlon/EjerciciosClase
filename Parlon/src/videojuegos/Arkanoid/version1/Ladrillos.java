@@ -4,11 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+
 public class Ladrillos extends Actor {
 	
 	public static final int ANCHO = 30;
 	public static final int ALTO = 20;
-	public static final int EspacioEntreLadrillos = 2;
+	public static final int EspacioEntreLadrillos = 3;
+	boolean tocado= false; // esto va a ser para indicar que el ladrillo esta preparado
+	// para romperse y me va a dar puntos
 	
 	private Color color = null;
 	
@@ -50,17 +53,27 @@ public class Ladrillos extends Actor {
 	
 	//el ladrillo detecta una colision con la pelota
 	@Override
-	public void colisionConOtroActor(Actor actorcolisionado) {
+	public void colisionConOtroActor(Actor actorColisionado) {
 		// TODO Auto-generated method stub
-		super.colisionConOtroActor(actorcolisionado);
-		if(actorcolisionado instanceof Pelota) {
+		super.colisionConOtroActor(actorColisionado);
+		if(actorColisionado instanceof Pelota) {
 			eliminar();
 			//creo el nuevo actor para la explosion y pongo que la explosion sea en el centro del ladrillo
+			Arkanoid.getInstance().puntos=Arkanoid.getInstance().puntos + 100 ; // son los puntos que suma al romper ladrillo
 			Explosion explosion = new Explosion(this.getX(),this.getY());
 			explosion.setX(this.x+Ladrillos.ANCHO / 2 -explosion.getAncho()/2); // centrar la explosion
 			Arkanoid.getInstance().agregarActor(explosion);//agrego la explosion al juego
+			CacheRecursos.getInstance().playSonido("Arkanoid-SFX-01.wav");
+			
+			//Le pongo sonido a la explosion 
+			//CacheRecursos.getInstancia().playSonido("Arkanoid-SFX-01.wav");	
 		}
-	}
+		else {
+			tocado=true;
+			Arkanoid.getInstance().puntos=Arkanoid.getInstance().puntos + 100 ;// serian los puntos para otro actor
+		}
+		
+		}
 	
 
 	//GETTERS Y SETTERS
