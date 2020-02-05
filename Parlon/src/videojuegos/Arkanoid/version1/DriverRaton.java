@@ -15,5 +15,12 @@ public class DriverRaton extends MouseAdapter {
 		// Al recibir un evento se le envía directamente a la nave, para que ella lo maneje
 		Arkanoid.getInstance().getNave().mouseMoved(event);
 	}
+	
+	
+	//Nos permite darle click y que inicie el juego
+	public void mouseClicked(MouseEvent event) {
+		super.mouseClicked(event);
+		Arkanoid.getInstance().getPelota().mouseClicked(event);
+	}
 
 }

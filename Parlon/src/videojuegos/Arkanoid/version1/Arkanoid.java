@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 
 
 
+
 public class Arkanoid extends Canvas {
 	
 	// Ventana principal del juego
@@ -46,8 +47,8 @@ public class Arkanoid extends Canvas {
 	
 	
 	// Referencia que guardaremos apuntando al objeto de tipo Player
-	Nave nave = null;
-	Pelota pelota= null;
+	Nave nave = new Nave();
+	Pelota pelota= new Pelota();
 		
 	//Niveles del juego
 	Fase faseActiva=null;
@@ -97,7 +98,9 @@ public class Arkanoid extends Canvas {
 			Toolkit.getDefaultToolkit().sync();
 			
 			// Agrego los controladores de ratón y de teclado
-			this.addMouseMotionListener(new DriverRaton());
+			DriverRaton driverraton=new DriverRaton();
+			this.addMouseMotionListener(driverraton);
+			this.addMouseListener(driverraton);
 			this.addKeyListener(new DriverTeclado());
 	}
 	
@@ -136,10 +139,8 @@ public class Arkanoid extends Canvas {
 		this.actores.clear();
 		this.actores.addAll(this.faseActiva.getActores());
 		
-		// Creación de los actores Nave y Bola
-		this.nave = new Nave(); // creo el jugador
+		// Guardado de los actores Nave y Bola(ya los he creado arriba)
 		this.actores.add(this.nave); // creo el jugador y lo guardo
-		this.pelota = new Pelota(); // creo la pelota
 		this.actores.add(this.pelota);// guardo la pelota
 		
 	}
@@ -151,7 +152,9 @@ public class Arkanoid extends Canvas {
 		// También intentaré encontrar una colisión entre la bola y la nave
 		for (Actor actor : this.actores) {
 			if (actor instanceof Ladrillos || actor instanceof Nave) {
-				detectarYNotificarColision (actor, this.getPelota());
+				if (detectarYNotificarColisionConPelota (actor)){
+					break;
+				}
 			}
 		}
 		
@@ -177,16 +180,20 @@ public class Arkanoid extends Canvas {
 	}
 	
 	//metodo que detecta colisiones con rectangulos imaginarios
-	private void detectarYNotificarColision (Actor actor1, Actor actor2) {
-		Rectangle rectActor1 = new Rectangle(actor1.getX(), actor1.getY(), actor1.getAncho(), actor1.getAlto());
-		Rectangle rectActor2 = new Rectangle (actor2.getX(), actor2.getY(), actor2.getAncho(), actor2.getAlto());
-		if (rectActor1.intersects(rectActor2)) {
+	private boolean detectarYNotificarColisionConPelota (Actor actor) {
+		Rectangle rectActor = new Rectangle(actor.getX(), actor.getY(), actor.getAncho(), actor.getAlto());
+		
+		if (rectActor.intersects(this.pelota.getRectanguloParaColisiones())) {
 			// En el caso de que exista una colisión, informo a los dos actores de que han colisionado y les indico el
 			// actor con el que se ha producido el choque
-			actor1.colisionConOtroActor(actor2);
-			actor2.colisionConOtroActor(actor1);
+			actor.colisionConOtroActor(this.pelota);
+			this.nave.colisionConOtroActor(actor);
+			return true;
 		}
+		return false;
 	}
+	
+	
 	
 	public void agregarActor (Actor nuevoActor) {
 		this.nuevosactores.add(nuevoActor);
@@ -222,10 +229,10 @@ public class Arkanoid extends Canvas {
 	
 	public void ReiniciarNivel() {
 		actores.remove(this.pelota);
-		if(pelota.UnaVidaMenos == false) {
+		if(pelota.vidaMenos == false) {
 			pelota= new Pelota();
 		}
-		puntos=0;
+		puntos=puntos -150;
 		actores.add(pelota);
 		pelota.trayectoria = null;
 		pelota.velocidadPorFrame = 2f; // velocidad con la que sale la pelota al principio
@@ -235,7 +242,7 @@ public class Arkanoid extends Canvas {
 	public void paint() {
 		// Obtenemos el objeto Graphics (la brocha) desde la estrategia de doble bï¿½ffer
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
-		// Lo primero que hace cada frame es pintar un rectï¿½ngulo tan grande como la escena,
+		// Lo primero que hace cada frame es pintar un rectangulo tan grande como la escena,
 		// para superponer la escena anterior.
 		g.drawImage(CacheRecursos.getInstance().getImagen("fondodb.jpg"),0,0,this);
 		if (inmortal != true) {
@@ -244,13 +251,13 @@ public class Arkanoid extends Canvas {
 		}
 		g.setColor(Color.BLACK);
 		g.drawString("PUNTOS: " + puntos, 10, 750);
-		// Ejecutamos el mï¿½todo paint de cada uno de los actores
+		// Ejecutamos el metodo paint de cada uno de los actores
 		for (Actor actor : this.actores) {
 			actor.paint(g);
 		}
 		// Una vez construida la escena nueva, la mostramos.
-		strategy.show();;
-		}
+		strategy.show();
+	}
 	
 	public void GameOver() {
 		if (inmortal != true) {

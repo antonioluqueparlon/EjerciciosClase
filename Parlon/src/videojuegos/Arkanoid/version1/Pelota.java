@@ -1,83 +1,94 @@
 package videojuegos.Arkanoid.version1;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Date;
 
 
-
-
 public class Pelota extends Actor {
-
-	public static final int DiametroBola=15;
-	private int velocidadX=5;
-	int vidas=3;
-	public static int SegundosDeEsperaPelota=5;
-	float VelocidadPelota = 2.5f;
-	private PuntoAltaPrecision coordenadas=null;
-	public TrayectoriaRecta trayectoria=null;
+	// Pienso que, aunque más adelante en el juego pueda haber varias bolas, en principio su diámetro no cambia
+	public static final int DIAMETRO = 15;
+	// Segundos que se puede esperar con la bola quieta
+	public static final int SEGUNDOS_MAXIMA_ESPERA_A_INICIO_DE_MOVIMIENTO = 5;
+	// La siguiente variable nos ayuda a contar el tiempo que ha pasado desde que se inicializa la bola
+	private long millisDesdeInicializacion = new Date().getTime();
 	
-	public boolean espacio=false;// estas banderas son para indicar que el juego
-	public boolean click=false;//empieza cuando le demos click o al espacio
-	public boolean UnaVidaMenos=false;//cuando muramos se nos quitara una vida; iniciamos en false la bandera
-	float velocidadPorFrame = 2;
-	long milis = System.currentTimeMillis();// segundos en los que empieza el juego
-	long segundos;// segundos que le vamos a asignar a la pelota para que empiece
-	long milisDesdeQueEmpiezaElJuego; // tiempo que transcurre desde que ha empezado
-	private static final float VelocidadMaxima = 10;
-	private float incrementoVelocidad = 1.00035f;
+	// La bola se moverá en una determinada recta (trayectoria) con una determinada velocidad
+	public TrayectoriaRecta trayectoria = null;
+	boolean espacio =false;
+	boolean click = false;
 	
-
-	public void paint(Graphics2D g) {
-		g.setColor(Color.BLACK);
-		g.fillOval(Math.round(this.coordenadas.x),Math.round(this.coordenadas.y), DiametroBola, DiametroBola);
-	}
+	long segundos;
+	// Para el control preciso del aumento de la velocidad de la bola constante utilizo unas coordenadas flotantes
+	// aunque eso no quita que sigan existiendo las coordenades x e y del supertipo Actor. De hecho, cada vez que
+	// actualizamos las coordenadas flotantes también actualizaré las coordenadas enteras.
+	private PuntoAltaPrecision coordenadas = null;
+	float velocidadPorFrame = 2.5f; // Velocidad inicial de la bola, expresada en pixels por frame
+	// La velocidad de la Bola aumentará conforme vaya aumentando el número de frames generados con el siguiente factor
+	private float factorIncrementoVelocidadBola = 1.00035f;
+	long milis=System.currentTimeMillis();
+	// Máxima velocidad posible a alcanzar
+	private static final float MAXIMA_VELOCIDAD = 10;
+	public boolean vidaMenos=false;
 	
+	
+	
+	/**
+	 * 
+	 */
 	public Pelota() {
 		super();
 		spriteActual = null; // La bola se pinta de forma vectorial
-		this.x = Arkanoid.getInstance().getWidth() / 2;
-		this.y = Arkanoid.getInstance().getHeight() / 2;
-		this.alto=DiametroBola;
-		this.ancho=DiametroBola;
-		this.coordenadas= new PuntoAltaPrecision(x, y);
+		this.x = Arkanoid.JFRAME_WIDTH / 2;
+		this.y = Arkanoid.JFRAME_HEIGHT / 2;
+		// Inicializamos las coordenadas de alta precisión
+		this.coordenadas = new PuntoAltaPrecision(x, y);
+		this.ancho = DIAMETRO;
+		this.alto = DIAMETRO;
+	}
+
+	/**
+	 * Pintado de la bola en pantalla
+	 */
+	public void paint(Graphics2D g){
+		g.setColor(Color.BLACK);
+		// Se pinta la bola como un círculo
+		g.fillOval(Math.round(this.coordenadas.x), Math.round(this.coordenadas.y), DIAMETRO, DIAMETRO);
 	}
 
 	
+	/**
+	 * La bola actúa en cada iteración del programa
+	 */
 	public void act() {
 		super.act();
-		milisDesdeQueEmpiezaElJuego = System.currentTimeMillis();
-		segundos = milisDesdeQueEmpiezaElJuego - milis; 
+		millisDesdeInicializacion = System.currentTimeMillis();
+		segundos = millisDesdeInicializacion - milis; 
 		if (espacio == true || click == true || segundos> 5) {
-		// Si la bola lleva una cantidad de segundos quieta, se pondrï¿½ automï¿½ticamente en movimiento
+		// Si la bola lleva una cantidad de segundos quieta, se pondrá automáticamente en movimiento
 		long millisActuales = new Date().getTime();
 		if (this.trayectoria == null &&
-			(millisActuales - this.milisDesdeQueEmpiezaElJuego) >= (1000 * SegundosDeEsperaPelota)) {
+			(millisActuales - this.millisDesdeInicializacion) >= (1000 * SEGUNDOS_MAXIMA_ESPERA_A_INICIO_DE_MOVIMIENTO)) {
 			this.iniciarMovimiento(-1, -1);
 		}
 		
 		if (this.trayectoria != null) {
-			// Si la bola toca el borde por arriba o por abajo, su trayectoria se reflejarï¿½ verticalmente
+			// Si la bola toca el borde por arriba o por abajo, su trayectoria se reflejará verticalmente
 			if (this.y < 0) {
 				this.trayectoria.reflejarHaciaAbajo(this.coordenadas);
 			}
-			else if (this.y > Arkanoid.JFRAME_HEIGHT - DiametroBola) {
-				UnaVidaMenos = true; 
-				if (Arkanoid.getInstance().inmortal != true) {
-					Arkanoid.getInstance().vidas--;
-				}
-								
-				Arkanoid.getInstance().ReiniciarNivel();
-			
+			else if (this.y > Arkanoid.JFRAME_HEIGHT - DIAMETRO) {
+				this.trayectoria.reflejarHaciaArriba(this.coordenadas);
 			}
 			// Si la bola se toca el borde por la izquierda o por la derecha, su velocidad cambia de signo
 			else if (this.x < 0) {
 				this.trayectoria.reflejarHaciaDerecha(this.coordenadas);
 			}
-			else if (this.x > Arkanoid.JFRAME_WIDTH - DiametroBola) {
+			else if (this.x > Arkanoid.JFRAME_WIDTH - DIAMETRO) {
 				this.trayectoria.reflejarHaciaIzquierda(this.coordenadas);
 			}
 
@@ -89,51 +100,33 @@ public class Pelota extends Actor {
 			this.x = Math.round(this.coordenadas.x);
 			this.y = Math.round(this.coordenadas.y);
 			
-			// Detecto si es necesario aumentar la velocidad de la bola y, si es asï¿½, lo hago, hasta que llegue al lï¿½mite
-			if (this.velocidadPorFrame < VelocidadMaxima) {
-				this.velocidadPorFrame *= this.incrementoVelocidad;
+			// Detecto si es necesario aumentar la velocidad de la bola y, si es así, lo hago, hasta que llegue al límite
+			if (this.velocidadPorFrame < MAXIMA_VELOCIDAD) {
+				this.velocidadPorFrame *= this.factorIncrementoVelocidadBola;
 			}
 		}
+		}
+	}
 
-		}
+	/**
+	 * Métodos llamados desde el controlador del teclado, para delegar el evento del teclado
+	 * @param event
+	 */
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			this.iniciarMovimiento(-1, -1);
+	  	}
 	}
 	
-
-	public void NaveControlaInicioPelota(Nave nave) {
-		//Si no tiene la trayectoria la bola le asigno las coordenadas oficiales que seran
-		//las mismas que las de la nave al inicio
-		if(trayectoria ==null) {
-			this.coordenadas.x = nave.getX() + nave.getAncho() / 2;
-			this.coordenadas.y = nave.getY() - this.getAlto() - 1;
-			this.x = Math.round(this.coordenadas.x);
-			this.y = Math.round(this.coordenadas.y);
-		}
-	}
-	
-	@Override
-	public void colisionConOtroActor(Actor actorcolisionado) {
-		super.colisionConOtroActor(actorcolisionado);
-		if (actorcolisionado instanceof Ladrillos) { // Colision con ladrillo
-			colisionConLadrillo(actorcolisionado);
-		}
-		else if (actorcolisionado instanceof Nave) { // Colision con nave
-			colisionConNave((Nave)  actorcolisionado);
-		}
-	}
-	
-	private void colisionConLadrillo(Actor actorcolisionado) {
-		
-	}
-	
-	private void colisionConNave(Nave nave) {
-		
-	}
-	
-	// si damos click tambien se iniciara el juego
+	/**
+	 * Con el siguiente método recogeremos el clic del ratón, para iniciar el movimiento si este no se ha iniciado
+	 * @param event
+	 */
 	public void mouseClicked(MouseEvent event) {
+		// En caso de que hagan clic manteniendo pulsado las mayúsculas y el control iniciaremos un movimiento con
+		// una trayectoria que pase desde el punto actual de la bola y por el punto señalado con el ratón
 		if (event.isShiftDown() && event.isControlDown()) {
 			this.iniciarMovimiento(event.getX(), event.getY());
-			click = true; 
 		}
 		else {
 			// Indicamos que se inicie el movimiento con una trayectoria por defecto
@@ -141,24 +134,17 @@ public class Pelota extends Actor {
 		}
 	}
 	
-	//Hacer que darle al espacio funcione
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			espacio = true;
-			this.iniciarMovimiento(-1, -1);
-	  	}
-	}
-	
-	//Primer movimiento de la bola
-	private void iniciarMovimiento(int xDestino, int yDestino) {
-		if(trayectoria==null) {
-			if(xDestino==-1 && yDestino==-1) {// Si la trayectoria es -1 hara una trayectoria por defecto
-				this.trayectoria= new TrayectoriaRecta(-3f, this.coordenadas, true);
+	// Primer movimiento de la bola
+	private void iniciarMovimiento (int xDestino, int yDestino) {
+		if (trayectoria == null) {
+			// Si los valores del punto de destino son "-1" indica ue debemos hacer una trayectoria por defecto
+			if (xDestino == -1 && yDestino == -1) {
+				this.trayectoria = new TrayectoriaRecta(-3f, this.coordenadas, true);
 			}
-			
-			//si no usa la trayectoria por defecto
+			// En caso contrario debemos trazar la trayectoria desde el punto actual de la bola hasta el punto
+			// que nos indican
 			else {
-				// Establecemos una minima distancia en el eje X entre la situacion de la bola y el punto que nos
+				// Establecemos una mínima distancia en el eje X entre la situación de la bola y el punto que nos
 				// indican. De esa manera evitamos que la pelota se pueda poner completamente vertical
 				int minimaDistanciamientoEntreX = 20;
 				if (Math.abs(xDestino - this.getX()) < minimaDistanciamientoEntreX) {
@@ -171,14 +157,175 @@ public class Pelota extends Actor {
 						xDestino = this.getX() + minimaDistanciamientoEntreX;
 					}
 				}
-			// Determinamos la direccion a seguir en la trayectoria en funcion del signo de la pendiente que 
-			// esperamos
+				// Determinamos la dirección a seguir en la trayectoria en función del signo de la pendiente que 
+				// esperamos
 				boolean direccionCreciente = (xDestino > this.getX())? true : false;
 				// Creamos la trayectoria.
 				this.trayectoria = new TrayectoriaRecta(new PuntoAltaPrecision(this.x, this.y), new PuntoAltaPrecision(xDestino, yDestino), direccionCreciente);
-		
 			}
 		}
 	}
 	
+	/**
+	 * Este método sirve para la nave nos notifique el momento en que cambia su posición. Hay que recordar
+	 * que al principio de la fase, la pelota debe quedar pegada a la nave
+	 * @param x
+	 * @param y
+	 */
+	public void naveControlaInicioPelota (Nave nave) {
+		// Si la velocidad de la bola todavía está a cero indica que no ha comenzado a moverse
+		// Si la nave se mueve y la bola está quieta, la bola debe permanecer pegada a la nave.
+		if (this.trayectoria == null) {
+			// Cada vez que la nave se mueva y, por tanto, la pelota pegada a la nave, actualizo las coordenadas de
+			// alta precisión para, a continuación, redondearlas en las coordenadas enteras
+			this.coordenadas.x = nave.getX() + nave.getAncho() / 2;
+			this.coordenadas.y = nave.getY() - this.getAlto() - 1;
+			this.x = Math.round(this.coordenadas.x);
+			this.y = Math.round(this.coordenadas.y);
+		}
+	}
+
+	/**
+	 * En el caso de que detectemos una colisión se debe decidir el rebote. Para empezar, debemos decidir si se ha producido una colisión
+	 * con un tipo de objeto u otro, ya que una cosa es rebotar con un ladrillo y otra con la nave
+	 */
+	@Override
+	public void colisionConOtroActor(Actor actorcolisionado) {
+		super.colisionConOtroActor(actorcolisionado);
+		if (actorcolisionado instanceof Ladrillos) { // Colisión con ladrillo
+			colisionConLadrillo(actorcolisionado);
+		}
+		else if (actorcolisionado instanceof Nave) { // Colisión con nave
+			colisionConNave((Nave)  actorcolisionado);
+		}
+	}
+	
+	
+	/**
+	 * Utilizaremos, para calcular las colisiones, un rectángulo menor que el diámetro de la propia bola, de esta manera haremos las colisiones
+	 * más precisas
+	 * @return
+	 */
+	public Rectangle getRectanguloParaColisiones () {
+		return new Rectangle(this.x + this.ancho / 2 - 4, this.y + this.alto / 2 - 4, 8, 8);
+	}
+	
+	/**
+	 * Colisión de la bola con un ladrillo, para determinar el lugar del ladrillo a través del que la bola ha colisionado utilizaremos cuatro
+	 * rectángulos imaginarios alrededor del mismo.
+	 * @param actorColisionado
+	 */
+	private void colisionConLadrillo (Actor actorColisionado) {
+		int margenLateral = 4; // Este mare
+		// Creo pequeños rectángulos que coincidirán con los bordes del ladrillo
+		Rectangle rectArribaActor = new Rectangle(actorColisionado.getX(), actorColisionado.getY(), actorColisionado.getAncho(), 1);
+		Rectangle rectAbajoActor = new Rectangle(actorColisionado.getX(), actorColisionado.getY() + actorColisionado.getAlto()-1, actorColisionado.getAncho(), 1);
+		Rectangle rectIzquierdaActor = new Rectangle(actorColisionado.getX(), actorColisionado.getY() + margenLateral, 1, actorColisionado.getAlto() - 2 * margenLateral);
+		Rectangle rectDerechaActor = new Rectangle(actorColisionado.getX() + actorColisionado.getAncho()-1, actorColisionado.getY() + margenLateral, 1, actorColisionado.getAlto() - 2 * margenLateral);
+
+		// variables booleanas que me indicarán una colsión por cada lado del ladrillo
+		boolean arriba = false, abajo = false, derecha = false, izquierda = false;
+		
+		if (this.getRectanguloParaColisiones().intersects(rectArribaActor))  arriba = true;
+		if (this.getRectanguloParaColisiones().intersects(rectAbajoActor))  abajo = true;
+		if (this.getRectanguloParaColisiones().intersects(rectIzquierdaActor))  izquierda = true;
+		if (this.getRectanguloParaColisiones().intersects(rectDerechaActor))  derecha = true;
+		
+		if (arriba && izquierda) { // Colisión con esquina superior izquierda
+			// Coloco la bola en la esquina
+			this.x = actorColisionado.x;
+			this.y = actorColisionado.y;
+			this.coordenadas.x = this.x; this.coordenadas.y = this.y;
+			// Recalculo la pendiente
+			this.trayectoria.setPendiente(Math.abs(this.trayectoria.getPendiente()), this.coordenadas, false);
+			return;
+		}
+		if (arriba && derecha) {
+			this.x = actorColisionado.x + actorColisionado.ancho;
+			this.y = actorColisionado.y;
+			this.coordenadas.x = this.x; this.coordenadas.y = this.y;
+			this.trayectoria.setPendiente(0-Math.abs(this.trayectoria.getPendiente()), this.coordenadas, true);
+			return;
+		}
+		if (abajo && izquierda) {
+			this.x = actorColisionado.x;
+			this.y = actorColisionado.y + actorColisionado.alto;
+			this.coordenadas.x = this.x; this.coordenadas.y = this.y;
+			this.trayectoria.setPendiente(0-Math.abs(this.trayectoria.getPendiente()), this.coordenadas, false);
+			return;
+		}
+		if (abajo && derecha) {
+			this.x = actorColisionado.x + actorColisionado.ancho;
+			this.y = actorColisionado.y + actorColisionado.alto;
+			this.coordenadas.x = this.x; this.coordenadas.y = this.y;
+			this.trayectoria.setPendiente(Math.abs(this.trayectoria.getPendiente()), this.coordenadas, true);
+			return;
+		}
+		if (abajo) {
+			this.y = actorColisionado.y + actorColisionado.alto;
+			this.coordenadas.y = this.y;
+			this.trayectoria.reflejarHaciaAbajo(this.coordenadas);
+			return;
+		}
+		if (arriba) {
+			this.y = actorColisionado.y;
+			this.coordenadas.y = this.y;
+			this.trayectoria.reflejarHaciaArriba(this.coordenadas);
+			return;
+		}
+		if (izquierda) {
+			this.x = actorColisionado.x;
+			this.coordenadas.x = this.x;
+			this.trayectoria.reflejarHaciaIzquierda(this.coordenadas);
+			return;
+		}
+		if (derecha) {
+			this.x = actorColisionado.x + actorColisionado.ancho;
+			this.coordenadas.x = this.x;
+			this.trayectoria.reflejarHaciaDerecha(this.coordenadas);
+			return;
+		}
+	}
+	
+	
+	/**
+	 * Método que determina lo que hacer cuando la bola choca con la nave
+	 * @param nave
+	 */
+	private void colisionConNave (Nave nave) {
+		// Creo rectángulos para determinar la zona de la nave con la que choca la bola
+		int anchoZonaEspecial = 7; // píxeles que delimitan la zona de rebote especial de la nave
+		Rectangle rectIzqNave = new Rectangle(nave.getX(), nave.getY(), anchoZonaEspecial, nave.alto);
+		Rectangle rectDerNave = new Rectangle(nave.getX() + nave.ancho - anchoZonaEspecial, nave.getY(), anchoZonaEspecial, nave.alto);
+		Rectangle rectBola = this.getRectanguloParaColisiones();
+		
+		// Colisión con el lado derecho de la nave
+		if (rectBola.intersects(rectDerNave)) {
+			this.y = nave.getY() - nave.getAlto();
+			this.coordenadas.y = this.y;
+			if (Math.abs(this.trayectoria.getPendiente()) > 1 ) { // La bola viene on una pendiente mayor a 1
+				this.trayectoria.setPendiente(-(float) (Math.random() * (0.8 - 0.3) + 0.3), this.coordenadas, true);
+			}
+			else { // La bola viene con una pendiente suave ( > 0 y < 1 )
+				this.trayectoria.setPendiente(-(float) (Math.random() * (10 - 2) + 2), this.coordenadas, true);
+			}
+			return;
+		}
+		// Colisión con el lado izquierdo de la nave
+		if (rectBola.intersects(rectIzqNave)) {
+			this.y = nave.getY() - nave.getAlto();
+			this.coordenadas.y = this.y;
+			if (Math.abs(this.trayectoria.getPendiente()) > 1 ) { // La bola viene con una pendiente mayor a 1
+				this.trayectoria.setPendiente((float) (Math.random() * (0.8 - 0.3) + 0.3), this.coordenadas, false);
+			}
+			else { // La bola viene con una pendiente suave ( > 0 y < 1 )
+				this.trayectoria.setPendiente((float) (Math.random() * (10 - 2) + 2), this.coordenadas, false);
+			}
+			return;
+		}
+		else { // La bola intersecta la parte central de la nave
+			this.trayectoria.reflejarHaciaArriba(this.coordenadas);
+			return;
+		}			
+	}
 }
