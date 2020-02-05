@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.ImageObserver;
 import java.util.Date;
 
 
@@ -42,7 +43,7 @@ public class Pelota extends Actor {
 	 */
 	public Pelota() {
 		super();
-		spriteActual = null; // La bola se pinta de forma vectorial
+		spriteActual = CacheRecursos.getInstance().getImagen("boladragon.png"); // La bola se pinta de forma vectorial
 		this.x = Arkanoid.JFRAME_WIDTH / 2;
 		this.y = Arkanoid.JFRAME_HEIGHT / 2;
 		// Inicializamos las coordenadas de alta precisión
@@ -54,11 +55,12 @@ public class Pelota extends Actor {
 	/**
 	 * Pintado de la bola en pantalla
 	 */
-	public void paint(Graphics2D g){
-		g.setColor(Color.BLACK);
+	//public void paint(Graphics2D g){
+		
+		//g.setColor(Color.BLACK);
 		// Se pinta la bola como un círculo
-		g.fillOval(Math.round(this.coordenadas.x), Math.round(this.coordenadas.y), DIAMETRO, DIAMETRO);
-	}
+		//g.fillOval(Math.round(this.coordenadas.x), Math.round(this.coordenadas.y), DIAMETRO, DIAMETRO);
+	//}
 
 	
 	/**
