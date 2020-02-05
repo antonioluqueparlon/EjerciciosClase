@@ -14,4 +14,9 @@ public abstract class Fase {
 
 	// Getter de la lista de actores
 	public List<Actor> getActores() { return actores; }
+	
+	//Musica de fondo de Dragon Ball para el inicio de la primera fase
+	public String getNombreSonidoInicio () {
+		return "musicadbfondo.wav";
+	}
 }

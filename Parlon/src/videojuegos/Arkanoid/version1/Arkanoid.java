@@ -195,6 +195,8 @@ public class Arkanoid extends Canvas {
 	public void game () {
 			// Inicialización del juego
 			initWorld();
+			//Musica de fondo de Dragon Ball del juego
+			CacheRecursos.getInstance().loopSonido(this.faseActiva.getNombreSonidoInicio());
 			// Este bucle se ejecutará mientras el objeto Canvas sea visible.
 			while (this.isVisible()) {
 				// Tomamos el tiempo en milisegundos antes de repintar el frame
