@@ -24,7 +24,7 @@ public class Nave extends Actor {
 		this.alto = this.spriteActual.getHeight();
 		// Colocaci�n de la nave en el centro horizontalmente y en la parte baja de la pantalla
 		this.x = Arkanoid.JFRAME_WIDTH / 2;
-		this.y = Arkanoid.JFRAME_HEIGHT - 50;
+		this.y = Arkanoid.JFRAME_HEIGHT - 100;
 	}
 	
 

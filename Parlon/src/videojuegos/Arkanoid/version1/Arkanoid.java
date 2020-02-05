@@ -249,7 +249,7 @@ public class Arkanoid extends Canvas {
 			actor.paint(g);
 		}
 		// Una vez construida la escena nueva, la mostramos.
-		strategy.show();;
+		strategy.show();
 		}
 	
 	public void GameOver() {
