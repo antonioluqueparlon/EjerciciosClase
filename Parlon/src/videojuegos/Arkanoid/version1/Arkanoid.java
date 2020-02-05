@@ -14,13 +14,9 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-
-
 
 
 public class Arkanoid extends Canvas {
@@ -98,9 +94,9 @@ public class Arkanoid extends Canvas {
 			Toolkit.getDefaultToolkit().sync();
 			
 			// Agrego los controladores de ratón y de teclado
-			DriverRaton driverraton=new DriverRaton();
-			this.addMouseMotionListener(driverraton);
-			this.addMouseListener(driverraton);
+			DriverRaton driverRaton=new DriverRaton();
+			this.addMouseMotionListener(driverRaton);
+			this.addMouseListener(driverRaton);
 			this.addKeyListener(new DriverTeclado());
 	}
 	
@@ -161,7 +157,7 @@ public class Arkanoid extends Canvas {
 		// A continuación se revisa si alguno de los actores de la lista ha sido marcado para su eliminación. En caso de ser así
 		// se procede a borrarlo de la lista.
 		for (int i = this.actores.size()-1; i >= 0; i--) {
-			if (this.actores.get(i).EstaMarcadoParaEliminar) {
+			if (this.actores.get(i).marcadoParaEliminacion) {
 				this.actores.remove(i);
 			}
 		}
@@ -179,21 +175,18 @@ public class Arkanoid extends Canvas {
 		
 	}
 	
-	//metodo que detecta colisiones con rectangulos imaginarios
+	//metodo que detecta colisiones con rectangulos imaginarios en este caso la pelota
 	private boolean detectarYNotificarColisionConPelota (Actor actor) {
-		Rectangle rectActor = new Rectangle(actor.getX(), actor.getY(), actor.getAncho(), actor.getAlto());
-		
+		Rectangle rectActor = new Rectangle(actor.getX(), actor.getY(), actor.getAncho(), actor.getAlto());	
 		if (rectActor.intersects(this.pelota.getRectanguloParaColisiones())) {
 			// En el caso de que exista una colisión, informo a los dos actores de que han colisionado y les indico el
 			// actor con el que se ha producido el choque
-			actor.colisionConOtroActor(this.pelota);
-			this.nave.colisionConOtroActor(actor);
+			actor.colisionProducidaConOtroActor(this.pelota);
+			this.nave.colisionProducidaConOtroActor(actor);
 			return true;
 		}
 		return false;
 	}
-	
-	
 	
 	public void agregarActor (Actor nuevoActor) {
 		this.nuevosactores.add(nuevoActor);
@@ -234,7 +227,7 @@ public class Arkanoid extends Canvas {
 		if(pelota.vidaMenos == false) {
 			pelota= new Pelota();
 		}
-		puntos=puntos -150;
+		puntos= puntos -150;
 		actores.add(pelota);
 		pelota.trayectoria = null;
 		pelota.velocidadPorFrame = 2f; // velocidad con la que sale la pelota al principio

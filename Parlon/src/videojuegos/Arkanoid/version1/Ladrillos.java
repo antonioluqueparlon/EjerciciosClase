@@ -1,111 +1,88 @@
 package videojuegos.Arkanoid.version1;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Clase que representa a cada ladrillo de los que pondremos sobre la pantalla
- * 
- */
 public class Ladrillos extends Actor {
-	// Damos un ancho y un alto espec�fico al ladrillo. Suponemos que todos los
-	// ladrillos ser�n iguales
+	
 	public static final int ANCHO = 30;
 	public static final int ALTO = 20;
 	public static final int EspacioEntreLadrillos = 2;
-	int newImg=0;
-	boolean listo = false; 
-	boolean loco = false;
-
-
-
+	
+	private Color color = null;
+	
+	
+	
 	/**
-	 * Constructor
+	 * @param color
 	 */
 	public Ladrillos() {
 		super();
-		spriteActual = null; // El ladrillo se pinta vectorialmente, as� que no utilizo ning�n sprite
-		this.x = 10;
-		this.y = 10;
-		this.ancho = ANCHO;
-		this.alto = ALTO;
+		spriteActual=null; // Los ladrillos los pinto yo, por eso no voy a usar sprites que son imagenes
+		this.x = 20;
+		this.y = 20;
+		this.ancho=ANCHO;
+		this.alto=ALTO;
+		this.color = Color.BLUE; // por defecto los ladrillos serian azules
 	}
-
+	
 	/**
 	 * Constructor parametrizado
-	 * 
 	 * @param x
 	 * @param y
 	 * @param color
 	 */
-	public Ladrillos(int x, int y, int imagen) {
+	public Ladrillos(int x, int y, Color color) {
 		this.x = x;
 		this.y = y;
-		this.ancho = ANCHO;
-		this.alto = ALTO;
-		// Carga de los sprites de la explosi�n
-		List<BufferedImage> nuevosSprites = new ArrayList<BufferedImage>();
-		nuevosSprites.add(CacheRecursos.getInstance().getImagen("ladrillorosa.png"));
-		nuevosSprites.add(CacheRecursos.getInstance().getImagen("ladrilloazul.png"));
-		nuevosSprites.add(CacheRecursos.getInstance().getImagen("ladrilloverde.png"));
-		nuevosSprites.add(CacheRecursos.getInstance().getImagen("ladrilloazul.png"));
-		nuevosSprites.add(CacheRecursos.getInstance().getImagen("ladrillorosa.png"));
-		nuevosSprites.add(CacheRecursos.getInstance().getImagen("ladrilloverde.png"));
-		nuevosSprites.add(CacheRecursos.getInstance().getImagen("ladrillorosa.png"));
-		nuevosSprites.add(CacheRecursos.getInstance().getImagen("ladrilloazul.png"));
-		
-		
-		// Sprite actual
-		this.spriteActual = nuevosSprites.get(imagen);
+		this.ancho=ANCHO;
+		this.alto=ALTO;
+		this.color = color;
+	}
 
-			newImg = imagen;
+
+	public void paint (Graphics2D g) {
+		g.setColor(this.color);
+		g.fillRoundRect(this.x, this.y, ANCHO, ALTO, 3, 3);
+		
+	}
+	
+	//el ladrillo detecta una colision con la pelota
+	@Override
+	public void colisionProducidaConOtroActor(Actor actorcolisionado) {
+		// TODO Auto-generated method stub
+		super.colisionProducidaConOtroActor(actorcolisionado);
+		if(actorcolisionado instanceof Pelota) {
+			eliminar();
+			//creo el nuevo actor para la explosion y pongo que la explosion sea en el centro del ladrillo
+			Explosion explosion = new Explosion(this.getX(),this.getY());
+			explosion.setX(this.x+Ladrillos.ANCHO / 2 -explosion.getAncho()/2); // centrar la explosion
+			Arkanoid.getInstance().agregarActor(explosion);//agrego la explosion al juego
+		}
+	}
 	
 
-	}
+	//GETTERS Y SETTERS
+
 
 	/**
-	 * Colisi�n detectada
+	 * @return the color
 	 */
-	@Override
-	public void colisionConOtroActor(Actor actorColisionado) {
-		super.colisionConOtroActor(actorColisionado);
-		// Si un ladrillo detecta una colisi�n con un objeto de tipo "Bola", debe
-		// desaparecer
-
-		if (newImg != 6) {
-			if (actorColisionado instanceof Pelota ) {
-				if (newImg != 7 || listo == true) {
-				eliminar();
-				// Creo un nuevo actor de tipo Explosion y lo centr� respecto a la posici�n del
-				// ladrillo
-				Arkanoid.getInstance().puntos = Arkanoid.getInstance().puntos+ 100;
-				Explosion explosion = new Explosion(this.getX(), this.getY());
-				explosion.setX(this.x + Ladrillos.ANCHO / 2 - explosion.getAncho() / 2);
-				Arkanoid.getInstance().agregarActor(explosion);
-				
-				
-				int probabilidadPildora= (int) Math.round(Math.random()*10);
-				if (probabilidadPildora >0) {
-					int tipopildora = (int) Math.round(Math.random()*2);
-					System.out.println(tipopildora);
-					Pocion pocion = new Pocion (this.getX(), this.getY(), tipopildora);
-					Arkanoid.getInstance().agregarActor(pocion);
-				}
-				
-				// Reproduzco el sonido de la explisi�n
-				CacheRecursos.getInstance().playSonido("Arkanoid-SFX-01.wav");
-				}
-				else {
-					listo = true;
-					Arkanoid.getInstance().puntos = Arkanoid.getInstance().puntos + 50;
-				}
-			}	
-		}
-		
+	public Color getColor() {
+		return color;
 	}
 
-	
+
+
+
+	/**
+	 * @param color the color to set
+	 */
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+
+
 }

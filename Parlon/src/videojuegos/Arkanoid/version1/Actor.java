@@ -1,40 +1,44 @@
 package videojuegos.Arkanoid.version1;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Esta clase representarï¿½ a cualquier elemento que queramos pintar sobre la pantalla
+ * @author R
+ *
+ */
 public class Actor {
 	// Propiedades que contienen las coordenadas del actor y la imagen que corresponda con el mismo
-	
-	protected int x, y;// Coordenadas en las que se encuentra el actor
-	protected int ancho, alto; // Ancho y alto que ocupa, imprescindible para detectar colisiones
+	protected int x, y;
+	protected int ancho, alto;
 	protected BufferedImage spriteActual;
+	protected boolean marcadoParaEliminacion = false;
+	// Posibilidad de que el actor sea animado, a travï¿½s del siguiente array de sprites y las variables
+	// velocidadDeCambioDeSprite y unidadDeTiempo
+	protected List<BufferedImage> spritesDeAnimacion = new ArrayList<BufferedImage>();
+	protected int velocidadDeCambioDeSprite = 0;
+	private int unidadDeTiempo = 0;
 	
-	protected boolean EstaMarcadoParaEliminar = false; // se pondra a true cuando tenga que eliminar algun
-														// actor, en este caso los ladrillos
-	protected int velocidadDeCambioDeSprite=0;
-	private int unidadDeTiempo = 0; // La unidad de tiempo aumenta cada vez que se llama al método "act()" del Actor
-	protected List<BufferedImage> spritesDeAnimacionExplosion = new ArrayList<BufferedImage>();
 	
 	/**
 	 * 
 	 */
 	public Actor() {
-		// En principio coloco una imagen genérica al actor
+		// En principio coloco una imagen genï¿½rica al actor
 		spriteActual = CacheRecursos.getInstance().getImagen("sin-imagen.png");
-		//spriteActual= CacheImagenes.getInstancia().getImagen("nave-50x15.png");
 	}
 	
 	
 	/**
-	 * Método para pintar el actor en la pantalla
+	 * Mï¿½todo para pintar el actor en la pantalla
 	 * @param g
 	 */
 	public void paint(Graphics2D g){
-		// Cuidado, el sprite del actor puede ser nulo, de manera que el actor se pinte por gráficos vectoriales
+		// Cuidado, el sprite del actor puede ser nulo, de manera que el actor se pinte por grï¿½ficos vectoriales
 		if (this.spriteActual != null) {
 			g.drawImage(this.spriteActual, this.x, this.y, null);
 		}
@@ -42,87 +46,62 @@ public class Actor {
 	
 	
 	/**
-	 * Método que se llamará para cada actor, en cada refresco de pantalla del juego
+	 * Mï¿½todo que se llamarï¿½ para cada actor, en cada refresco de pantalla del juego
 	 */
 	public void act() {
-	// En el caso de que exista un array de sprites el actor actual se tratará de una animación, para eso llevaremos a cabo los siguientes pasos
-		if(this.spritesDeAnimacionExplosion != null && this.spritesDeAnimacionExplosion.size()>0) {
-		unidadDeTiempo++;
+		// En el caso de que exista un array de sprites el actor actual se tratarï¿½ de una animaciï¿½n, para eso llevaremos a cabo los siguientes pasos
+		if (this.spritesDeAnimacion != null && this.spritesDeAnimacion.size() > 0) {
+			unidadDeTiempo++;
 			if (unidadDeTiempo % velocidadDeCambioDeSprite == 0){
-			unidadDeTiempo = 0;
-			int indiceSpriteActual = spritesDeAnimacionExplosion.indexOf(this.spriteActual);
-			int indiceSiguienteSprite = (indiceSpriteActual + 1) % spritesDeAnimacionExplosion.size();
-			this.spriteActual = spritesDeAnimacionExplosion.get(indiceSiguienteSprite);
+				unidadDeTiempo = 0;
+				int indiceSpriteActual = spritesDeAnimacion.indexOf(this.spriteActual);
+				int indiceSiguienteSprite = (indiceSpriteActual + 1) % spritesDeAnimacion.size();
+				this.spriteActual = spritesDeAnimacion.get(indiceSiguienteSprite);
 			}
-		
 		}
 	}
+
 	
-	public void eliminar() {
-		this.EstaMarcadoParaEliminar=true;
+	/**
+	 * El mï¿½todo siguiente se llamarï¿½ para cada actor cuando se detecte una colisiï¿½n del actor con otro actor
+	 * @param actorColisionado
+	 */
+	public void colisionProducidaConOtroActor(Actor actorColisionado) {
+			
 	}
 	
-	public void colisionConOtroActor(Actor actorcolisionado) {
-		
+	
+	/**
+	 * Con este mï¿½todo no eliminamos realmente el actor, en lugar de eso lo que hacemos es activar una bandera booleana
+	 * para que, en la siguiente iteraciï¿½n principal del bucle, un proceso de "updateWorld" se encargue de eliminar a este actor
+	 */
+	public void eliminar () {
+		this.marcadoParaEliminacion = true;
 	}
-
-
-	
-
-
-	//GETTERS Y SETTERS
-	
-	
+	// Mï¿½todos setters y getters
 	public int getX() {	return x; }
-	public int getAncho() {
-		return ancho;
-	}
-
-
-	public void setAncho(int ancho) {
-		this.ancho = ancho;
-	}
-
-
-	public int getAlto() {
-		return alto;
-	}
-
-
-	public void setAlto(int alto) {
-		this.alto = alto;
-	}
-
-
 	public void setX(int x) { this.x = x; }
 	public int getY() { return y; }
 	public void setY(int y) { this.y = y; }
+	public int getAncho() { return ancho; }
+	public void setAncho(int ancho) { this.ancho = ancho; }
+	public int getAlto() { return alto; }
+	public void setAlto(int alto) { this.alto = alto; }
 	public BufferedImage getSpriteActual() { return spriteActual; }
 	public void setSpriteActual(BufferedImage spriteActual) { this.spriteActual = spriteActual; }
-
-
-	/**
-	 * @return the spritesDeAnimacionExplosion
-	 */
-	public List<BufferedImage> getSpritesDeAnimacionExplosion() {
-		return spritesDeAnimacionExplosion;
-	}
-
-
-	/**
-	 * @param spritesDeAnimacionExplosion the spritesDeAnimacionExplosion to set
-	 */
-	public void setSpritesDeAnimacionExplosion(List<BufferedImage> spritesDeAnimacionExplosion) {
-		this.spritesDeAnimacionExplosion = spritesDeAnimacionExplosion;
-		// Al darnos unos nuevos sprites de animación debo calcular el nuevo ancho y alto del actor, ajustándolo
-		// al máximo de los nuevos sprites
-		if (this.spritesDeAnimacionExplosion != null) {
-			for (BufferedImage imagen : this.spritesDeAnimacionExplosion) {
+	public List<BufferedImage> getSpritesDeAnimacion() { return spritesDeAnimacion; }
+	public void setSpritesDeAnimacion(List<BufferedImage> spritesDeAnimacion) { 
+		this.spritesDeAnimacion = spritesDeAnimacion;
+		// Al darnos unos nuevos sprites de animaciï¿½n debo calcular el nuevo ancho y alto del actor, ajustï¿½ndolo
+		// al mï¿½ximo de los nuevos sprites
+		if (this.spritesDeAnimacion != null) {
+			for (BufferedImage imagen : this.spritesDeAnimacion) {
 				if (imagen.getWidth() > this.ancho) this.ancho = imagen.getWidth();
 				if (imagen.getHeight() > this.alto) this.alto = imagen.getHeight();
 			}
 		}
 	}
-}
+	public int getVelocidadDeCambioDeSprite() { return velocidadDeCambioDeSprite; }
+	public void setVelocidadDeCambioDeSprite(int velocidadDeCambioDeSprite) { this.velocidadDeCambioDeSprite = velocidadDeCambioDeSprite; }
 	
-
+}

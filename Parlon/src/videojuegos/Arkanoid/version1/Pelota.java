@@ -190,13 +190,13 @@ public class Pelota extends Actor {
 	 * con un tipo de objeto u otro, ya que una cosa es rebotar con un ladrillo y otra con la nave
 	 */
 	@Override
-	public void colisionConOtroActor(Actor actorcolisionado) {
-		super.colisionConOtroActor(actorcolisionado);
-		if (actorcolisionado instanceof Ladrillos) { // Colisión con ladrillo
-			colisionConLadrillo(actorcolisionado);
+	public void colisionProducidaConOtroActor(Actor actorColisionado) {
+		super.colisionProducidaConOtroActor(actorColisionado);
+		if (actorColisionado instanceof Ladrillos) { // Colisión con ladrillo
+			colisionConLadrillo(actorColisionado);
 		}
-		else if (actorcolisionado instanceof Nave) { // Colisión con nave
-			colisionConNave((Nave)  actorcolisionado);
+		else if (actorColisionado instanceof Nave) { // Colisión con nave
+			colisionConNave((Nave)  actorColisionado);
 		}
 	}
 	
@@ -215,13 +215,13 @@ public class Pelota extends Actor {
 	 * rectángulos imaginarios alrededor del mismo.
 	 * @param actorColisionado
 	 */
-	private void colisionConLadrillo (Actor actorcolisionado) {
+	private void colisionConLadrillo (Actor actorColisionado) {
 		int margenLateral = 4; // Este mare
 		// Creo pequeños rectángulos que coincidirán con los bordes del ladrillo
-		Rectangle rectArribaActor = new Rectangle(actorcolisionado.getX(), actorcolisionado.getY(), actorcolisionado.getAncho(), 1);
-		Rectangle rectAbajoActor = new Rectangle(actorcolisionado.getX(), actorcolisionado.getY() + actorcolisionado.getAlto()-1, actorcolisionado.getAncho(), 1);
-		Rectangle rectIzquierdaActor = new Rectangle(actorcolisionado.getX(), actorcolisionado.getY() + margenLateral, 1, actorcolisionado.getAlto() - 2 * margenLateral);
-		Rectangle rectDerechaActor = new Rectangle(actorcolisionado.getX() + actorcolisionado.getAncho()-1, actorcolisionado.getY() + margenLateral, 1, actorcolisionado.getAlto() - 2 * margenLateral);
+		Rectangle rectArribaActor = new Rectangle(actorColisionado.getX(), actorColisionado.getY(), actorColisionado.getAncho(), 1);
+		Rectangle rectAbajoActor = new Rectangle(actorColisionado.getX(), actorColisionado.getY() + actorColisionado.getAlto()-1, actorColisionado.getAncho(), 1);
+		Rectangle rectIzquierdaActor = new Rectangle(actorColisionado.getX(), actorColisionado.getY() + margenLateral, 1, actorColisionado.getAlto() - 2 * margenLateral);
+		Rectangle rectDerechaActor = new Rectangle(actorColisionado.getX() + actorColisionado.getAncho()-1, actorColisionado.getY() + margenLateral, 1, actorColisionado.getAlto() - 2 * margenLateral);
 
 		// variables booleanas que me indicarán una colsión por cada lado del ladrillo
 		boolean arriba = false, abajo = false, derecha = false, izquierda = false;
@@ -233,54 +233,54 @@ public class Pelota extends Actor {
 		
 		if (arriba && izquierda) { // Colisión con esquina superior izquierda
 			// Coloco la bola en la esquina
-			this.x = actorcolisionado.x;
-			this.y = actorcolisionado.y;
+			this.x = actorColisionado.x;
+			this.y = actorColisionado.y;
 			this.coordenadas.x = this.x; this.coordenadas.y = this.y;
 			// Recalculo la pendiente
 			this.trayectoria.setPendiente(Math.abs(this.trayectoria.getPendiente()), this.coordenadas, false);
 			return;
 		}
 		if (arriba && derecha) {
-			this.x = actorcolisionado.x + actorcolisionado.ancho;
-			this.y = actorcolisionado.y;
+			this.x = actorColisionado.x + actorColisionado.ancho;
+			this.y = actorColisionado.y;
 			this.coordenadas.x = this.x; this.coordenadas.y = this.y;
 			this.trayectoria.setPendiente(0-Math.abs(this.trayectoria.getPendiente()), this.coordenadas, true);
 			return;
 		}
 		if (abajo && izquierda) {
-			this.x = actorcolisionado.x;
-			this.y = actorcolisionado.y + actorcolisionado.alto;
+			this.x = actorColisionado.x;
+			this.y = actorColisionado.y + actorColisionado.alto;
 			this.coordenadas.x = this.x; this.coordenadas.y = this.y;
 			this.trayectoria.setPendiente(0-Math.abs(this.trayectoria.getPendiente()), this.coordenadas, false);
 			return;
 		}
 		if (abajo && derecha) {
-			this.x = actorcolisionado.x + actorcolisionado.ancho;
-			this.y = actorcolisionado.y + actorcolisionado.alto;
+			this.x = actorColisionado.x + actorColisionado.ancho;
+			this.y = actorColisionado.y + actorColisionado.alto;
 			this.coordenadas.x = this.x; this.coordenadas.y = this.y;
 			this.trayectoria.setPendiente(Math.abs(this.trayectoria.getPendiente()), this.coordenadas, true);
 			return;
 		}
 		if (abajo) {
-			this.y = actorcolisionado.y + actorcolisionado.alto;
+			this.y = actorColisionado.y + actorColisionado.alto;
 			this.coordenadas.y = this.y;
 			this.trayectoria.reflejarHaciaAbajo(this.coordenadas);
 			return;
 		}
 		if (arriba) {
-			this.y = actorcolisionado.y;
+			this.y = actorColisionado.y;
 			this.coordenadas.y = this.y;
 			this.trayectoria.reflejarHaciaArriba(this.coordenadas);
 			return;
 		}
 		if (izquierda) {
-			this.x = actorcolisionado.x;
+			this.x = actorColisionado.x;
 			this.coordenadas.x = this.x;
 			this.trayectoria.reflejarHaciaIzquierda(this.coordenadas);
 			return;
 		}
 		if (derecha) {
-			this.x = actorcolisionado.x + actorcolisionado.ancho;
+			this.x = actorColisionado.x + actorColisionado.ancho;
 			this.coordenadas.x = this.x;
 			this.trayectoria.reflejarHaciaDerecha(this.coordenadas);
 			return;
@@ -292,7 +292,7 @@ public class Pelota extends Actor {
 	 * Método que determina lo que hacer cuando la bola choca con la nave
 	 * @param nave
 	 */
-	private void colisionConNave (Actor nave) {
+	private void colisionConNave (Nave nave) {
 		// Creo rectángulos para determinar la zona de la nave con la que choca la bola
 		int anchoZonaEspecial = 7; // píxeles que delimitan la zona de rebote especial de la nave
 		Rectangle rectIzqNave = new Rectangle(nave.getX(), nave.getY(), anchoZonaEspecial, nave.alto);

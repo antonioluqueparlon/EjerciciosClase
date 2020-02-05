@@ -1,19 +1,12 @@
 package videojuegos.Arkanoid.version1;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
 
 public class Nave extends Actor{
-	
+	//propiedades de la nave
 	private int velocidadEjeX = 5; // velocidad de la nave del jugador
 	private boolean izquierda=false;
 	private boolean derecha=false; //variables que me van a decir si se esta moviendo actualmente
@@ -23,11 +16,13 @@ public class Nave extends Actor{
 	 */
 	public Nave() {
 		super();
-		this.spriteActual=CacheRecursos.getInstance().getImagen("nave-50x15.png");
-		//ajusto el ancho de la nave al del sprite y el alto
-		this.ancho=this.spriteActual.getWidth();
-		this.alto=this.spriteActual.getHeight();
-		//pongo la nave en el centro del juego y en la mitad
+		
+		// Carga del sprite de la nave
+		this.spriteActual = CacheRecursos.getInstance().getImagen("nave-50x15.png");
+		// Ajusto el ancho virtual de este objeto al mismo ancho que tiene la imagen del sprite
+		this.ancho = this.spriteActual.getWidth();
+		this.alto = this.spriteActual.getHeight();
+		// Coloco la nave en el centro horizontalmente y en la parte baja de la pantalla
 		this.x = Arkanoid.JFRAME_WIDTH / 2;
 		this.y = Arkanoid.JFRAME_HEIGHT - 100;
 	}

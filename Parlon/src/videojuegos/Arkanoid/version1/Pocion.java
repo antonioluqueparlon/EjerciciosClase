@@ -60,8 +60,8 @@ public class Pocion extends Actor {
 		 * Colision detectada
 		 */
 		@Override
-		public void colisionConOtroActor(Actor actorColisionado) {
-			super.colisionConOtroActor(actorColisionado);
+		public void colisionProducidaConOtroActor(Actor actorColisionado) {
+			super.colisionProducidaConOtroActor(actorColisionado);
 			colisionado = true;
 			if (newImg == 0) {
 				Arkanoid.getInstance().puntos = Arkanoid.getInstance().puntos + 50;

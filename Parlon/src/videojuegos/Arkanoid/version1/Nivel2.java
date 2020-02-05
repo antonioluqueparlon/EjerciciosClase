@@ -26,7 +26,7 @@ public class Nivel2 extends Fase {
 	    for (int i = 0; i < ArrayColores.length; i++) {
 	    	for (int j = 0; j < 3; j++) {
 		    	this.actores.add(new Ladrillos(margenIzquierdo + j * (Ladrillos.ANCHO + Ladrillos.EspacioEntreLadrillos), 
-		    			EspacioSuperiorEntreLadrillos + i * (Ladrillos.ALTO + Ladrillos.EspacioEntreLadrillos), i));
+		    			EspacioSuperiorEntreLadrillos + i * (Ladrillos.ALTO + Ladrillos.EspacioEntreLadrillos), ArrayColores[i]));
 		    }
 	    }
 	}

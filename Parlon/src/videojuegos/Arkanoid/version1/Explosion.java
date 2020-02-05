@@ -25,9 +25,9 @@ public class Explosion extends Actor {
 		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion7.png"));
 		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion8.png"));
 		nuevosSpritesExplosion.add(CacheRecursos.getInstance().getImagen("sprite-explosion9.png"));
-		this.setSpritesDeAnimacionExplosion(nuevosSpritesExplosion);
+		this.setSpritesDeAnimacion(nuevosSpritesExplosion);
 		// Sprite actual
-		this.spriteActual = this.getSpritesDeAnimacionExplosion().get(0);
+		this.spriteActual = this.getSpritesDeAnimacion().get(0);
 		// Velocidad de cambio de sprite
 		this.velocidadDeCambioDeSprite = 5;
 	
@@ -36,7 +36,7 @@ public class Explosion extends Actor {
 	@Override
 	public void act() {
 		super.act();
-		if (this.spriteActual.equals(this.spritesDeAnimacionExplosion.get(this.spritesDeAnimacionExplosion.size()-1))) {
+		if (this.spriteActual.equals(this.spritesDeAnimacion.get(this.spritesDeAnimacion.size()-1))) {
 			this.eliminar();
 		}
 	}
