@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.Date;
 
@@ -14,7 +15,7 @@ import java.util.Date;
 
 public class Pelota extends Actor {
 	// Pienso que, aunque más adelante en el juego pueda haber varias bolas, en principio su diámetro no cambia
-	public static final int DIAMETRO = 15;
+	public static final int DIAMETRO = 20;
 	// Segundos que se puede esperar con la bola quieta
 	public static final int SEGUNDOS_MAXIMA_ESPERA_A_INICIO_DE_MOVIMIENTO = 5;
 	// La siguiente variable nos ayuda a contar el tiempo que ha pasado desde que se inicializa la bola
@@ -46,27 +47,29 @@ public class Pelota extends Actor {
 	 */
 	public Pelota() {
 		super();
-		spriteActual = CacheRecursos.getInstance().getImagen("boladragon.png"); // La bola se pinta de forma vectorial
+		this.spriteActual = CacheRecursos.getInstance().getImagen("boladragon2.png"); // La bola se pinta de forma vectorial
 		this.x = Arkanoid.JFRAME_WIDTH / 2;
 		this.y = Arkanoid.JFRAME_HEIGHT / 2;
 		// Inicializamos las coordenadas de alta precisión
 		this.coordenadas = new PuntoAltaPrecision(x, y);
-		this.ancho = DIAMETRO;
-		this.alto = DIAMETRO;
+		this.ancho = this.spriteActual.getWidth();
+		this.alto = this.spriteActual.getHeight();
 	}
 
 	/**
 	 * Pintado de la bola en pantalla
 	 */
-	public void paint(Graphics2D g){
+	//public void paint(Graphics2D g){
 		
 		//if(this.spriteActual!=null) {
+	//BufferedImage boladragon = spriteActual;
 			//g.drawImage(this.spriteActual,this.coordenadas.x,this.coordenadas.y,DIAMETRO,DIAMETRO);
 		//}
-		g.setColor(Color.BLACK);
+		//g.setColor(Color.LIGHT_GRAY);
 		// Se pinta la bola como un círculo
-		g.fillOval(Math.round(this.coordenadas.x), Math.round(this.coordenadas.y), DIAMETRO, DIAMETRO);
-	}
+		//g.fillOval(Math.round(this.coordenadas.x), Math.round(this.coordenadas.y), DIAMETRO, DIAMETRO);
+	
+//	}
 
 	
 	/**
@@ -76,7 +79,7 @@ public class Pelota extends Actor {
 		super.act();
 		millisDesdeInicializacion = System.currentTimeMillis();
 		segundos = millisDesdeInicializacion - milis; 
-		if (espacio == true || click == true || segundos> 5) {
+		if (espacio == true || click == true || segundos > 5) {
 		// Si la bola lleva una cantidad de segundos quieta, se pondrá automáticamente en movimiento
 		long millisActuales = new Date().getTime();
 		if (this.trayectoria == null &&
@@ -193,8 +196,8 @@ public class Pelota extends Actor {
 		if (this.trayectoria == null) {
 			// Cada vez que la nave se mueva y, por tanto, la pelota pegada a la nave, actualizo las coordenadas de
 			// alta precisión para, a continuación, redondearlas en las coordenadas enteras
-			this.coordenadas.x = nave.getX() + nave.getAncho() -33; // centrado de la pelota en medio de la nave para empezar
-			this.coordenadas.y = nave.getY() - this.getAlto() - 1;
+			this.coordenadas.x = nave.getX() + nave.getAncho() -47; // centrado de la pelota en medio de la nave para empezar
+			this.coordenadas.y = (float) (nave.getY() - this.getAlto() - 0.5);
 			this.x = Math.round(this.coordenadas.x);
 			this.y = Math.round(this.coordenadas.y);
 		}
@@ -343,4 +346,14 @@ public class Pelota extends Actor {
 			return;
 		}			
 	}
+
+	public int getVida() {
+		return vida;
+	}
+
+	public void setVida(int vida) {
+		this.vida = vida;
+	}
+	
+	
 }

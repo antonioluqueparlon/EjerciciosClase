@@ -22,7 +22,7 @@ public class Nave extends Actor {
 		// Ajusto el ancho virtual de este objeto al mismo ancho que tiene la imagen del sprite
 		this.ancho = this.spriteActual.getWidth();
 		this.alto = this.spriteActual.getHeight();
-		// Colocaci�n de la nave en el centro horizontalmente y en la parte baja de la pantalla
+		// Poniendo la nave en el centro horizontalmente y en la parte baja de la pantalla
 		this.x = Arkanoid.JFRAME_WIDTH / 2;
 		this.y = Arkanoid.JFRAME_HEIGHT - 100;
 	}
@@ -32,14 +32,14 @@ public class Nave extends Actor {
 	@Override
 	public void act() {
 		// Controlo que el movimiento a derecha no haga que la nave se pierda por la derecha
-		if (this.moviendoADerecha && (this.x + this.velocidadEjeX + this.ancho <= Arkanoid.JFRAME_WIDTH)) {
+		if (this.moviendoADerecha && (this.x + this.velocidadEjeX + this.ancho <= Arkanoid.JFRAME_WIDTH-10)) {
 			this.x += this.velocidadEjeX;
 		}
 		// Control que el movimiento a izquierda no haga que la nave se pierda por la izquierda
 		if (this.moviendoAIzquierda && (this.x - this.velocidadEjeX >= 0)) {
 			this.x -= this.velocidadEjeX;
 		}
-		// Notifico el cambio de posici�n de la nave a la pelota. Cuando estamos al principio del juego
+		// Cuando estamos al principio del juego
 		// la bola debe permanecer pegada a la nave
 		Arkanoid.getInstance().getPelota().naveControlaInicioPelota(this);
 	}
@@ -60,7 +60,7 @@ public class Nave extends Actor {
 		if (!(event.isShiftDown() && event.isControlDown())) { // la nave la movemos con el raton en unas determinadas circunstancias
 			if (event.getX() >= (this.ancho / 2) // La nave no se pierde por la izquierda
 					&&
-				event.getX() <= (Arkanoid.JFRAME_WIDTH - this.ancho / 2)) {
+				event.getX() <= (Arkanoid.JFRAME_WIDTH - this.ancho / 2)-10) {
 				this.x = event.getX() - this.ancho / 2;
 				// Notifico el cambio de la nave a la pelota. Cuando estamos al principio del juego
 				// la bola debe permanecer pegada a la nave

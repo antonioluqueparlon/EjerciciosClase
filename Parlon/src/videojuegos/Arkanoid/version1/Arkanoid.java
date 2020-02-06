@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -18,6 +19,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 
 
@@ -59,11 +61,15 @@ public class Arkanoid extends Canvas {
 	int puntos;
 	boolean nivelFinal = false;
 	boolean nivel1Acabado = false;
+
+	private int YforStatusBar=0;
+
+	
 	
 
 	public Arkanoid() {
 		// Creación de la ventana
-			ventana = new JFrame("Arkanoid de Parlón");
+			ventana = new JFrame("Arkanoid-DragonBall de Parlón");
 			// Obtenemos el panel principal del JFrame
 			JPanel panel = (JPanel) ventana.getContentPane();
 			// Utilizo un BorderLayout para colocar el Canvas sobre el JPanel
@@ -244,25 +250,44 @@ public class Arkanoid extends Canvas {
 		// para superponer la escena anterior.
 		g.drawImage(CacheRecursos.getInstance().getImagen("fondodb2.jpg"),0,0,this);
 		if (inmortal != true) {
+		g.setFont(new Font("Arial", Font.BOLD,20));
 		g.setColor(Color.WHITE);
-		g.drawString("VIDAS: " + vidas, 480, 870);
+		g.drawString("VIDAS: " , 445, 890);
+		g.setColor(Color.RED);
+		g.drawString("" +vidas, 520, 890);
 		}
+		
+		g.setFont(new Font("Arial", Font.BOLD,20));
 		g.setColor(Color.WHITE);
-		g.drawString("PUNTOS: " + puntos, 10, 870);
+		g.drawString("PUNTOS: " , 10, 890);
+		g.setColor(Color.RED);
+		g.drawString("" +puntos, 110, 890);
+		
 		// Ejecutamos el metodo paint de cada uno de los actores
 		for (Actor actor : this.actores) {
 			actor.paint(g);
 		}
 		// Una vez construida la escena nueva, la mostramos.
 		strategy.show();
+		
+		//paintVidas(g);
 	}
 	
+	//public void paintVidas(Graphics2D g) {
+		//int xBase = 280 ;
+		//for (int i = 0; i < pelota.getVida(); i++) {
+			//BufferedImage boladragon = CacheRecursos.getInstance().getImagen("boladragon.jpg");
+			//g.drawImage(boladragon, xBase + i * boladragon.getWidth() , YforStatusBar, this);
+		//}
+	//}
 	public void GameOver() {
 		if (inmortal != true) {
 			if (vidas<= 0) {
+				//CacheRecursos.getInstance().getImagen("game-over.png");
+				
 				//BufferedImage gameover = CacheRecursos.getInstance().getImagen("game-over.png");
 				//g.drawImage(gameover, 0,0, this);
-				JOptionPane.showMessageDialog(null, "HAS PERDIDO, DEBES MEJORAR");
+				JOptionPane.showMessageDialog(null, "HAS PERDIDO, MALDITO SAIYAJIN");
 				System.exit(0);
 			}
 		}
@@ -302,6 +327,15 @@ public class Arkanoid extends Canvas {
 		this.pelota = pelota;
 	}
 
+	public int getVidas() {
+		return vidas;
+	}
+
+	public void setVidas(int vidas) {
+		this.vidas = vidas;
+	}
+
+	
 
 	
 	
