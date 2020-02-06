@@ -254,6 +254,7 @@ public class Arkanoid extends Canvas {
 		g.setColor(Color.WHITE);
 		g.drawString("VIDAS: " , 445, 890);
 		g.setColor(Color.RED);
+		//paintVidas(g);
 		g.drawString("" +vidas, 520, 890);
 		}
 		
@@ -273,13 +274,16 @@ public class Arkanoid extends Canvas {
 		//paintVidas(g);
 	}
 	
-	//public void paintVidas(Graphics2D g) {
-		//int xBase = 280 ;
-		//for (int i = 0; i < pelota.getVida(); i++) {
-			//BufferedImage boladragon = CacheRecursos.getInstance().getImagen("boladragon.jpg");
-			//g.drawImage(boladragon, xBase + i * boladragon.getWidth() , YforStatusBar, this);
-		//}
-	//}
+	public void paintVidas(Graphics g) {
+		int x = 280 ;
+		int y= 700;
+		for (int i = 0; i < pelota.getVida(); i++) {
+			BufferedImage boladragon = CacheRecursos.getInstance().getImagen("boladragon.jpg");
+			g.drawImage(boladragon, x,y + boladragon.getWidth() ,this);
+		x+= pelota.getAncho();
+			//}
+	}
+	}
 	public void GameOver() {
 		if (inmortal != true) {
 			if (vidas<= 0) {

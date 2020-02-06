@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import Parlon.Utils;
+
 
 public class Ladrillos extends Actor {
 	
@@ -14,20 +16,35 @@ public class Ladrillos extends Actor {
 	// para romperse y me va a dar puntos
 	
 	private Color color = null;
+	protected int dureza;
+	protected static int rotoLadrillo=2;
 	
 	
 	
 	/**
+	 * @return the dureza
+	 */
+	public int getDureza() {
+		return dureza;
+	}
+
+	/**
+	 * @param dureza the dureza to set
+	 */
+	public void setDureza(int dureza) {
+		this.dureza = dureza;
+	}
+
+	/**
 	 * @param color
 	 */
 	public Ladrillos() {
-		super();
-		spriteActual=null; // Los ladrillos los pinto yo, por eso no voy a usar sprites que son imagenes
+		super(); // Los ladrillos los pinto yo, por eso no voy a usar sprites que son imagenes
 		this.x = 20;
 		this.y = 20;
 		this.ancho=ANCHO;
 		this.alto=ALTO;
-		this.color = Color.BLUE; // por defecto los ladrillos serian azules
+		this.dureza=Utils.obtenerNumeroAzar(20,60); // por defecto los ladrillos serian azules
 	}
 	
 	/**
@@ -43,6 +60,14 @@ public class Ladrillos extends Actor {
 		this.alto=ALTO;
 		this.color = color;
 	}
+	
+	public Ladrillos(int x ,int y) {
+		this.x = 20;
+		this.y = 20;
+		this.ancho=ANCHO;
+		this.alto=ALTO;
+		this.dureza=Utils.obtenerNumeroAzar(20,60);
+	}// por defecto los ladrillos serian azules
 
 
 	public void paint (Graphics2D g) {
@@ -63,7 +88,7 @@ public class Ladrillos extends Actor {
 			Explosion explosion = new Explosion(this.getX(),this.getY());
 			explosion.setX(this.x+Ladrillos.ANCHO / 2 -explosion.getAncho()/2); // centrar la explosion
 			Arkanoid.getInstance().agregarActor(explosion);//agrego la explosion al juego
-			CacheRecursos.getInstance().playSonido("Arkanoid-SFX-01.wav");
+			CacheRecursos.getInstance().playSonido("teleport.wav");
 			
 			//Le pongo sonido a la explosion 
 			//CacheRecursos.getInstancia().playSonido("Arkanoid-SFX-01.wav");	

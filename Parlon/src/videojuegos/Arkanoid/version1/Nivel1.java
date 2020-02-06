@@ -24,8 +24,8 @@ public class Nivel1 extends Fase {
 			Color.RED, Color.PINK} ;
 	    
 	    // Creamos las filas
-	    for (int i = 0; i < ArrayColores.length; i++) {
-	    	for (int j = 0; j < 4; j++) {
+	    for (int i = 0; i < 1; i++) {
+	    	for (int j = 0; j < 1; j++) {
 		    	this.actores.add(new Ladrillos(margenIzquierdo + j * (Ladrillos.ANCHO + Ladrillos.EspacioEntreLadrillos), 
 		    			EspacioSuperiorEntreLadrillos + i * (Ladrillos.ALTO + Ladrillos.EspacioEntreLadrillos), ArrayColores[i]));
 		    }

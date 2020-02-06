@@ -9,60 +9,143 @@
     <meta name="autor" content="Antonio Luque Parlón"/>
     <meta name="keywords" content="Harry Potter Voldemort Videojuegos de Harry Potter" />
     <meta name="description" content="Página web acerca del mundo mágico de Harry Potter creado por la escritora J.K Rowling" /> 
-  <style type="text/css">
-   	body {
-			margin: 20px;
-			padding: 0px;
-			background-image:url(file:///C|/Users/Antonio/git/EjerciciosClase/Parlon/LGMParlon/paginaweb/HarryPotterWeb/imagenes/fondohp.jpg);
-			background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      font-family: 'Open Sans', sans-serif;
-			font-size: 13pt;
-			color: #1572ff;
-			text-align:center;
-		}
-    #tablaBanner {
-      width: 950px;
-      height: 250px;
-      margin: 0 auto;
-      border: 1px solid rgb(255, 255, 255);
-      background-color: black;
-      
-    }
-    #tablaSegunda{
-      width: 980px;
-      height: 50px;
-      margin: 0 auto;
-      border: 1px solid #1572ff;
-      background-color:#ffffff;
-	  align-items: center;
-      
-      
-    }
-    #tablaTercera{
-      width: 980px;
-      height: 400px;
-      margin: 0 auto;
-      border: 1px solid #1572ff;
-      background-color:rgb(255, 255, 255);
-	  align-items: center;
-    }
-    #tablaParlon {
-      border: 3px solid #1572ff;
-      width: 980px;
-      height: 10px;
-      margin: 0 auto;
-      background-color: #696969;
-      color: black;
-
-    }
-	#tablaGaleria{
-		align-items: center;
+	<style type="text/css">
+		body {
+			 margin: 0px;
+			 padding: 0px;
+			 background-image:url(file:///C|/Users/Antonio/git/EjerciciosClase/Parlon/LGMParlon/paginaweb/HarryPotterWeb/imagenes/fondohp.jpg);
+			 background-repeat: no-repeat;
+	   background-position: center;
+	   background-size: cover;
+	   font-family: 'Open Sans', sans-serif;
+			 font-size: 11pt;
+			 color: #1572ff;
+			 text-align:center;
+		 }
+	 #tablaBanner {
+	   width: 980px;
+	   height: 250px;
+	   margin: 0 auto;
+	   border: 1px solid rgb(255, 255, 255);
+	   background-color: rgb(0, 0, 0);
+	   
+	 }
+	 #tablaSegunda{
+	   width: 100%;
+	   height: 65px;
+	   margin: 0 auto;
+	   border: 1px solid #1572ff;
+	   background-color:#ffffff;
+	   text-align: center;
+	   
+	   
+	 }
+	 #tablaTercera{
+	   width: 980px;
+	   height: 400px;
+	   margin: 0 auto;
+	   border: 1px solid #1572ff;
+	   background-color:rgb(255, 255, 255);
+	 }
+	 #tablaTerceraUno{
+	   width: 170px;
+	   height: 400px;
+	   vertical-align: middle;
+	   text-align: center;
+	   margin: 0 auto;
+	   border: 1px solid #1572ff;
+	   background-color:rgb(255, 255, 255);
+ 
+	  }
+	  #tablaTerceraDos{
+	   width: 680px;
+	   height: 500px;
+	   vertical-align: top;
+	   text-align: center;
+	   margin: 0 auto;
+	   border: 1px solid #1572ff;
+	   background-color:rgb(255, 255, 255);
+ 
+	  }
+	 #tablaParlon {
+	   border: 3px solid #1572ff;
+	   width: 980px;
+	   height: 10px;
+	   margin: 0 auto;
+	   background-color: #696969;
+	   color: black;
+ 
+	 }
+	 h2{
+	   color:#000000;
+	   text-align: center;
+	   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	   font-size: 26pt;
+	 }
+	 h3{
+	   color:#1572ff;
+	   text-align: center;
+	   font-family: 'Trebuchet MS';
+	   font-size: 16pt;
+	 }
+	 * {
+	 margin:0px;
+	 padding:0px;
 	}
-    
-
-  </style>
+	
+	#header {
+	 margin: auto;
+	 height: 30px;
+	 width: 100%;
+	 font-family:Arial, Helvetica, sans-serif;
+	 font-size: 12px;
+	}
+	
+	ul, ol {
+	 list-style:none;
+	}
+	
+	.nav > li {
+	 float:left;
+	}
+	
+	.nav li a {
+	 background-color:#000;
+	 color:#fff;
+	 text-decoration:none;
+	 padding:7px 55px;
+	 display:block;
+	}
+	
+	.nav li a:hover {
+	 background-color:#434343;
+	}
+	
+	.nav li ul {
+	 display:none;
+	 position:absolute;
+	 min-width:140px;
+	}
+	
+	.nav li:hover > ul {
+	 display:block;
+	}
+	
+	.nav li ul li {
+	 position:relative;
+	}
+	
+	.nav li ul li ul {
+	 right:-140px;
+	 top:0px;
+	}
+	.nav {
+				 width:980px; /*Le establecemos un ancho*/
+				 margin:0 auto; /*Centramos automaticamente*/
+			 }
+	 
+ 
+   </style>
 
 </head>
 
@@ -76,21 +159,33 @@
 </table>
 
 
-<table id="tablaSegunda">
-<tr> 
-         <td style="border:1px solid;"> <P ALIGN=center><a href="index.html" style="color:#1572ff;text-decoration:none">Inicio</td>
-         <td style="border:1px solid;"> <P ALIGN=center><a href="Galeria.html" style="color:#1572ff;text-decoration:none">Galería</td>
-         <td style="border:1px solid;"> <P ALIGN=center><a href="Peliculas.html" style="color:#1572ff;text-decoration:none">Peliculas</td>
-         <td style="border:1px solid;"> <P ALIGN=center><a href="Libros.html" style="color:#1572ff;text-decoration:none">Libros</td>
-         <td style="border:1px solid;"> <P ALIGN=center><a href="J.K Rowling.html" style="color:#1572ff;text-decoration:none">J.K Rowling</td>
-         <td style="border:1px solid;"> <P ALIGN=center><a href="HarryPotter.html" style="color:#1572ff;text-decoration:none">Harry Potter</td>
-         <td style="border:1px solid;"> <P ALIGN=center><a href="LordVoldemort.html" style="color:#1572ff;text-decoration:none">Lord Voldemort</td>
-         <td style="border:1px solid;"> <P ALIGN=center><a href="AlbusDumbledore.html" style="color:#1572ff;text-decoration:none">Albus Dumbledore</td>
-         <td style="border:1px solid;"> <P ALIGN=center><a href="Videojuegos.html" style="color:#1572ff;text-decoration:none">Videojuegos</td>
-         <td style="border:1px solid;"> <P ALIGN=center><a href="Contacto.html" style="color:#1572ff;text-decoration:none">Contacto</td>
-
-</tr>
-</table>
+<div id="header">
+    <nav>
+    <ul class="nav">
+     <li><a href="index.html">Inicio</a></li>
+     <li><a href="">Mundo Magico</a>
+      <ul>
+       <li><a href="Libros.html">Libros</a></li>
+       <li><a href="Peliculas.html">Peliculas</a></li>
+       <li><a href="Videojuegos.html">Videojuegos</a></li>
+      </ul>
+     </li>
+     <li><a href="Galeria.html">Galeria</a></li>
+     <li><a>Personajes</a>
+      <ul>
+       <li><a href="HarryPotter.html">Harry Potter</a></li>
+       <li><a href="LordVoldemort.html">Lord Voldemort</a></li>
+       <li><a href="AlbusDumbledore.html">Albus Dumbledore</a></li>
+      </ul>
+     </li>
+     <li><a href="J.K Rowling.html">J.K Rowling</a>
+      <ul>
+      </ul>
+     </li>
+     <li><a href="Contacto.html">Contacto</a></li>
+    </ul>
+    </nav>
+   </div>
 
 <script>
 	function cambia(){
