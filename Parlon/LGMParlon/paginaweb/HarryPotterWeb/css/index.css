@@ -1,0 +1,303 @@
+  body {
+       margin: 0px;
+       padding: 0px;
+       background-image: url("https://wallpapercave.com/wp/wp2983965.jpg");
+       background-repeat: no-repeat;
+       background-position: center;
+       background-size: cover;
+       font-family: 'Open Sans', sans-serif;
+       font-size: 12pt;
+       color: #1572ff;
+       text-align:center;
+     }
+     #tablaBanner { /* tabla de las fotos del logo y eso */
+       width: 980px;
+       height: 250px;
+       margin: 0 auto;
+       border: 1px solid rgb(255, 255, 255);
+       background-color: rgb(0, 0, 0);
+       
+     }
+     #tablaSegunda{ /* tabla del menu */
+       width: 120%;
+       height: 65px;
+       margin: 0 auto;
+       border: 1px solid #1572ff;
+       background-color:#ffffff;
+       text-align: center;
+       
+       
+     }
+
+     #tablaGaleria{ /* tabla del menu */
+      width: 100%;
+      height: 10px;
+      margin: 0 auto;
+      border: 1px solid #1573ff00;
+      background-color:#ffffff00;
+      text-align: center;
+     }
+     #tablaTercera{
+       width: 980px;
+       height: 400px;
+       margin: 0 auto;
+       border: 1px solid #1572ff;
+       background-color:rgb(255, 255, 255);
+     }
+     #tablaTerceraUno{
+       width: 170px;
+       height: 400px;
+       vertical-align: middle;
+       text-align: center;
+       margin: 0 auto;
+       border: 1px solid #1572ff;
+       background-color:rgb(255, 255, 255);
+ 
+      }
+      #tablaTerceraDos{
+       width: 680px;
+       height: 500px;
+       vertical-align: top;
+       text-align: center;
+       margin: 0 auto;
+       border: 1px solid #1572ff;
+       background-color:rgb(255, 255, 255);
+ 
+      }
+     #tablaParlon { /* tabla del copy*/
+       border: 3px solid #1572ff;
+       width: 980px;
+       height: 10px;
+       margin: 0 auto;
+       background-color: #696969;
+       color: black;
+ 
+     }
+     h2{
+       color:#000000;
+       text-align: center;
+       font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+       font-size: 26pt;
+     }
+     h3{
+       color:#1572ff;
+       text-align: center;
+       font-family: 'Trebuchet MS';
+       font-size: 16pt;
+     }
+     * {
+     margin:0px;
+     padding:0px;
+    }
+    
+    #header { /* tabla div*/
+     margin: auto;
+     height: 30px;
+     width: 980px;
+     font-family:Arial, Helvetica, sans-serif;
+     font-size: 12px;
+    }
+    
+    ul, ol { /*estilos listas*/
+     list-style:none;
+    }
+    
+    .nav > li {
+     float:left;
+    }
+    
+    .nav li a { /* estilo y tamaño del menu y sus cajones el largo y eso*/
+     background-color:#000;
+     color:#fff;
+     text-decoration:none;
+     padding:7px 56.5px;
+     display:block;
+    }
+    
+    .nav li a:hover {
+     background-color:#434343;
+    }
+    
+    .nav li ul {
+     display:none;
+     position:absolute;
+     min-width:140px;
+    }
+    
+    .nav li:hover > ul {
+     display:block;
+    }
+    
+    .nav li ul li {
+     position:relative;
+    }
+    
+    .nav li ul li ul {
+     right:-140px;
+     top:0px;
+    }
+    .nav {
+         width:1000px; /*Le establecemos un ancho*/
+         margin:0 auto; /*Centramos automaticamente*/
+       }
+
+    .estiloimagenPersonaje{ /*estilo que le hemos aplicado a las imagenes de los personajes de la web*/
+      width: 300px;
+      height: 400px;
+    }
+
+    .parrafoPersonajes{/*estilo del parrafo que habla de los personajes*/
+      text-align: center;
+      font-family: 'Roboto Condensed', sans-serif;
+
+    }
+
+    .imagenAnchoCompleto {/*imagenes de la cartelera libros y videojuegos*/
+      width: 100%;
+      height: 200px;
+  }
+
+  .tarjeta {
+    border: 1px solid #000000;
+    padding: 1%;
+    display: inline-block;
+}
+
+.tarjetaUnCuarto {
+    width: 22%;
+}
+
+      p, h1, form, button {
+			border:0; margin:0; padding:0;
+		}
+		
+		.spacer {
+			clear:both; 
+			height:1px;
+		}
+		
+		.myform{ /*formulario estilos*/
+			margin:0 auto;
+      height: 500px;
+			width:800px;
+			padding:20px;
+		}
+		
+		#stylized{
+			border:solid 2px #b7ddf2;
+			background:#232f38;
+		}
+		#stylized h1 {
+			font-size:14px;
+			font-weight:bold;
+			margin-bottom:8px;
+		}
+		#stylized p{
+			font-size:11px;
+			color:#666666;
+			margin-bottom:20px;
+			border-bottom:solid 1px #58717e;
+			padding-bottom:10px;
+		}
+		#stylized label{
+			display:block;
+			font-weight:bold;
+			text-align:right;
+			width:170px;
+			float:left;
+		}
+		#stylized .small{
+			color:#ffffff;
+			display:block;
+			font-size:11px;
+			font-weight:normal;
+			text-align:right;
+			width:170px;
+		}
+		#stylized .smallUnlimited{
+			color:#666666;
+			display:block;
+			font-size:11px;
+			font-weight:normal;
+			text-align:left;
+			/*width:140px;*/
+		}
+		.campoNormal{
+			float:left;
+			font-size:12px;
+			padding:4px 2px;
+			/*border:solid 1px #aacfe4;*/
+			width:200px;
+			margin:2px 0 20px 10px;
+		}
+		
+		.campoMenor{
+			float: left;
+			font-size: 12px;
+			padding: 4px 2px;
+			text-align: left;
+			margin: 2px 150px 20px 7px;
+		}
+		.campoMenorSinEspacioInferior{
+	float: left;
+	font-size: 12px;
+	padding: 4px 2px;
+	text-align: left;
+	margin: 2px 150px 0px 7px;
+		}
+		.campoFicticio{
+	float: left;
+	font-size: 30px;
+	padding: 10px;
+	text-align: left;
+	margin: 2px 190px 0px 9px;
+		}
+		.boton{
+			clear:both;
+			margin-left:150px;
+			width:125px;
+			height:31px;
+			background:#666666 url(img/button.png) no-repeat;
+			text-align:center;
+			line-height:31px;
+			color:#FFFFFF;
+			font-size:11px;
+			font-weight:bold;
+    }
+    
+    .contenedorTarjetas {
+      margin-top: 30px;
+      width: 100%;
+      
+  }
+
+  .tarjeta {
+    border: 1px solid #000000;
+    padding: 1%;
+    display: inline-block;
+}
+
+.tarjetaUnTercio {
+  width: 30%;
+  height: 450pt;
+}
+
+.tarjetaUnCuarto {
+  width: 22%;
+}
+#divPrincipal {
+  width: 90%;
+  margin: 0 auto;
+}
+.descripcion {
+  width: 73%;
+  border: 1px solid #000000;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  float: left;
+}
+.parrafopropio {
+  margin: 15px;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
