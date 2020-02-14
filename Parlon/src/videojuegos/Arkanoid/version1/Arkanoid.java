@@ -14,8 +14,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -242,7 +248,34 @@ public class Arkanoid extends Canvas {
 		pelota.velocidadPorFrame = 2f; // velocidad con la que sale la pelota al principio
 		game();
 	}
+	
+	private static Properties propiedades = null;
 
+	
+	private static Properties getPropiedades() {
+		if (propiedades == null) {
+			propiedades = new Properties();
+		    
+			try {
+				// Una forma de leer el fichero de propiedades
+//				propiedades.load(propiedades.getClass().getResourceAsStream("/tutorialJava/capitulo6_Recursos/ejemplo.properties"));
+
+				// Otra forma de leer el fichero de propiedades
+				File file = new File("./src/videojuegos/Arkanoid/ejemploFondoArkanoid.properties");
+				System.out.println("Fichero encontrado: " + file.exists());
+				propiedades.load(new FileReader(file));
+			
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 
+		}
+		return propiedades;
+	}
+	
 	public void paint() {
 		// Obtenemos el objeto Graphics (la brocha) desde la estrategia de doble buffer
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
