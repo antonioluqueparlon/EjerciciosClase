@@ -25,6 +25,7 @@ public class Preguntas {
 	}
 	
 	public void mostrarPantalla () {
+		return;
 		
 	}
 

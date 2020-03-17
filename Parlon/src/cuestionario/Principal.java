@@ -13,10 +13,10 @@ public class Principal {
 		Preguntas Pregunta[] = new Preguntas[4];
 		int contadorRespuestasAcertadas = 0; 
 		
-		Preguntas[0] =new PreguntaVoF ("La capital de España es Madrid", 1); ////1 es Verdadero 2 es Falso 
-		Preguntas[1] =new Preguntas ("El alcohol activa los neurotransmisores",2); //1 es Verdadero 2 es Falso
-		Preguntas[2] =new Preguntas ("Mañana es jueves",1);//1 es Verdadero 2 es Falso
-		Preguntas[3] =new OpcionUnica ("Capital de España",1, new String[]{"Madrid","Barcelona","Valencia","Sevilla"});
+		Pregunta[0] =new PreguntaVoF ("La capital de España es Madrid", 1); ////1 es Verdadero 2 es Falso 
+		Pregunta[1] =new Preguntas ("El alcohol activa los neurotransmisores",2); //1 es Verdadero 2 es Falso
+		Pregunta[2] =new Preguntas ("Mañana es jueves",1);//1 es Verdadero 2 es Falso
+		Pregunta[3] =new OpcionUnica ("Capital de España",1, new String[]{"Madrid","Barcelona","Valencia","Sevilla"});
 	
 	
 		//Muestro en pantalla
