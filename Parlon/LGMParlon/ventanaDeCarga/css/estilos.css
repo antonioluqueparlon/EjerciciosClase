@@ -1,0 +1,37 @@
+body {
+    background: rgb(0, 0, 0);
+    color: #ffffff;
+    font: 14px 'Arial',sans-serif;
+    text-align: center;
+}
+
+div.preload {
+    height:100p ;
+    width: 100%;
+    margin: 0 auto;
+    background: #2e2e2d;
+}
+
+
+div.juego canvas {
+    box-shadow: 0 0 30px rgb(65, 12, 189);
+}
+
+.preload h3{
+    position: center;
+    top: 25%;
+    color: aliceblue;
+    transform: translateY(-75%);
+    font-size: 25px;
+    font-family: sans-serif;
+}
+
+.preload h4{
+    top: 80%;
+    position: center;
+    color: aliceblue;
+    transform: translateY(100%);
+    font-size: 25px;
+    font-family: sans-serif;
+}
+

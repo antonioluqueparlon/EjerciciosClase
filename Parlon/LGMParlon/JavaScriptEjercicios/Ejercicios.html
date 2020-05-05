@@ -1,0 +1,238 @@
+<html>
+    <head>
+        <title>Primeros Ejercicios Antonio Luque</title>
+    </head>
+    <body>
+        <h1>Primero Ejercicios Antonio Luque JavaScript</h1>
+        <p>1º.- Realiza un ejercicio que inicialice un array de 150 elementos enteros al azar entre 0 y 100. Debes mostrar el array en pantalla y obtener la suma, la media, el menor y el mayor de todos los números que aparecen en el array.</p>
+        <button onclick="JavaScript:solucion01();">Resuelve</button>
+        <script>
+            function solucion01 () {
+                var longitud = 150;
+                var array = creaArray (longitud, 0, 100);
+
+                var strSolucion = "Array: " + array +
+                "<br/>Max: " + maxInArray (array) +
+                "<br/>Min: " + minInArray (array) +
+                "<br/>Suma: " + sumaInArray(array) + 
+                "<br/>Media: " + ((sumaInArray(array)) / longitud);
+                document.getElementById("solucion01").innerHTML = strSolucion;
+            }
+
+            function maxInArray (array) {
+                if (array.length > 0) {
+                    var max = array[0];
+                    for (var i = 1; i < array.length; i++) {
+                        if (array[i] > max) {
+                            max = array[i];
+                        }
+                    }
+                    return max;
+                }
+                return NaN;
+            }
+
+            function minInArray (array) {
+                if (array.length > 0) {
+                    var min = array[0];
+                    for (var i = 1; i < array.length; i++) {
+                        if (array[i] < min) {
+                            min = array[i];
+                        }
+                    }
+                    return min;
+                }
+                return NaN;
+            }
+
+            function sumaInArray (array) {
+                var total = 0;
+                if (array.length > 0) {
+                    for (var i = 0; i < array.length; i++) {
+                        total += array[i];
+                    }
+                }
+                return total;
+            }
+
+            function creaArray (longitud, minimo, maximo) {
+                var array = [];
+                for (var i = 0; i < longitud; i++) {
+                    array.push(valorAlAzar(minimo, maximo));
+                }
+                return array;
+            }
+
+            function valorAlAzar(minimo, maximo) {
+                return Math.round(Math.random() * (maximo - minimo) + minimo);
+            }
+        </script>
+        <p id="solucion01">Aquí aparecerá tu solución</p>
+        <hr/>
+        <p>2º.- Realiza un ejercicio que inicialice un array de 150 elementos enteros al azar entre un límite inferior y uno superior que debe especificar el usuario. Debes mostrar el array en pantalla para comprobar el funcionamiento</p>
+        <p>Límite inferior: <input type="text" id="Ejercicio02LimiteInferior" value="0"/></p>
+        <p>Límite superior: <input type="text" id="Ejercicio02LimiteSuperior" value="0"/></p>
+        <button onclick="JavaScript:solucion02();">Resuelve</button>
+        <script>
+            function solucion02 () {
+                var longitud = 15;
+                var minimo = parseInt(document.getElementById("Ejercicio02LimiteInferior").value);
+                var maximo = parseInt(document.getElementById("Ejercicio02LimiteSuperior").value);
+                var array = creaArray (longitud, minimo, maximo);
+
+                document.getElementById("solucion02").innerHTML = array;
+            }
+        </script>
+        <p id="solucion02">Aquí aparecerá tu solución</p>
+        <hr/>
+        <p>3º.- Realiza un ejercicio que inicialice un array de 150 elementos enteros al azar entre 0 y 100. Después de su inicialización debéis imprimir el array en orden inverso.</p>
+        <button onclick="JavaScript:solucion03();">Resuelve</button>
+        <script>
+            function solucion03 () {
+                var longitud = 15;
+                var array = creaArray (longitud, 0, 100);
+
+                var strSolucion = "Array: " + array + "<br/>Array Invertido: " + array.reverse();
+                document.getElementById("solucion03").innerHTML = strSolucion;
+            }
+        </script>
+        <p id="solucion03">Aquí aparecerá tu solución</p>
+        <hr/>
+
+        <p>4º.- Realiza un ejercicio que inicialice un array de 150 elementos enteros al azar entre 0 y 100. A continuación pedirás al usuario un valor y buscarás dicho valor en el array. Si lo encuentras, debes indicar al usuario la posición del array en que se encuenta. En caso de que no encuentres el valor buscado, debes indicárselo también al usuario.</p>
+        <button onclick="JavaScript:solucion04();">Resuelve</button>
+        <script>
+            function solucion04 () {
+                var longitud = 15;
+                var array = creaArray (longitud, 0, 100);
+                var contador;
+                var encontrado= -1;
+                var datousuario=prompt("Introduce un valor: ","");
+
+
+                for( i=0; i < array.length; i++ ) {
+                    if( array[i] == datousuario) {
+                        encontrado = i;
+                        break;
+                    }
+                }
+                if( encontrado == -1 )
+                    alert("No se ha encontrado el valor introducido");
+                 else
+                    alert("el número introducido está en la posición [" + encontrado + "]" );
+
+                var strSolucion = "Array: " + array ;
+                document.getElementById("solucion04").innerHTML = strSolucion;
+            }
+        </script>
+        <p id="solucion04">Aquí aparecerá tu solución</p>
+        <hr/>
+
+        <h2>Bloque 2</h2>
+
+        <p>2º.- Realiza un ejercicio en que inicialice un array de 5 elementos enteros al azar entre 0 y 100. Debes conseguir que se desplacen los números un lugar a su derecha, de manera que el desplazamiento sea circular, si un número sale por la derecha volverá a entrar por la izquierda. Ejemplo: 1 2 3 4 5 pasa a ser 5 1 2 3 4 que pasa a ser 4 5 1 2 3.</p>
+        <button onclick="JavaScript:solucion05();">Resuelve</button>
+        <script>
+           function solucion05() {
+            var array = creaArray(5, 0, 100);
+            var strSolucion = "Array original: " + array;
+
+            var ultimoElementoArray = array[array.length - 1];
+            for (var i = (array.length - 1); i > 0; i--) {
+                array[i] = array[i - 1];
+            }
+            array[0] = ultimoElementoArray;
+
+            strSolucion += "<br/>Array modificado: " + array;
+            document.getElementById("solucion05").innerHTML = strSolucion;
+        }
+            
+        </script>
+        <p id="solucion05">Aquí aparecerá tu solución</p>
+        <hr/>
+
+        <h2>Ordenacion en Burbuja</h2>
+
+        <p>1.- Realiza un algoritmo de ordenación.</p>
+        <button onclick="JavaScript:solucion06();">Resuelve</button>
+        <script>
+            function solucion06 () {
+                var longitud = 5;
+                var array = creaArray (longitud, 0, 100);
+
+                function creaArray (longitud, minimo, maximo) {
+                var array = [];
+                for (var i = 0; i < longitud; i++) {
+                    array.push(valorAlAzar(minimo, maximo));
+                }
+                return array;
+                }
+
+                function burbuja(array){
+                //recorreremos todos los elementos hasta n-1
+                for(i=0;i<(array.length-1);i++)
+                //recorreremos todos los elementos hasta n-i, tomar en cuenta los ultimos no tiene caso ya que ya estan acomodados.
+                for(j=0;j<(array.length-i);j++){
+ 
+                 //comparamos
+                 if(array[j]>array[j+1]){
+                 //guardamos el numero mayor en el auxiliar
+                aux=array[j];
+                //guardamos el numero menor en el lugar correspondiente
+                array[j]=array[j+1];
+                //asignamos el auxiliar en el lugar correspondiente
+                array[j+1]=aux;
+                }
+                }
+                return array
+                }
+
+                var strSolucion = "Array: " + array + "<br/>Array Ordenado con Burbuja: " + burbuja(array);
+                document.getElementById("solucion06").innerHTML = strSolucion;
+            }
+        </script>
+        <p id="solucion06">Aquí aparecerá tu solución</p>
+        <hr/>
+
+        <p>7º.- Realiza un ejercicio que inicialice un array de 15 objetos de un tipo de clase que crees. Los objetos deben tener al menos un campo de tipo numérico y debes ordenar los objetos en base a ese campo</p>
+    <button onclick="JavaScript:solucion07();">Resuelve</button>
+    <script>
+        class Constructores {
+            constructor (id, nombre) {
+                this.id = id;
+                this.nombre = nombre;
+            }
+
+            getId () {
+                return this.id;
+            }
+
+            getNombre() {
+                return this.nombre;
+            }
+
+            toString() {
+                return "Constructor - id: " + this.id + " - Nombre: " + this.nombre;
+            }
+        }
+
+        var nombres = ["Ferrari", "Mercedes", "Mclaren", "Red Bull", "Renault"];
+
+        function solucion07() {
+            var array = [];
+            for (var i = 0; i < 15; i++) {
+                array.push(new Constructores(valorAlAzar(0, 100), nombres[valorAlAzar(0, nombres.length - 1)]));
+            }
+
+            var strSolucion = "Array original: " + array;
+            array.sort(function(a, b){return a.id - b.id});
+            
+            strSolucion += "<br/><br/>Array modificado: " + array;
+            document.getElementById("solucion07").innerHTML = strSolucion;
+        }
+    </script>
+    <p id="solucion07">Aquí aparecerá tu solución</p>
+    <hr />
+
+    </body>
+</html>

@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+div.preload{
+    position: fixed;
+    top: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.gokubase{
+    top:20%;
+    height:300px ;
+    transform: translateX(10%);
+    animation: gokubase  1s ease infinite alternate ;
+   
+}
+
+.preload h3{
+    position: absolute;
+    top: 75%;
+    color: aliceblue;
+    transform: translateY(-75%);
+    font-size: 25px;
+    font-family: sans-serif;
+}
+
+
+
+@keyframes gokubase{
+    from{
+        transform: translateX(0px);
+    }
+    to{
+        transform: translateX(50px);
+    }
+
+}

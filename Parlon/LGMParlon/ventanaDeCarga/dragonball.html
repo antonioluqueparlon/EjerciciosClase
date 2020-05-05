@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preload Dragon Ball Parlón</title>
+    <link type="text/css" rel="stylesheet" href="css/estilos.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/dragonball.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#hide").click(function(){
+                $("canvas").hide(1500);
+            });
+            $("#show").click(function(){
+                 $("canvas").fadeIn(2000);
+                inicializa();
+                     
+            });  
+        });
+    </script>
+
+</head>
+
+    <body >  <!--he quitado el game onload inicializa -->
+        <div class="preload">
+        <div><img src="imagenes/logodbsuper.png" height="250" width="500"/></div>
+        <div class="juego">
+            <canvas id="canvas" width="100" height="100" style="border:1px solid #000000;" hidden>
+                Your browser does not support the HTML5 canvas tag.</canvas>
+                <h3>Esta cargando tu pagina, Juega a este juego mientras prepamos todo.</h3>
+                <h4>Pulsa la barra espaciadora para jugar con Goku y esquivar a Vegeta</h4>
+                <br>
+        </div>
+        
+    </div>
+
+    <!-- Pensamos en que las flechas en vez de ondas vitales me muestre las transformaciones de los personajes -->
+    <!-- coger la bola y copiar y pegar y poner un goku, despues pensaremos en las fases-->
+    <!-- Nada, fue una shit todo y opte por un juego de saltar xd-->
+       
+
+    <p></p>
+    <button id="show" onload="inicializa()">Iniciar juego</button>
+    <button id="hide" onload="inicializa()">Ocultar Canvas</button>
+    
+</body>
+</html>
