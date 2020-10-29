@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookies</title>
+    <link rel="stylesheet" href="css/ejercicio11.css" />
+  </head>
+  <body>
+    <div class="cookies-box">
+      <div class="container-cookies">
+        <div class="parrafo">
+          <p>Usamos las cookies para proteger su privacidad lorem empsilum </p>
+          <a href="#">Acerca de esto</a>
+        </div>
+        <div class="botones">
+          <button>Aceptar</button>
+          <button id="close">Cerrar</button>
+        </div>
+      </div>
+    </div>
+    <script>
+        const btn_close = document.querySelector('#close')
+        const cont_cookies = document.querySelector('.cookies-box')
+
+        btn_close.addEventListener('click', () => {
+            cont_cookies.style.bottom ='-200px'
+        })
+
+    </script>
+  </body>
+</html>
