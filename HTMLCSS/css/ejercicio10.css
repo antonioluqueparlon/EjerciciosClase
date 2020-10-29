@@ -1,0 +1,20 @@
+.contenedor {
+  position: relative;
+  height: 290px;
+  width: 290px;
+  margin: 150px 120px;
+  float: left;
+}
+
+.contenedor img {
+  position: absolute;
+  left: 0;
+  height: 290px;
+  width: 190px;
+  transition: opacity 1.5s ease-in-out;
+
+}
+
+.contenedor img.top:hover {
+  opacity: 0;
+}

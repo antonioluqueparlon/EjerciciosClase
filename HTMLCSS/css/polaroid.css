@@ -1,0 +1,28 @@
+.polaroid {
+    width: 300px;
+    background-color:white;
+    padding:10px 10px 10px 10px;
+    border:1px solid #BFBFBF;
+    box-shadow:10px 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.foto{
+    width: 300px;
+}
+
+.polaroidContenedor {
+    margin: auto;
+    width:300px;
+    padding:10px 10px 10px 10px;
+    border:1px solid #BFBFBF;
+    background-color:white;
+    box-shadow:10px 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.textoPolaroid {
+    display:block;
+    margin-top:1em;
+    text-align:center;
+    font-style:italic;
+    font-family:"Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}

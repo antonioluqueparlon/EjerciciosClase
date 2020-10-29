@@ -1,0 +1,104 @@
+.principal{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 800px;
+    text-align: center;
+    margin: auto;
+}
+
+.cabecera {
+
+    background-color: red;
+}
+.pie {
+    background-color: green;
+}
+
+.menu {
+    background-color: blue;
+
+}
+.contenido {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.imagen{
+    width: 400px;
+    background-color: lawngreen;
+    
+}
+
+.tarjeta{
+    
+    background-color: darkslategrey;
+    flex: 1;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.col{
+    flex: 1;
+}
+
+.fila1 {
+    background-color: mediumvioletred;
+}
+.fila2 {
+    background-color: navy;
+
+}
+.fila3 {
+    background-color: orange;
+
+}
+.col1 {
+    background-color: steelblue;
+    
+}
+.col2 {
+
+    background-color: tomato;
+    
+}
+.col3 {
+    background-color: yellow;
+    
+}
+.col4 {
+    background-color: chartreuse;
+    
+}
+.col5 {
+    background-color:darkgoldenrod ;
+    
+}
+.col6 {
+
+    background-color: lime;
+    
+}
+
+
+@media (max-width:600px){
+   .col{
+       display: flex;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="row"] {
+      width: 100%;
+      flex-direction: column;
+    }
+    [class*="image"]{
+        display: none;
+    }
+  }
