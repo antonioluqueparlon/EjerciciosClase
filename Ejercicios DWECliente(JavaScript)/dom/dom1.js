@@ -20,7 +20,6 @@ for (i = 0; i < document.querySelectorAll("a").length; i++) {
 
 //numero de enlaces que enlazar a marca
 var enlacesmarca=0;
-for(var i=0;)
 
 //numero de enlaces del tercer parrafo
 var enlacestercerparrafo=0;
